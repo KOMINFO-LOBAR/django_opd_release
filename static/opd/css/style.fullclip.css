@@ -1,0 +1,138 @@
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+} */
+
+/*
+.fullBackground {
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative; absolute
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 99,5%;
+}
+*/
+
+.fullBackground_css1 {
+    background-position: center center;
+    /*background-attachment: fixed;*/
+    background-size: cover;
+    position: relative ; /* absolute*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 99,5%;
+}
+
+/*
+.fullBackground_css2 {
+    background-position: center center;
+    /*background-attachment: fixed;
+    background-size: cover;
+    position: relative; /*absolute
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}*/
+
+/*
+.fullBackground2 {
+    background-position: center center; // background-attachment: fixed;        
+    background-size: cover;
+    position: relative; // absolute
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+*/
+
+.caption {
+  font-size: 30pt;
+  text-transform: uppercase;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.caption:after {
+  content:"\A";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background: #00bbeb;
+  display: inline-block;
+  margin: 0 0 -2px;
+}
+/*
+.footerdot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}*/
+
+/* .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 20px 20px 0;
+  } */
+
+  /* Position the "next button" to the right */
+/* .next {
+    right: 0;
+    border-radius: 20px 0 0 20px;
+  } */
+  
+  /* On hover, add a black background color with a little bit see-through */
+  /* .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  } */
+
+  .text {
+    color: #080303;
+    font-size: 15px;    
+    position: absolute;
+    bottom: 120px;
+    width: 100%;
+    text-align: center;
+  }
+
+.dot {
+    cursor:pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0px 2px;
+    background-color: #bbbbbb ; /* #bbbbbb; /* rgb(216, 17, 17);*/
+    border-radius: 10%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot.active2 {
+    background-color: black;
+}
+
+.dot.active2 :hover {
+    background-color: black;
+}

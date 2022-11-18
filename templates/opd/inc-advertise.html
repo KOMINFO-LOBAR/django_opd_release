@@ -1,0 +1,1 @@
+{% load static %} <section id=demos > <div class="large-12 columns"> <div class="owl-carousel owl-theme"> {% for i in banner_all %} <div class=item  style="height:auto"> <a href="{% if i.link %} {{i.link}} {% else %} javascript:void(0); {% endif %}" target=_blank > <img src="{{i.photo}}" alt="Info Penting" class=img-fluid  /> </a> </div> {% endfor %} </div> </div> </section>
