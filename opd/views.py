@@ -249,7 +249,7 @@ def get_meta(request,obj,context,jenis):
 	F='%s';E='news_desc';D='%s://%s/%s/%s';C='news_img_meta';B='news_url';A='news_img';print('jenis = ');print(jenis);context['site_name']='%s://%s'%(request.scheme,request.get_host())
 	if jenis==_U:
 		context[A]=berita.photo.through.objects.filter(berita__id=obj.id).values(_T);print("context['news_img'] = ");print(context[A]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
-		for i in a:context[B]=D%(request.scheme,request.get_host(),_U,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_berita)).chars(160);print("context['news_url'] = ");print(context[B])
+		for i in a:context[B]=D%(request.scheme,request.get_host(),_U,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_berita)).chars(160).strip();print("context['news_url'] = ");print(context[B])
 		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
 		if news_img_meta.count()>0:context[C]='%s://%s%s'%(request.scheme,request.get_host(),news_img_meta[0].photo);print("context['news_img_meta'] = ");print(context[C])
 	elif jenis==_e:
