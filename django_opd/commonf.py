@@ -1,7 +1,7 @@
 from datetime import datetime,timedelta
 from calendar import monthrange
 from django.contrib.humanize.templatetags.humanize import naturalday,naturaltime
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 def get_natural_datetime(data_datetime):
 	B=data_datetime;A=datetime.now();E=A-timedelta(hours=24);F=A-timedelta(hours=48);G=A-timedelta(days=7);H=A-timedelta(days=14);I=A-timedelta(days=21);J=A-timedelta(days=28);D=monthrange(A.year,A.month)[1];K=A-timedelta(days=D+1)
 	if E<B<A:return naturaltime(B)

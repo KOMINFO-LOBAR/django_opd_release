@@ -306,23 +306,23 @@ def delete_photo(request):
 			if os.path.isfile(A):os.remove(A);print('remove photo success '+str(B))
 	return HttpResponse('OKE')
 def upload_photo(request,width,height):
-	R='JPEG';Q='RGBA';P='image/png';O='.jpeg';K=height;J=width;I='/';H=request;print('inside upload photo');print(J);print(K);print('result = ');A=H.FILES.get(_A1);print(A);F=H.POST.get('old_photo');print('Old Photo = ');print(F)
+	S='JPEG';R='RGBA';Q='image/png';P='.jpeg';K=height;J=width;I='/';H=request;print('inside upload photo');print(J);print(K);print('result = ');A=H.FILES.get(_A1);print(A);F=H.POST.get('old_photo');print('Old Photo = ');print(F)
 	if F:
 		if os.path.isfile(F):os.remove(F);print('remove photo success')
-	print(A.size);print('Content TYPE = ');print(A.content_type);S=get_siteID(H);L=Image.open(io.BytesIO(A.read()));print('image');print(L);C=L.resize((J,K),Image.ANTIALIAS);print('resized_image');print(C);G=datetime.now();M=str(S)+'-'+G.strftime('%Y%m%d-%H%M%S-%f');print('filename');print(M);T=G.strftime('%Y');U=G.strftime('%m');V=G.strftime('%d')
-	if A.content_type=='image/gif':D='.gif'
-	elif A.content_type=='image/jpeg':D=O
-	elif A.content_type=='image/jpg':D='.jpg'
-	elif A.content_type==P:D=O
-	elif A.content_type=='image/bmp':D='.bmp'
-	else:D='.ief'
-	print('ext');print(D);W=settings.BASE_DIR;E=settings.MEDIA_ROOT;print('base_dir');print(W);B='crop/'+T+I+U+I+V+I;print('path');print(B);X=os.makedirs(E/B,exist_ok=_B);print('makedirs');print(X);print('media root + path');print(E/B);B=B+M+D
-	if A.content_type==P:
-		C.load();N=Image.new('RGB',C.size,(255,255,255));print('Image PNG ')
-		if C.mode==Q:print(Q);N.paste(C,mask=C.getchannel('A'));N.save(E/B,R,quality=80,optimize=_B)
-		else:print('NON RGBA');C.save(E/B,R,quality=80,optimize=_B)
-	else:print('NON PNG');C.save(E/B,quality=80,optimize=_B)
-	print('resize image');return HttpResponse(B)
+	print(A.size);print('Content TYPE = ');print(A.content_type);T=get_siteID(H);L=Image.open(io.BytesIO(A.read()));print('image');print(L);B=L.resize((J,K),Image.ANTIALIAS);print('resized_image');print(B);G=datetime.now();M=str(T)+'-'+G.strftime('%Y%m%d-%H%M%S-%f');print('filename');print(M);U=G.strftime('%Y');V=G.strftime('%m');W=G.strftime('%d')
+	if A.content_type=='image/gif':C='.gif'
+	elif A.content_type=='image/jpeg':C=P
+	elif A.content_type=='image/jpg':C='.jpg'
+	elif A.content_type==Q:C=P
+	elif A.content_type=='image/bmp':C='.bmp'
+	else:C='.ief'
+	print('ext');print(C);X=settings.BASE_DIR;N=settings.MEDIA_ROOT;print('base_dir');print(X);D='crop/'+U+I+V+I+W+I;print('path');print(D);E=os.path.join(N,D);Y=os.makedirs(E,exist_ok=_B);print('makedirs');print(Y);D=D+M+C;E=os.path.join(N,D)
+	if A.content_type==Q:
+		B.load();O=Image.new('RGB',B.size,(255,255,255));print('Image PNG ')
+		if B.mode==R:print(R);O.paste(B,mask=B.getchannel('A'));O.save(E,S,quality=80,optimize=_B)
+		else:print('NON RGBA');B.save(E,S,quality=80,optimize=_B)
+	else:print('NON PNG');B.save(E,quality=80,optimize=_B)
+	print('resize image');return HttpResponse(D)
 def get_photo_kind(idx):
 	B=idx;A=_I
 	if B==0:A=models.photo.Jenis.HIGHLIGHT1

@@ -480,7 +480,8 @@ function highchart_keterisian_detail(pdata, title) {
     });
 };
 
-(function($) {
+// (function($) {
+$(document).ready(function () {
     // Foto banner (tanpa multi form)
     $("#id_photo-file_path").on("change", function () {
         if (this.files && this.files[0]) {
@@ -708,4 +709,5 @@ function highchart_keterisian_detail(pdata, title) {
         // $("#modalCrop").modal('hide');
     });
 
-}(jQuery));
+// }(jQuery));
+});
