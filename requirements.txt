@@ -12,7 +12,7 @@ cryptography==36.0.1
 css-html-js-minify==2.5.5
 defusedxml==0.7.1
 diff-match-patch==20200713
-Django==4.1.7
+Django==3.2.6
 django-appconf==1.0.4
 django-ckeditor==6.1.0
 django-cors-headers==3.8.0
@@ -30,6 +30,7 @@ django-underconstruction==0.1.2
 django_debug_toolbar==3.8.1
 et-xmlfile==1.1.0
 feedparser==6.0.8
+gunicorn==20.1.0
 html5lib==1.1
 humanize==3.11.0
 idna==3.3
@@ -43,7 +44,7 @@ misaka==2.1.1
 mysqlclient==2.0.3
 odfpy==1.4.1
 openpyxl==3.0.7
-outbox-encryption==1.0.15
+outbox-encryption==1.1.1
 packaging==21.3
 Pillow==9.4.0
 pluggy==1.0.0
