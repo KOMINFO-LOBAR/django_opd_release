@@ -1,12 +1,10 @@
 from calendar import monthrange
 from datetime import datetime,timedelta
-from functools import lru_cache
 import pytz
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import naturalday,naturaltime
 from django.utils import timezone
 from django.utils.translation import gettext as _
-@lru_cache(100)
 def get_natural_datetime(data_datetime):
 	B=data_datetime
 	if not B:return B

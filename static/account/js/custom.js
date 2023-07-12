@@ -26,6 +26,12 @@ function do_edit(pPk) {
     });              
 }; 
 
+function do_add(href) {        
+    // agar tidak muncul url di status bar
+    // alert(href);
+    window.location.href = href;     
+}; 
+
 function do_copy_to_clipboard(pData) {
     // alert(pData);
     var $temp = $("<input>");

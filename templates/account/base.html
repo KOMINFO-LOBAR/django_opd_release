@@ -1,1 +1,33 @@
-{% load static %} <!DOCTYPE html> <html lang=en-us  {% block extra-page %}{% endblock %}> <title>{% block title-page %}{% endblock %}</title> {% include "account/inc-meta.html" %} {% include "account/inc-link.html" %} {% block custom-style %}{% endblock %} <link rel=stylesheet  type="text/css" media=screen  href="{% static 'account/css/custom.css' %}"> <body class=""> {% block header %}{% endblock %} {% block left-panel %}{% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock %} {% block shortcut %}{% endblock %} {% block scripts %}{% endblock %} <script src="{% static 'account/js/custom.js' %}"></script>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us" {% block extra-page %}{% endblock %}> <!---->
+	<head>		
+		<title>{% block title-page %}{% endblock %}</title>
+
+        <!-- Link dan meta sama di semua page-->
+        {% include "account/inc-meta.html" %}
+
+		{% include "account/inc-link.html" %}
+		
+        {% block custom-style %}{% endblock %}
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'account/css/custom.css' %}"> 
+	</head>
+	
+	<body class=""> <!-- animated fadeInDown-->
+        {% block header %}{% endblock %}
+
+        {% block left-panel %}{% endblock %}
+
+		{% block content %}{% endblock %}
+
+        {% block footer %}{% endblock %}
+
+        {% block shortcut %}{% endblock %}
+
+		<!--================================================== -->	
+
+		{% block scripts %}{% endblock %} 
+		<!-- khusus untuk halaman dashboard -->
+		<script src="{% static 'account/js/custom.js' %}"></script>
+	</body>
+</html>

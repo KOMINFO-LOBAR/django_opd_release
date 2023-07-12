@@ -181,7 +181,8 @@
                             {% endif %}
 
                             {% if news.admin %}
-                                <div class="isi-berita">                                                                
+                            <!-- isi-berita -->
+                                <div class="ck ck-content">                                                                
                                     {% if jenis == 'berita' %}
                                         {{news.isi_berita|safe}}                               
                                     {% elif jenis == 'pengumuman' %}

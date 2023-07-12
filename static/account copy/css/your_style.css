@@ -1,0 +1,61 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+ /* div.dt-buttons {
+    position: relative;
+    float: right;
+    align-content: space-around;
+} */
+
+/* 
+.dataTables_wrapper .dt-buttons {
+    float:right;
+} */
+
+/* di pakai di tombol add punya grid */
+.toolbar {
+    float: right;
+    
+}
+
+/* di pakai oleh slide show */
+.slideshow
+{
+    position: relative;
+    width: 350px;
+    height: 150px;
+}
+.slideshow img
+{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    z-index:-1;
+}
+
+/*
+#div_alert {
+    display: none; 
+    position: fixed; 
+    align-content: flex-end; 
+    z-index:9999; 
+    width : 500px;
+}*/
+
