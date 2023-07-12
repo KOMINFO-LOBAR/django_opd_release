@@ -70,3 +70,5 @@ INTERNAL_IPS=['127.0.0.1']
 CACHES={_B:{_H:'django_redis.cache.RedisCache','LOCATION':'redis://127.0.0.1:6379/1',_I:{'CLIENT_CLASS':'django_redis.client.DefaultClient'}}}
 CELERY_BROKER_URL=_T
 CELERY_RESULT_BACKEND=_T
+CELERY_ENABLE_UTC=False
+CELERY_TIMEZONE=TIME_ZONE

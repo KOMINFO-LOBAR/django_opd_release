@@ -8,7 +8,9 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 @lru_cache(100)
 def get_natural_datetime(data_datetime):
-	B=data_datetime;E=getattr(settings,'TIME_ZONE','UTC');M=pytz.timezone(E);A=timezone.now();F=A-timedelta(hours=24);G=A-timedelta(hours=48);H=A-timedelta(days=7);I=A-timedelta(days=14);J=A-timedelta(days=21);K=A-timedelta(days=28);D=monthrange(A.year,A.month)[1];L=A-timedelta(days=D+1)
+	B=data_datetime
+	if not B:return B
+	E=getattr(settings,'TIME_ZONE','UTC');M=pytz.timezone(E);A=timezone.now();F=A-timedelta(hours=24);G=A-timedelta(hours=48);H=A-timedelta(days=7);I=A-timedelta(days=14);J=A-timedelta(days=21);K=A-timedelta(days=28);D=monthrange(A.year,A.month)[1];L=A-timedelta(days=D+1)
 	if F<B<A:return naturaltime(B)
 	elif G<B<A:return naturalday(B)
 	elif H<B<A:return _(B.strftime('%A'))

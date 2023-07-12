@@ -92,7 +92,7 @@ def get_tags_result(context,pdata):
 	for i in res:i.isi_berita=document_clean(i.isi_berita)
 	return res
 def document_clean(pdoc):document_test=pdoc;p=re.compile('<.*?>');document_test=p.sub('',document_test);document_test=re.sub('[^\\x00-\\x7F]+',' ',document_test);document_test=re.sub('@\\w+','',document_test);document_test=re.sub('\\s{2,}',' ',document_test);document_test=re.sub('&#;',"'",document_test);return document_test
-def get_banner_all(siteID,context):banner=banner_all.objects.filter(site__id=siteID,status=Status.PUBLISHED);context['banner_all']=banner
+def get_banner_all(siteID,context):banner=banner_all.objects.filter(site__id=siteID,status=Status.PUBLISHED).order_by(_D);context['banner_all']=banner
 def get_topSection(siteID,context,active_menu):
 	namaOPD=Site.objects.filter(id=siteID).values_list(_T,flat=_G)
 	if namaOPD.count()>0:context['namaOPD']=namaOPD[0]
@@ -206,11 +206,10 @@ def get_beritaKategori(siteID,context,opt,kategori_slug):
 	if kategoriID:BeritaKategori=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED,kategori_id=kategoriID.id).values(_C,_I,_b,_H,_J,_c,_K,_A).order_by(_D).distinct().annotate(foto=subQry)
 	return BeritaKategori
 def get_hitCounter(request,obj,content_type):
-	if content_type!='site':
-		hit_count=HitCount.objects.get_for_object(obj);hit_count_response=HitCountMixin.hit_count(request,hit_count);content_type_id=ContentType.objects.filter(model=content_type).first()
-		if content_type_id:
-			hit_update=HitCount.objects.filter(object_pk=obj.id,content_type_id=content_type_id.id).values_list('hits',flat=_G)
-			if hit_update.count()>0:obj.view_count=hit_update[0];obj.save()
+	hit_count=HitCount.objects.get_for_object(obj);hit_count_response=HitCountMixin.hit_count(request,hit_count);content_type_id=ContentType.objects.filter(model=content_type).first()
+	if content_type_id:
+		hit_update=HitCount.objects.filter(object_pk=obj.id,content_type_id=content_type_id.id).values_list('hits',flat=_G)
+		if hit_update.count()>0:obj.view_count=hit_update[0];obj.save()
 def get_trending(siteID,context):
 	maxData=7;trendingQry=berita.objects.filter(site_id=siteID);trendingCount=trendingQry.count()
 	if trendingCount==0:trendingCutOff=0
@@ -286,7 +285,6 @@ def get_newsList(request,siteID,context,opt,section,jenis):
 		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_k)
 		if page_number is _B:page_number=1
 		if page_number:context[_l]=paginator.get_page(page_number);context[_m]=paginator.page_range;context[_n]=paginator.num_pages
-@cache_page(60*15)
 def index(request):
 	context={};siteID=get_siteID(request)
 	if not siteID:context[_L]=_N%(request.get_host(),_O);return render(request,_M,context)
@@ -297,7 +295,6 @@ def index(request):
 			pdata=pdata.strip()
 			if pdata!='':return redirect(_W+slugify(pdata)+_X)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_beritaTerpopuler(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);obj=Site.objects.get(id=siteID);get_hitCounter(request,obj,'site');statistik=get_statistic(siteID,_G);context.update(statistik);get_popup(siteID,context);response=render(request,'opd/index.html',context);response.set_cookie(key=_T,value='my_value',samesite='None',secure=_G);return response
-@cache_page(60*15)
 def detail(request,pid,jenis):
 	A='email';context={};siteID=get_siteID(request)
 	if siteID==0:context[_L]=_N%(request.get_host(),_O);return render(request,_M,context)
