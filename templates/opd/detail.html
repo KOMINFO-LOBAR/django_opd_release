@@ -4,14 +4,16 @@
 {% load social_share %}
 {% load simple_open_graph %}
 
+
 {% block extra_head %}
     {% comment %} <!--{% thumbnail object.user.image 150x150 as uimage %}--> <!-- as example for use easy_thumbnails package --> {% endcomment %}
     <!--url=news.get_absolute_url2-->
 
     <!--  image=news_img_meta, news.judul-->
-    {% if news_img_meta %}        
+    {% if news_img_meta %}                
+
         {% opengraph_meta "url=news_url, title=news_title, type='website', description=news_desc" %}
-    
+
 
         <meta property="og:image" itemprop="image" content="{{news_img_meta}}"/>
 
