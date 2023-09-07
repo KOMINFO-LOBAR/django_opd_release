@@ -1123,7 +1123,7 @@ def site_kontribusi_kuantitas_table(request,kategori_id):
 	for A in E:L=[];F=models.berita.objects.filter(site_id=A[_A]).count();G=models.artikel.objects.filter(site_id=A[_A]).count();H=models.pengumuman.objects.filter(site_id=A[_A]).count();J=F+G+H;K={_A:A[_A],_I:A[_I],_f:F,_g:H,_h:G,_d:J};B.append(K)
 	B=sorted(B,key=lambda x:x[_d],reverse=_B);return JsonResponse(B,safe=_C)
 def site_kontribusi_kualitas_table(request,kategori_id):
-	B=kategori_id;C=[];D=[];E=500;J=300
+	B=kategori_id;C=[];D=[];E=100;J=50
 	if B==1:F=list(models.Site.objects.exclude(id=1).order_by(_I).values(_A,_I))
 	else:
 		K=list(models.instansi.objects.filter(kategori_id=B).values(_l))
@@ -1132,7 +1132,7 @@ def site_kontribusi_kualitas_table(request,kategori_id):
 	for A in F:N=[];G=models.berita.objects.filter(site_id=A[_A],word_count__gte=E).count();H=models.artikel.objects.filter(site_id=A[_A],word_count__gte=E).count();I=models.pengumuman.objects.filter(site_id=A[_A],word_count__gte=J).count();L=G+H+I;M={_A:A[_A],_I:A[_I],_f:G,_g:I,_h:H,_d:L};C.append(M)
 	return JsonResponse(C,safe=_C)
 def site_kontribusi_kualitas_pie_chart(request,kategori_id):
-	J=kategori_id;C=[];K=[];L=500;T=300
+	J=kategori_id;C=[];K=[];L=100;T=50
 	if J==1:M=list(models.Site.objects.exclude(id=1).order_by(_I).values(_A,_I))
 	else:
 		U=list(models.instansi.objects.filter(kategori_id=J).values(_l))
