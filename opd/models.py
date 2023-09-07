@@ -67,23 +67,23 @@ class galery_foto(models.Model):
 class galery_layanan(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);link=models.URLField(max_length=200,null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
+def save_embed_video(embed):
+	E='src';D=0;A='';F=embed.split(' ');B=_B
+	for G in F:
+		if B:break
+		H=G.split('=');B=_B
+		for C in H:
+			if not B and C.lower()==E:B=_A
+			if B and C.lower()!=E:
+				if D==0:A+=C;D+=1
+				else:A+='='+C
+				print(A)
+	if A.find('watch')<=0:A=A.replace('"','');A=A.replace('&quot;','');return A
+	else:return
 class galery_video(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);view_count=models.IntegerField(default=0);embed=CKEditor5Field(blank=_A,null=_A,config_name=_C);embed_video=EmbedVideoField(blank=_A,null=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
-	def save(D,*H,**I):
-		E='url';F=0;A='';J=D.embed.split(' ');B=_B
-		for K in J:
-			if B:break
-			L=K.split('=');B=_B
-			for C in L:
-				if not B and C.lower()==E:B=_A
-				if B and C.lower()!=E:
-					if F==0:A+=C;F+=1
-					else:A+='='+C
-		G=A.split('"')
-		if len(G)>=2:A=G[1];A=A.replace('/watch?v=','/embed/');print('res = ',A);D.embed_video=A
-		else:D.embed_video=None
-		super().save(*H,**I)
+	def save(A,*B,**C):A.embed_video=save_embed_video(A.embed);super().save(*B,**C)
 class instansi_kategori(models.Model):
 	nama=models.CharField(max_length=50);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return'{}'.format(A.nama)
