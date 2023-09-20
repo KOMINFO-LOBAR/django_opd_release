@@ -15,10 +15,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 from embed_video.fields import EmbedVideoField
 from uuslug import uuslug
 from django_opd.commonf import get_natural_datetime
-def custom_slugify(text_to_slugify,site_id,field_length):
-	E=field_length;D=site_id;C=text_to_slugify;print('load custom slugify')
-	if D:F=str(D);A=E-len(F)-2;B=slugify(C);return B[:A]+'--'+F
-	else:A=E;B=slugify(C);return B[:A]
 def word_count(text):A=bs(text,'html.parser');B=A.get_text();return sum([A.strip(string.punctuation).isalpha()for A in B.split()])
 class Status(models.TextChoices):DRAFT='draft';PUBLISHED='published'
 class photo(models.Model):

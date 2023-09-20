@@ -14,8 +14,8 @@
 
         {% opengraph_meta "url=news_url, title=news_title, type='website', description=news_desc" %}
 
-
-        <meta property="og:image" itemprop="image" content="{{news_img_meta}}"/>
+        <!-- itemprop="image" -->
+        <meta property="og:image" content="{{news_img_meta}}"/>
 
         <!-- <meta name="msapplication-TileImage" content="{{news_img_meta}}">     -->
 
@@ -49,6 +49,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
+    {% comment %}
     {% if news_img_meta %}  
         <!-- <span itemprop="image" itemscope itemtype="image/jpeg"> 
             <link itemprop="url" href="{{news_img_meta}}"> 
@@ -60,6 +61,7 @@
             <link itemprop="url" href="{{news_img_meta}}">
         </span>-->
     {% endif %}
+    {% endcomment %}
 
     {% comment %}
         news_img_meta = 
