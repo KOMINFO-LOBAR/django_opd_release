@@ -12,9 +12,7 @@ click==8.1.3
 click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.3.0
-cryptography==38.0.1
-css-html-js-minify==2.5.5
-cssmin==0.2.0
+cryptography==41.0.1
 defusedxml==0.7.1
 diff-match-patch==20230430
 Django==3.2.6
@@ -34,7 +32,6 @@ django-simple-open-graph==0.3
 django-social-share==2.3.0
 django-underconstruction==0.1.2
 django-uuslug==2.0.0
-easy-thumbnails==2.8.5
 et-xmlfile==1.1.0
 feedparser==6.0.10
 httpagentparser==1.9.5
@@ -45,14 +42,13 @@ MarkupPy==1.14
 mysqlclient==2.2.0
 odfpy==1.4.1
 openpyxl==3.1.2
-outbox-encryption==1.1.2
+outbox-encryption==1.1.1
 Pillow==9.5.0
 pip-autoremove==0.10.0
 prompt-toolkit==3.0.38
 pycparser==2.21
 python-dateutil==2.8.2
 python-decouple==3.8
-python-minifier==2.9.0
 python-slugify==8.0.1
 pytz==2023.3
 PyYAML==6.0
