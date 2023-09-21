@@ -3,7 +3,9 @@
 {% load humanize %}
 {% load social_share %}
 {% load simple_open_graph %}
-{% load thumbnail %}
+{% comment %}
+    {% load thumbnail %}
+{% endcomment %}
 
 {% block extra_head %}
     {% comment %} <!--{% thumbnail object.user.image 150x150 as uimage %}--> <!-- as example for use easy_thumbnails package --> {% endcomment %}
@@ -20,8 +22,10 @@
         
         <meta property="og:url" content="{{news_url}}">         
         <meta property="og:title" content="{{news_title}}">         
-        <meta property="og:description" content="{{news_desc}}">                     
-        <meta property="og:image" content="{% thumbnail news_img_meta 300x300 crop %}">         
+        <meta property="og:description" content="{{news_desc}}">                    
+        
+        <!-- news_img_meta:{{news_img_meta.photo}}  -->
+        <meta property="og:image" content="{{news_img_meta}}">         
         <meta property="og:site_name" content="Lombok Barat">
         <meta property='og:locale' content='id_ID' >
 
@@ -93,7 +97,7 @@
     <div class="container">
         <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
             <div class="f2-s-1 p-r-30 m-tb-6">
-                <a href="/" class=" f1-s-3 cl9">Beranda {{news_img_meta}}
+                <a href="/" class=" f1-s-3 cl9">Beranda
                 </a> > 
 
                 {% if jenis != 'menu' %}
