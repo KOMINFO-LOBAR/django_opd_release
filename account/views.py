@@ -304,20 +304,20 @@ def delete_photo(request):
 			if os.path.isfile(A):os.remove(A);print('remove photo success '+str(B))
 	return HttpResponse('OKE')
 def upload_photo(request,width,height):
-	O='JPEG';N='RGBA';M='image/png';L='.jpeg';I='/';G=request;A=G.FILES.get(_A2);H=G.POST.get('old_photo')
+	O='JPEG';N='RGBA';M='image/png';J='/';I='.jpg';G=request;A=G.FILES.get(_A2);H=G.POST.get('old_photo')
 	if H:
 		if os.path.isfile(H):os.remove(H);print('remove photo success')
 	P=get_siteID(G);Q=Image.open(io.BytesIO(A.read()));B=Q.resize((width,height),Image.ANTIALIAS);F=datetime.now();R=str(P)+'-'+F.strftime('%Y%m%d-%H%M%S-%f');S=F.strftime('%Y');T=F.strftime('%m');U=F.strftime('%d')
 	if A.content_type=='image/gif':C='.gif'
-	elif A.content_type=='image/jpeg':C=L
-	elif A.content_type=='image/jpg':C='.jpg'
-	elif A.content_type==M:C=L
+	elif A.content_type=='image/jpeg':C=I
+	elif A.content_type=='image/jpg':C=I
+	elif A.content_type==M:C=I
 	elif A.content_type=='image/bmp':C='.bmp'
 	else:C='.ief'
-	V=settings.BASE_DIR;J=settings.MEDIA_ROOT;print('base_dir');print(V);D='crop/'+S+I+T+I+U+I;print('path');print(D);E=os.path.join(J,D);W=os.makedirs(E,exist_ok=_B);D=D+R+C;E=os.path.join(J,D)
+	V=settings.BASE_DIR;K=settings.MEDIA_ROOT;print('base_dir');print(V);D='crop/'+S+J+T+J+U+J;print('path');print(D);E=os.path.join(K,D);W=os.makedirs(E,exist_ok=_B);D=D+R+C;E=os.path.join(K,D)
 	if A.content_type==M:
-		B.load();K=Image.new('RGB',B.size,(255,255,255))
-		if B.mode==N:print(N);K.paste(B,mask=B.getchannel('A'));K.save(E,O,quality=80,optimize=_B)
+		B.load();L=Image.new('RGB',B.size,(255,255,255))
+		if B.mode==N:print(N);L.paste(B,mask=B.getchannel('A'));L.save(E,O,quality=80,optimize=_B)
 		else:print('NON RGBA');B.save(E,O,quality=80,optimize=_B)
 	else:B.save(E,quality=80,optimize=_B)
 	return HttpResponse(D)

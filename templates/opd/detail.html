@@ -12,14 +12,14 @@
     <!--  image=news_img_meta, news.judul-->
     {% if news_img_meta %}                
         <!-- , description=news_desc -->
-        {% comment %}
-            {% opengraph_meta "url=news_url, title=news_title, type='news', description=news_desc" %}
-        {% endcomment %}
+        
+        {% opengraph_meta "url=news_url, title=news_title, type='news', description=news_desc" %}
+        
         <!-- itemprop="image" -->
         
-        <!-- <meta property="og:image" content="{{news_img_meta}}"/>         
+        <meta property="og:image" content="{{news_img_meta}}"/>         
         <meta property="og:site_name" content="Lombok Barat"/>
-        <meta content='id_ID' property='og:locale'/> -->
+        <meta content='id_ID' property='og:locale'/>
 
         <!-- <meta content='id_ID' property='og:locale:alternate'/> -->
 
