@@ -249,7 +249,7 @@ def get_meta(request,obj,context,jenis):
 		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
 		for i in a:context[C]=E%(A,request.get_host(),_V,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_berita)).chars(60).strip();context['news_title']=Truncator(strip_tags(i.isi_berita)).chars(30).strip();print("context['news_url'] = ");print(context[C])
 		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
-		if news_img_meta.count()>0:options={_L:(100,100),'crop':_F};print(H,news_img_meta[0].photo);print(H,news_img_meta[0].photo.file_path);context[D]='%s://%s%s'%(A,request.get_host(),get_thumbnailer(news_img_meta[0].photo.file_path).get_thumbnail(options).url);print("context['news_img_meta'] = ");print(context[D])
+		if news_img_meta.count()>0:options={_L:(300,300),'crop':_F};print(H,news_img_meta[0].photo);print(H,news_img_meta[0].photo.file_path);context[D]='%s://%s%s'%(A,request.get_host(),get_thumbnailer(news_img_meta[0].photo.file_path).get_thumbnail(options).url);print("context['news_img_meta'] = ");print(context[D])
 	elif jenis==_d:
 		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_U);a=pengumuman.objects.filter(id=obj.id)
 		for i in a:context[C]=E%(A,request.get_host(),_d,i.judul_seo);context[F]=SafeString(Truncator(i.isi_pengumuman).chars(160))
