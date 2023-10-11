@@ -12,15 +12,13 @@
     {% if news_img_meta %}       
         <meta property="og:url" content="{{news_url}}">    
         <meta property="og:title" content="{{news_title}}">         
-        <meta property="og:description" content="">                  
+        <meta property="og:description" content="{{news_desc}}">                  
         <meta property="og:type" content="{{news_type}}" />
         <meta property="og:image" content="{{news_img_meta}}">
         <meta property="og:image:type" content="image/jpeg" />  
         <meta content='{{namaOPD}}' property='og:site_name'/>  
         <meta content='id_ID' property='og:locale'/>
-        <meta content='en_US' property='og:locale:alternate'/>
-                
-        
+        <meta content='en_US' property='og:locale:alternate'/>                        
 
         <meta name="twitter:card" content="summary_large_image">
         <meta property="twitter:domain" content="{{site_name}}">
@@ -36,21 +34,6 @@
 
 {% block breadcrumb %}
 
-
-    {% comment %}
-        news_img_meta = 
-        {{news_img_meta}} <br>
-        news_url = 
-        {{news_url}} <br>
-        {{news_desc}}
-    {% endcomment %}
-
-    <!--
-    news_img_meta = {{news_img_meta}} <br>
-    news = {{news.get_absolute_url}} <br>
-    news_url = {{news_url}} <br>
-    isi = {{news_desc}}-->
-    <!-- Breadcrumb -->
     <div class="container">
         <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
             <div class="f2-s-1 p-r-30 m-tb-6">
@@ -226,31 +209,81 @@
                                             <a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
                                             tidak bisa buka window baru    
                                             -->
-                                            {% post_to_facebook news "<div class='dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-facebook-f m-r-7'></i>Facebook</div>" %}
-                                            {% post_to_twitter "{{news_type}} : {{news.judul}}. Check it out!" object_or_url "<div class='dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-twitter m-r-7'></i>Twitter</div>" %}
                                             {% comment %}
-                                                {% post_to_whatsapp news "<div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'><i class='fab fa-whatsapp m-r-7'></i>Whatsapp</div>" %}                                                     
+                                                {% post_to_facebook news "<div class='dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-facebook-f '></i></div>" %}                                            
+                                                {% post_to_twitter "{{news.judul}}" news "<div class='dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-twitter'></i></div>" %}                                            
+                                                {% post_to_whatsapp news "<div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'><i class='fab fa-whatsapp'></i></div>" %}                                                     
                                             {% endcomment %}
 
+                                            <a href='https://www.facebook.com/sharer.php?u={{news_url}}' title="Share to Facebook"
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fab fa-facebook'></i>
+                                                </div>
+                                            </a>
+
+
+                                            <a href='https://twitter.com/share?url={{news_url}}&text={{news_title}}' title="Share to Twitter"
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fab fa-twitter'></i>
+                                                </div>
+                                            </a>
                                                 
-                                            <div class="whatsapp-this">
+                                            <!-- <div class="whatsapp-this"> -->
                                                 {% if is_mobile %}                                                
-                                                    <a href="https://api.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" 
-                                                        onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
-                                                        <!-- target="_blank"> -->
-                                                        <div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'>
-                                                            <i class='fab fa-whatsapp m-r-7'></i>Whatsapp
+                                                    <a href="https://api.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" title="Share to Whatsapp"                                                         
+                                                        target="_blank">
+                                                        <div class='dis-block f1-s-13 cl0 bg-whatsapp2 borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                            <i class='fab fa-whatsapp'></i>
                                                         </div>
                                                     </a>
                                                 {% else %}                                                    
-                                                    <a href="https://web.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" 
+                                                    <a href="https://web.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" title="Share to Whatsapp"
                                                         onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
-                                                        <div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'>
-                                                            <i class='fab fa-whatsapp m-r-7'></i>Whatsapp
+                                                        <div class='dis-block f1-s-13 cl0 bg-whatsapp2 borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                            <i class='fab fa-whatsapp'></i>
                                                         </div>
                                                     </a>
                                                 {% endif %}
-                                            </div>
+                                            <!-- </div> -->
+
+                                            <a href='https://www.pinterest.com/pin/create/button/?url={{news_url}}&media={{news_img_meta}}&description={{news_title}}' title="Share to Pinterest"
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-pinterest borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fab fa-pinterest'></i>
+                                                </div>
+                                            </a>
+
+                                            <a href='https://www.linkedin.com/shareArticle?url={{news_url}}' title="Share to LinkedIn"
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-linkedin borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fab fa-linkedin'></i>
+                                                </div>
+                                            </a>
+
+                                            <a href='mailto:?subject=&body={{news.title}} | {{news_url}}'  title="Send E-mail"
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-google borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fas fa-at'></i>
+                                                </div>
+                                            </a>
+
+                                            <a href='https://t.me/share/url?text={{news_title}}&url={{news_url}}' title="Share to Telegram" 
+                                                onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                <div class='dis-block f1-s-13 cl0 bg-telegram borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='fab fa-telegram-plane'></i>
+                                                </div>
+                                            </a>
+
+                                            <a href="javascript:void(0);" data-copy-btn="buttonCopy" data-copy-url="{{news_url}}" class="" title="Copy to clipboard">
+                                                <div class='dis-block f1-s-13 cl0 bg-copy borad-3 p-tb-4 p-rl-18 hov-btn3 m-r-3 m-b-3 trans-03'>
+                                                    <i class='far fa-copy'></i>
+                                                </div>
+                                            </a>
+
+                                                                                        
+                                            
                                             
                                             
                                         <!--</a>-->
@@ -771,3 +804,50 @@
     </section>
 {% endblock %}
 
+{% block extra_body %}
+<script>
+    function copyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+  
+      // Place in the top-left corner of screen regardless of scroll position.
+      textArea.style.position = "fixed";
+      textArea.style.top = 0;
+      textArea.style.left = 0;
+  
+      textArea.style.width = "2em";
+      textArea.style.height = "2em";
+  
+      textArea.style.padding = 0;
+  
+      // Clean up any borders.
+      textArea.style.border = "none";
+      textArea.style.outline = "none";
+      textArea.style.boxShadow = "none";
+  
+      // Avoid flash of the white box if rendered for any reason.
+      textArea.style.background = "transparent";
+  
+      textArea.value = text;
+  
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+  
+      try {
+        document.execCommand("copy");
+      } catch (err) {
+        console.log("unable to copy");
+      }
+  
+      alert('URL telah di copy!');
+      document.body.removeChild(textArea);
+    }
+  
+    var copyBtn = document.querySelector('[data-copy-btn="buttonCopy"]');
+  
+    copyBtn.addEventListener("click", function (event) {
+      var url = copyBtn.getAttribute("data-copy-url");
+      copyTextToClipboard(url);
+    });
+  </script>
+{% endblock %}

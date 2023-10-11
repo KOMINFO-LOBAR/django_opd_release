@@ -244,7 +244,7 @@ def get_galeryVideo(siteID,context,opd):
 def get_linkTerkait(siteID):linkTerkait=link_terkait.objects.filter(site__id=siteID).order_by(_C);return linkTerkait
 def get_galeryLayanan(siteID,context):foto=galery_layanan.objects.filter(site_id=siteID,status=Status.PUBLISHED).order_by(_D)[:5];context['galeryLayanan']=foto
 def get_meta(request,obj,context,jenis):
-	I='is_mobile';H='%s://%s%s';G='news_title';F='news_desc';E='%s://%s/%s/%s';D='news_url';C='news_img_meta';B='news_img';A='https';print('jenis = ');print(jenis);context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_U else'pages';context[I]=request.device[I]
+	I='is_mobile';H='%s://%s%s';G='news_title';F='news_desc';E='%s://%s/%s/%s';D='news_url';C='news_img_meta';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_U else'pages';context[I]=request.device[I]
 	if jenis==_W:
 		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_V);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
 		for i in a:context[D]=E%(A,request.get_host(),_W,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()

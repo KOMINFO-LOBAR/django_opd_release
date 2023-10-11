@@ -77,6 +77,15 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .container {max-width: 1080px;}
 
 
+.bg-facebook {background-color: #3b5998;}
+.bg-twitter {background-color: #1da1f2;}
+.bg-youtube {background-color: #ff0000;}
+.bg-google {background-color: #dd4b39;}
+.bg-pinterest {background-color: #bd081c;}
+.bg-whatsapp2 {background-color: #25D366;}
+.bg-linkedin {background-color: #0077b5;}
+.bg-telegram {background-color: #0088cc;}
+.bg-copy {background-color: orange}
 
 /*//////////////////////////////////////////////////////////////////
 [ LOADDING ]*/
@@ -1793,6 +1802,11 @@ a.breadcrumb-item:hover {
   color: #17b978;
 }
 
+.hov-btn3:hover {
+  background-color: #17b978;
+  border-color: #17b978;
+  color: white;
+}
 
 /*---------------------------------------------*/
 /* .hov1:hover {

@@ -32,7 +32,7 @@ class tags(models.Model):
 class berita(models.Model):
 	kategori=models.ForeignKey(kategori,on_delete=models.PROTECT);site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_berita=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);tags=models.ManyToManyField(tags,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
-	def get_absolute_url(A):B=Site.objects.get_current();return'https://%s/%s/%s'%(B,'berita',A.judul_seo)
+	def get_absolute_url(A):B=A.site.domain;return'https://%s/%s/%s'%(B,'berita',A.judul_seo)
 	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_berita);super().save(*B,**C)
 	@property
 	def created_at_(self):return get_natural_datetime(self.created_at)
