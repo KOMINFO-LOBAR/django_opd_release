@@ -222,10 +222,37 @@
                                     </span>                                                                        
                                         
                                     <div class="flex-wr-s-s size-w-0">
-                                        <!--<a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">-->
-                                            {% post_to_facebook object_or_url "<div class='dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-facebook-f m-r-7'></i>Facebook</div>" %}
-                                            {% post_to_twitter "Berita OPD : {{news.judul}}. Check it out!" object_or_url "<div class='dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-twitter m-r-7'></i>Twitter</div>" %}
-                                            {% post_to_whatsapp object_or_url "<div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'><i class='fab fa-whatsapp m-r-7'></i>Whatsapp</div>" %}                                                     
+                                        <!--object_or_url ganti model instans maka akan mengambil data absolute url
+                                            <a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                            tidak bisa buka window baru    
+                                            -->
+                                            {% post_to_facebook news "<div class='dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-facebook-f m-r-7'></i>Facebook</div>" %}
+                                            {% post_to_twitter "{{news_type}} : {{news.judul}}. Check it out!" object_or_url "<div class='dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03'><i class='fab fa-twitter m-r-7'></i>Twitter</div>" %}
+                                            {% comment %}
+                                                {% post_to_whatsapp news "<div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'><i class='fab fa-whatsapp m-r-7'></i>Whatsapp</div>" %}                                                     
+                                            {% endcomment %}
+
+                                                
+                                            <div class="whatsapp-this">
+                                                {% if is_mobile %}                                                
+                                                    <a href="https://api.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" 
+                                                        onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                        <!-- target="_blank"> -->
+                                                        <div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'>
+                                                            <i class='fab fa-whatsapp m-r-7'></i>Whatsapp
+                                                        </div>
+                                                    </a>
+                                                {% else %}                                                    
+                                                    <a href="https://web.whatsapp.com/send?text={{news_title}} | {{news_url}}" class="" 
+                                                        onclick='window.open(this.href, &#39;windowName&#39;, &#39;width=900, height=550, left=24, top=24, scrollbars, resizable&#39;); return false;' rel='noopener nofollow'>
+                                                        <div class='dis-block f1-s-13 cl0 borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03' style='background-color:#25D366'>
+                                                            <i class='fab fa-whatsapp m-r-7'></i>Whatsapp
+                                                        </div>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            
+                                            
                                         <!--</a>-->
         
                                         <!--<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Bagikan</a></div>-->

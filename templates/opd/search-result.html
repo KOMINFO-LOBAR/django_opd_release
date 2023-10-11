@@ -1,1 +1,422 @@
-{% extends 'opd/base-opd.html' %} {% load static %} {% load humanize %} {% load social_share %} {% block breadcrumb %} <div class=container > <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8"> <div class="f2-s-1 p-r-30 m-tb-6"> <a href="/" class=" f1-s-3 cl9">Beranda </a> > <span class=" f1-s-3 cl9"> Hasil Pencarian </span> </div> {% include "opd/inc-form-search.html" %} </div> </div> {% endblock %} {% block section-content-detail %} <div class="container p-t-1 p-b-10"> <h1 class="f1-l-1 cl2"> Pencarian: &rsquo;{{search}}&rsquo; </h1> </div> <section class="bg0 p-b-55"> <div class=container > <div class="row justify-content-center"> <div class="col-md-10 col-lg-8 p-b-80"> <div class=row > {% for i in page_obj %} <div class="col-sm-12 p-r-25 p-r-15-sr991"> <div class=m-b-15 > <div class=searchresult > <a href="{{request.scheme}}://{{i.site.domain}}{{i.get_absolute_url}}"><h4>{{i.judul}}</h4></a> <a href="{{request.scheme}}://{{i.site.domain}}{{i.get_absolute_url}}">{{i.site}}</a> <button>▼</button> <p>{{ i.isi_berita|truncatewords_html:30|safe }}</p> </div> </div> <hr> </div> {% endfor %} </div> <div class=row > {% if num_pages > 1 %} <div class="flex-wr-s-c m-rl--7 p-t-15"> {% comment %} jumlah = {{jumlah}} <br> halmaan = {{page_obj.count}} <br> javascript:void(0) {% endcomment %} {% for j in jumlah %} <a href= "{% if forloop.counter != page_obj.number %} {{request.path}}?page={{forloop.counter}} {% else %} javascript:void(0) {% endif %}" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 {% if forloop.counter == page_obj.number %} pagi-active {% endif %}"> {{ j }} </a> {% endfor %} </div> {% endif %} </div> </div> <div class="col-md-10 col-lg-4 p-b-80"> <div class="p-l-10 p-rl-0-sr991"> <div class=p-b-23 > <div class="how2 how2-cl4 flex-s-c"> <h3 class="f1-m-2 cl3 tab01-title"> {% if section == 'berita' %} {% if jenis == 'terbaru' %} {{section|title}} Terpopuler {% elif jenis == 'terpopuler' %} {{section|title}} Terbaru {% endif %} {% else %} Berita Terbaru {% endif %} </h3> </div> <ul class=p-t-35 > {% if section == 'berita' and jenis == 'terbaru' %} {% for i in beritaTerpopulerAll %} <li class="flex-wr-sb-s p-b-22"> <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6"> {{ forloop.counter}} </div> <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03"> {{ i.judul }} </a> {% endfor %} {% else %} {% for i in beritaTerbaruAll %} <li class="flex-wr-sb-s p-b-22"> <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6"> {{ forloop.counter}} </div> <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03"> {{ i.judul }} </a> {% endfor %} {% endif %} </ul> </div> {% if pengumumanAll %} <div class=p-b-30 > <div class="how2 how2-cl4 flex-s-c"> <h3 class="f1-m-2 cl3 tab01-title"> Pengumuman </h3> </div> <ul class=p-t-35 > {% for i in pengumumanAll %} <li class="flex-wr-sb-s p-b-30"> <a href="/pengumuman/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03"> {% if i.foto %} <img src="/media/{{i.foto}}" alt=IMG > {% else %} <img src="{% static 'opd/images/post-none.png' %}" alt=IMG > {% endif %} </a> <div class=size-w-11 > <h6 class=p-b-4 > <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1"> {{i.judul}} </a> </h6> <span class="cl8 txt-center p-b-24"> <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03"> {{i.site__name|upper}} </a> <span class="f1-s-3 m-rl-3"> - </span> <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03"> {{i.admin__username|title}} </a> <span class="f1-s-3 m-rl-3"> - </span> <span class=f1-s-3 > {{i.created_at}} </span> </span> </div> {% endfor %} </ul> </div> {% endif %} {% if artikelAll %} <div class=p-b-30 > <div class="how2 how2-cl4 flex-s-c"> <h3 class="f1-m-2 cl3 tab01-title"> Artikel </h3> </div> <ul class=p-t-35 > {% for i in artikelAll %} <li class="flex-wr-sb-s p-b-30"> <a href="/artikel/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03"> {% if i.foto %} <img src="/media/{{i.foto}}" alt=IMG > {% else %} <img src="{% static 'opd/images/post-none.png' %}" alt=IMG > {% endif %} </a> <div class=size-w-11 > <h6 class=p-b-4 > <a href="/artikel/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1"> {{i.judul}} </a> </h6> <span class="cl8 txt-center p-b-24"> <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03"> {{i.site__name|upper}} </a> <span class="f1-s-3 m-rl-3"> - </span> <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03"> {{i.admin__username|title}} </a> <span class="f1-s-3 m-rl-3"> - </span> <span class=f1-s-3 > {{i.created_at}} </span> </span> </div> {% endfor %} </ul> </div> {% endif %} <div> <div class="how2 how2-cl4 flex-s-c m-b-30"> <h3 class="f1-m-2 cl3 tab01-title"> Tags </h3> </div> <div class="flex-wr-s-s m-rl--5"> {% for i in tags %} <a href="/tags/{{i.nama|slugify}}?page=1" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5"> {{i.nama}} </a> {% endfor %} </div> </div> </div> </div> </div> </div> </section> {% endblock %} {% block jquery-doc-ready %} {% endblock %} {% block related-plugin %} {% endblock %}
+{% extends 'opd/base-opd.html' %}
+{% load static %}
+{% load humanize %}
+{% load social_share %}
+
+<!-- Breadcrumb -->
+{% block breadcrumb %}
+    <div class="container">
+        <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+            <div class="f2-s-1 p-r-30 m-tb-6">
+                <a href="/" class=" f1-s-3 cl9">Beranda 
+                </a> > 
+                
+                <span class=" f1-s-3 cl9">
+                    Hasil Pencarian
+                </span>
+            </div>
+
+            <!-- <div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search">
+                <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+                    <i class="zmdi zmdi-search"></i>
+                </button>
+            </div> -->
+            {% include "opd/inc-form-search.html" %}              
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Page heading -->
+{% block section-content-detail %}
+    <div class="container p-t-1 p-b-10">
+        <h1 class="f1-l-1 cl2">            
+            Pencarian: &rsquo;{{search}}&rsquo;
+        </h1>
+    </div>
+
+    <!-- Post -->
+    <section class="bg0 p-b-55">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8 p-b-80">
+                    <div class="row">
+                        {% for i in page_obj %}
+                            <div class="col-sm-12 p-r-25 p-r-15-sr991">
+                                <!-- Item latest -->	
+                                <div class="m-b-15">
+                                
+                                
+                                    <!--<p>About 155,000 results (0.56 seconds) </p>
+                                    {{request.scheme}}://{{i.site.domain}}
+                                    -->
+                                    <div class="searchresult">
+                                        <a href="{{i.get_absolute_url}}"><h4>{{i.judul}}</h4></a>
+                                        <a href="{{i.get_absolute_url}}">{{i.site}}</a> <button>▼</button>
+                                        <p>{{ i.isi_berita|truncatewords_html:30|safe }}</p>
+                                        
+                                    </div>                                                                                                                                            
+
+                                <!--<div class="searchresult">truncatechars:100
+                                        <a href="#"><h2>Contoh Berita Judul</h2></a>
+                                        <a href="#">https://en.wikipedia.org/wiki/Lock_(computer_science)</a> <button>▼</button>
+                                        <p>In computer science, a lock or mutex (from mutual exclusion) is a synchronization mechanism for enforcing limits on access to a resource in an</p>
+                                        
+                                    </div>-->
+                                
+                                </div>
+                                <hr>
+                            </div>
+                            
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="row">
+
+
+                        {% if num_pages > 1 %}                                    
+
+                            <!-- Pagination -->
+                            <div class="flex-wr-s-c m-rl--7 p-t-15">
+                                {% comment %} jumlah = {{jumlah}} <br>
+                                halmaan = {{page_obj.count}} <br> javascript:void(0) {% endcomment %} 
+
+                                {% for j in jumlah %}                                                     
+                                    <a href= 
+                                        "{% if forloop.counter !=  page_obj.number %}                                            
+                                            {{request.path}}?page={{forloop.counter}}
+                                        {% else %}
+                                            javascript:void(0)
+                                        {% endif %}"                                                                      
+                                        
+                                        class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 
+                                        {% if forloop.counter ==  page_obj.number %}
+                                            pagi-active
+                                        {% endif %}">
+
+                                        {{ j }}
+                                    </a>                            
+                                {% endfor %}
+                                    
+                                <!--<a href="#" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active">1</a>
+                                <a href="#" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">2</a>-->
+                            </div>
+
+                        
+                        {% endif %}
+                    </div>
+
+                    
+                </div>
+
+                <div class="col-md-10 col-lg-4 p-b-80">
+                    <div class="p-l-10 p-rl-0-sr991">							
+                        <!-- Subscribe -->
+                        <!--<div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-50">
+                            <h5 class="f1-m-5 cl0 p-b-10">
+                                Subscribe
+                            </h5>
+
+                            <p class="f1-s-1 cl0 p-b-25">
+                                Get all latest content delivered to your email a few times a month.
+                            </p>
+
+                            <form class="size-a-9 pos-relative">
+                                <input class="s-full f1-m-6 cl6 plh9 p-l-20 p-r-55" type="text" name="email" placeholder="Email">
+
+                                <button class="size-a-10 flex-c-c ab-t-r fs-16 cl9 hov-cl10 trans-03">
+                                    <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </form>
+                        </div>-->
+
+                        <!-- Most Popular right side -->
+                        <div class="p-b-23">
+                            <div class="how2 how2-cl4 flex-s-c">
+                                <h3 class="f1-m-2 cl3 tab01-title">
+                                    {% if section == 'berita' %}
+                                        {% if jenis == 'terbaru' %}
+                                            {{section|title}} Terpopuler 
+                                        {% elif jenis == 'terpopuler' %}
+                                            {{section|title}} Terbaru
+                                        {% endif %}
+                                    {% else %}
+                                        Berita Terbaru
+                                    {% endif %}
+                                </h3>
+                            </div>
+
+                            <ul class="p-t-35">
+                                {% if section == 'berita' and jenis == 'terbaru' %}                                    
+                                    {% for i in beritaTerpopulerAll %}                                        
+                                        <li class="flex-wr-sb-s p-b-22">
+                                            <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                                {{ forloop.counter}}
+                                            </div>
+
+                                            <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                                {{ i.judul }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for i in beritaTerbaruAll %}
+                                        <li class="flex-wr-sb-s p-b-22">
+                                            <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                                {{ forloop.counter}}
+                                            </div>
+
+                                            <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                                {{ i.judul }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}                                
+                                {% endif %}
+
+                                <!--<li class="flex-wr-sb-s p-b-22">
+                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                        2
+                                    </div>
+
+                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                        Proin velit consectetur non neque
+                                    </a>
+                                </li>
+
+                                <li class="flex-wr-sb-s p-b-22">
+                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                        3
+                                    </div>
+
+                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                        Nunc vestibulum, enim vitae condimentum volutpat lobortis ante
+                                    </a>
+                                </li>
+
+                                <li class="flex-wr-sb-s p-b-22">
+                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                        4
+                                    </div>
+
+                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                        Proin velit justo consectetur non neque elementum
+                                    </a>
+                                </li>
+
+                                <li class="flex-wr-sb-s p-b-22">
+                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0">
+                                        5
+                                    </div>
+
+                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                        Proin velit consectetur non neque
+                                    </a>
+                                </li>-->
+                            </ul>
+                        </div>
+
+                        <!--  
+                        <div class="flex-c-s p-b-50">
+                            {% for i in  bannerMiddle1 %}                                                            
+                                <a href="{% if not i.link %} javascript:void(0) {% elif i.link == '#' %} javascript:void(0) {% else %} {{i.link}} {% endif %}">
+                                    <img class="max-w-full" src="{{i.photo.file_path.url}}" alt="IMG">
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                        <div class="flex-c-s p-b-50">
+                            {% for i in  bannerMiddle2 %}                                                            
+                                <a href="{% if not i.link %} javascript:void(0) {% elif i.link == '#' %} javascript:void(0) {% else %} {{i.link}} {% endif %}">
+                                    <img class="max-w-full" src="{{i.photo.file_path.url}}" alt="IMG">
+                                </a>
+                            {% endfor %}
+                        </div>
+                        
+                        Tag -->    
+                        
+                        <!-- PENGUMUMAN -->
+                        {% if pengumumanAll %}
+                            <div class="p-b-30">
+                                <div class="how2 how2-cl4 flex-s-c">
+                                    <h3 class="f1-m-2 cl3 tab01-title">
+                                        Pengumuman
+                                    </h3>
+                                </div>
+
+                                <ul class="p-t-35">
+                                    {% for i in pengumumanAll %} 
+                                        <li class="flex-wr-sb-s p-b-30">
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
+                                                {% if i.foto %}                                        
+                                                    <img src="/media/{{i.foto}}" alt="IMG">
+                                                {% else %}
+                                                    <img src="{% static 'opd/images/post-none.png' %}" alt="IMG">                                            
+                                                {% endif %}
+                                            </a>
+
+                                            <div class="size-w-11">
+                                                <h6 class="p-b-4">
+                                                    <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                        {{i.judul}}
+                                                    </a>
+                                                </h6>
+
+                                                <span class="cl8 txt-center p-b-24">
+                                                    <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                        {{i.site__name|upper}}
+                                                    </a>
+
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+
+                                                    <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                        {{i.admin__username|title}}
+                                                    </a>
+
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+
+                                                    <span class="f1-s-3">
+                                                        {{i.created_at}}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- ArtikelAll = {{artikelAll}} -->
+                        <!-- ARTIKEL -->
+                        {% if artikelAll %}
+                            <div class="p-b-30">
+                                <div class="how2 how2-cl4 flex-s-c">
+                                    <h3 class="f1-m-2 cl3 tab01-title">
+                                        Artikel
+                                    </h3>
+                                </div>
+
+                                <ul class="p-t-35">
+                                    {% for i in artikelAll %} 
+                                        <li class="flex-wr-sb-s p-b-30">
+                                            <a href="/artikel/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
+                                                {% if i.foto %}                                        
+                                                    <img src="/media/{{i.foto}}" alt="IMG">
+                                                {% else %}
+                                                    <img src="{% static 'opd/images/post-none.png' %}" alt="IMG">                                            
+                                                {% endif %}
+                                            </a>
+
+                                            <div class="size-w-11">
+                                                <h6 class="p-b-4">
+                                                    <a href="/artikel/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                        {{i.judul}}
+                                                    </a>
+                                                </h6>
+
+                                                <span class="cl8 txt-center p-b-24">
+                                                    <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                        {{i.site__name|upper}}
+                                                    </a>
+
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+
+                                                    <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                        {{i.admin__username|title}}
+                                                    </a>
+
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+
+                                                    <span class="f1-s-3">
+                                                        {{i.created_at}}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <div class="how2 how2-cl4 flex-s-c m-b-30">
+                                <h3 class="f1-m-2 cl3 tab01-title">
+                                    Tags 
+                                </h3>
+                            </div>
+
+                            <div class="flex-wr-s-s m-rl--5">
+                                {% for i in tags %}
+                                    <a href="/tags/{{i.nama|slugify}}?page=1" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                        {{i.nama}}
+                                    </a>
+                                {% endfor %}
+
+                                <!--<a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Lifestyle
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Denim
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Streetstyle
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Crafts
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Magazine
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    News
+                                </a>
+
+                                <a href="#" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    Blogs
+                                </a>-->
+                            </div>	
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- {% if section == 'satudata' %}
+    $.ajax({
+        type: 'GET', 
+        dataType: 'json',
+        url: "https://satudata.lombokbaratkab.go.id/api/form-datas/dikbud", 
+        success: function(result) {
+            $(".info_suhu").html(
+                // Suhu 33°C, Suhu Terasa 35.8°C
+                "Suhu " + result.current.temp + "°C, " +
+                "Suhu Terasa " + result.current.feels_like + "°C"
+                // result.current.feels_like
+                ); //result.current.temp
+        }
+    });
+{% endif %} 
+
+    buat di view dulu kemudian panggil di url ajax
+-->
+
+{% block jquery-doc-ready %}
+{% endblock %}
+
+{% block related-plugin %}            
+{% endblock %}    
