@@ -17,12 +17,12 @@ _d='pengumuman'
 _c='isi_berita'
 _b='kategori__nama'
 _a='nama'
-_Z='menu'
-_Y='feed1'
-_X='?page=1'
-_W='/search/'
-_V='berita'
-_U='photo__file_path'
+_Z='feed1'
+_Y='?page=1'
+_X='/search/'
+_W='berita'
+_V='photo__file_path'
+_U='menu'
 _T='name'
 _S='POST'
 _R='updated_at'
@@ -66,7 +66,7 @@ from.import menus
 from.forms import CommentForm
 from.models import*
 cache_item=dict()
-cache_item[_Y]=_B
+cache_item[_Z]=_B
 cache_item[_f]=_B
 cache_item[_F]=_B
 cache_item[_g]=_B
@@ -92,7 +92,7 @@ def get_banner_all(siteID,context):banner=banner_all.objects.filter(site__id=sit
 def get_topSection(siteID,context,active_menu):
 	namaOPD=Site.objects.filter(id=siteID).values_list(_T,flat=_G)
 	if namaOPD.count()>0:context['namaOPD']=namaOPD[0]
-	mObjMenu=menus.ClsMenus();myMenu=menus.ClsMenus(siteID,_n);context[_Z]=myMenu.get_menus();context['activeMenuList']=myMenu.find_activeMenuList(active_menu);context['socialMedia']=social_media.objects.filter(site_id=siteID);logoTop=logo.objects.filter(site_id=siteID,position=logo.Position.TOP)
+	mObjMenu=menus.ClsMenus();myMenu=menus.ClsMenus(siteID,_n);context[_U]=myMenu.get_menus();context['activeMenuList']=myMenu.find_activeMenuList(active_menu);context['socialMedia']=social_media.objects.filter(site_id=siteID);logoTop=logo.objects.filter(site_id=siteID,position=logo.Position.TOP)
 	if logoTop.count()>0:context['logoTop']=logoTop[0].photo
 	bannerTop=banner.objects.filter(site_id=siteID,position=banner.Position.TOP)
 	if bannerTop.count()>0:context['bannerTop']=bannerTop[0]
@@ -102,13 +102,13 @@ def get_bottomSection(siteID,context,optID):
 	context['instansi']=instansi.objects.filter(site_id=siteID)[:1]
 	if optID==1:context['agenda']=agenda.objects.filter(site_id=siteID).order_by(_D)[:5]
 	context[A]=_B
-	if cache_item[_Y]is _B:
-		try:context[A]=feedparser.parse(B);cache_item[_Y]=context[A];cache_item[_f]=datetime.datetime.now();print(C)
+	if cache_item[_Z]is _B:
+		try:context[A]=feedparser.parse(B);cache_item[_Z]=context[A];cache_item[_f]=datetime.datetime.now();print(C)
 		except:pass
 	elif(datetime.datetime.now()-cache_item[_f]).seconds>36000:
-		try:context[A]=feedparser.parse(B);cache_item[_Y]=context[A];cache_item[_f]=datetime.datetime.now();print(C)
+		try:context[A]=feedparser.parse(B);cache_item[_Z]=context[A];cache_item[_f]=datetime.datetime.now();print(C)
 		except:pass
-	else:context[A]=cache_item[_Y];print('get from cached (RSS)')
+	else:context[A]=cache_item[_Z];print('get from cached (RSS)')
 	if optID==1:
 		context[_F]=_B;skrg=datetime.datetime.now()
 		if cache_item[_F]is _B:
@@ -222,14 +222,14 @@ def get_galeryFoto(siteID,context,opd):
 	A='galeryFoto'
 	if opd==1:mMax=6
 	elif opd==2:mMax=50
-	galeryFoto=galery_foto.objects.filter(site_id=siteID).values(_C,_I,_H,_J,_K,_A,_U).order_by(_D)[:mMax]
+	galeryFoto=galery_foto.objects.filter(site_id=siteID).values(_C,_I,_H,_J,_K,_A,_V).order_by(_D)[:mMax]
 	for i in galeryFoto:i[_A]=get_natural_datetime(i[_A])
 	if opd==1:
 		context['futureFoto']=galeryFoto[:1]
 		if galeryFoto.count()<=1:context[A]=galeryFoto
 		else:context[A]=galeryFoto[1:mMax-1]
 	elif opd==2:return galeryFoto
-def get_popup(siteID,context):context['popup']=popup.objects.filter(site_id=siteID,status=Status.PUBLISHED).values(_C,_I,_K,_A,'status',_U).order_by(_q)[:1]
+def get_popup(siteID,context):context['popup']=popup.objects.filter(site_id=siteID,status=Status.PUBLISHED).values(_C,_I,_K,_A,'status',_V).order_by(_q)[:1]
 def get_galeryVideo(siteID,context,opd):
 	A='galeryVideo'
 	if opd==1:mMax=6
@@ -244,30 +244,30 @@ def get_galeryVideo(siteID,context,opd):
 def get_linkTerkait(siteID):linkTerkait=link_terkait.objects.filter(site__id=siteID).order_by(_C);return linkTerkait
 def get_galeryLayanan(siteID,context):foto=galery_layanan.objects.filter(site_id=siteID,status=Status.PUBLISHED).order_by(_D)[:5];context['galeryLayanan']=foto
 def get_meta(request,obj,context,jenis):
-	G='%s://%s%s';F='news_desc';E='%s://%s/%s/%s';D='news_url';C='news_img_meta';B='news_img';A='https';print('jenis = ');print(jenis);context['site_name']='%s://%s'%(A,request.get_host())
-	if jenis==_V:
-		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_V,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context['news_title']=Truncator(strip_tags(i.isi_berita)).words(15).strip()
+	H='%s://%s%s';G='news_title';F='news_desc';E='%s://%s/%s/%s';D='news_url';C='news_img_meta';B='news_img';A='https';print('jenis = ');print(jenis);context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_U else'pages'
+	if jenis==_W:
+		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_V);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
+		for i in a:context[D]=E%(A,request.get_host(),_W,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
-		if news_img_meta.count()>0:context[C]=G%(A,request.get_host(),news_img_meta[0].photo);print("context['news_img_meta'] = ");print(context[C])
+		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo);print("context['news_img_meta'] = ");print(context[C])
 	elif jenis==_d:
-		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_U);a=pengumuman.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_d,i.judul_seo);context[F]=SafeString(Truncator(i.isi_pengumuman).chars(160))
+		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_V);a=pengumuman.objects.filter(id=obj.id)
+		for i in a:context[D]=E%(A,request.get_host(),_d,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=G%(A,request.get_host(),news_img_meta[0].photo)
+		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_e:
-		context[B]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_U);a=artikel.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_e,i.judul_seo);context[F]=SafeString(Truncator(i.isi_artikel).chars(160))
+		context[B]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_V);a=artikel.objects.filter(id=obj.id)
+		for i in a:context[D]=E%(A,request.get_host(),_e,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=artikel.photo.through.objects.filter(artikel__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=G%(A,request.get_host(),news_img_meta[0].photo)
-	elif jenis==_Z:
-		context[B]=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id).values(_U);a=halaman_statis.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_Z,i.judul);context[F]=SafeString(Truncator(i.isi_halaman).chars(160))
+		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
+	elif jenis==_U:
+		context[B]=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id).values(_V);a=halaman_statis.objects.filter(id=obj.id)
+		for i in a:context[D]=E%(A,request.get_host(),_U,i.judul);context[F]=Truncator(strip_tags(i.isi_halaman)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=G%(A,request.get_host(),news_img_meta[0].photo)
+		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
 def get_newsList(request,siteID,context,opt,section,jenis):
 	news_per_page=6;mList=_B
-	if section==_V:
+	if section==_W:
 		if jenis=='terbaru':mList=get_beritaTerbaru(siteID,context,opt)
 		else:mList=get_beritaTerpopuler(siteID,context,opt)
 	elif section==_d:mList=get_pengumuman(siteID,context,opt)
@@ -289,7 +289,7 @@ def index(request):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_beritaTerpopuler(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);obj=Site.objects.get(id=siteID);get_hitCounter(request,obj,'site');statistik=get_statistic(siteID,_G);context.update(statistik);get_popup(siteID,context);response=render(request,'opd/index.html',context);response.set_cookie(key=_T,value='my_value',samesite='None',secure=_G);return response
 def detail(request,pid,jenis):
 	A='email';context={};siteID=get_siteID(request)
@@ -298,9 +298,9 @@ def detail(request,pid,jenis):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
-	if jenis==_V:
-		news=get_object_or_404(berita,judul_seo=pid);get_hitCounter(request,news,_V);mList=get_comment(siteID,news.id,context);news_per_page=3
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
+	if jenis==_W:
+		news=get_object_or_404(berita,judul_seo=pid);get_hitCounter(request,news,_W);mList=get_comment(siteID,news.id,context);news_per_page=3
 		if mList is not _B:
 			paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_j)
 			if page_number is _B:page_number=1
@@ -324,7 +324,7 @@ def detail_list(request,section,jenis):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_newsList(request,siteID,context,optID,section,jenis);statistik=get_statistic(siteID,_G);context.update(statistik);return render(request,'opd/detail-list.html',context)
 def search_result(request,pdata):
 	context={};siteID=get_siteID(request)
@@ -334,7 +334,7 @@ def search_result(request,pdata):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);statistik=get_statistic(siteID,_G);context.update(statistik);context[_E]=pdata;mList=get_search_result(context,pdata);news_per_page=5
 	if mList is not _B:
 		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_j)
@@ -349,7 +349,7 @@ def tags_result(request,pdata):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);statistik=get_statistic(siteID,_G);context.update(statistik);context[_E]=pdata;mList=get_tags_result(context,pdata);news_per_page=5
 	if mList is not _B:
 		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_j)
@@ -363,9 +363,9 @@ def halaman_statis_akses(request,slug):
 		pdata=request.POST.get(_E)
 		if pdata:
 			pdata=pdata.strip()
-			if pdata!='':return redirect(_W+slugify(pdata)+_X)
+			if pdata!='':return redirect(_X+slugify(pdata)+_Y)
 	print('slug=',slug);menu_id=menu.objects.filter(href='menu/'+slug);print('count = ',menu_id.count())
-	for i in menu_id:print(_Z,i.id,i.nama)
+	for i in menu_id:print(_U,i.id,i.nama)
 	mFoundID=0;mNama=''
 	for i in menu_id:
 		mFoundID=i.id;mNama=i.nama
@@ -375,7 +375,7 @@ def halaman_statis_akses(request,slug):
 			if halaman_statis.objects.filter(menu_id=i.id,site_id=siteID).order_by(A).exists():mFoundID=i.id;mNama=i.nama;break
 	news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_q)[:1];print('news [GET]= ');print(news)
 	if not news:news=halaman_statis.objects.create(menu_id=mFoundID,site_id=siteID,judul=mNama,isi_halaman='Informasi tentang "'+mNama+'". Silahkan update di halaman <a target="_blank" href="/dashboard/halaman-statis/">Dashboard.<a>'+'<br><br><br><br>'+'"Halaman ini dibuat otomatis oleh sistem, karena halaman statis untuk menu ini belum dibuat. '+'<br>Silahkan lakukan update di halaman statis."',admin_id=request.user.id);news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_q)[:1];print('news [CREATE]= ');print(news)
-	news=news.get();optID=3;jenis=_Z;get_hitCounter(request,news,'halaman_statis');get_topSection(siteID,context,_V);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_meta(request,news,context,jenis);statistik=get_statistic(siteID,_G);context.update(statistik)
+	news=news.get();optID=3;jenis=_U;get_hitCounter(request,news,'halaman_statis');get_topSection(siteID,context,_W);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_meta(request,news,context,jenis);statistik=get_statistic(siteID,_G);context.update(statistik)
 	if news:news.created_at=get_natural_datetime(news.created_at)
 	context[_P]=jenis;context['news']=news;return render(request,_r,context)
 def add_months(sourcedate,months):month=sourcedate.month-1+months;year=sourcedate.year+month//12;month=month%12+1;day=min(sourcedate.day,calendar.monthrange(year,month)[1]);return datetime.date(year,month,day)
