@@ -38,9 +38,9 @@ _t='photo__file_path'
 _s='media/'
 _r='jenis'
 _q='formset_img'
-_p='terisi'
-_o='parent'
-_n='file_path'
+_p='file_path'
+_o='terisi'
+_n='parent'
 _m='name'
 _l='site_id'
 _k='save foto complete '
@@ -215,7 +215,7 @@ def logo(request,mode='',pk=''):
 			else:H=models.photo.Jenis.LOGO_BOTTOM
 			I=A.POST.get(_AB)
 			if I:
-				L=I.replace(_s,'');M,N=models.photo.objects.update_or_create(site_id=B,jenis=H,defaults={_n:L});Q,R=models.logo.objects.update_or_create(site_id=B,position=A.POST.get(C),defaults={_AC:M.id})
+				L=I.replace(_s,'');M,N=models.photo.objects.update_or_create(site_id=B,jenis=H,defaults={_p:L});Q,R=models.logo.objects.update_or_create(site_id=B,position=A.POST.get(C),defaults={_AC:M.id})
 				if N:messages.info(A,mMsgBox.get(_X,J+A.POST.get(C)))
 				else:messages.info(A,mMsgBox.get(_P,J+A.POST.get(C)))
 			return redirect('/dashboard/logo')
@@ -233,7 +233,7 @@ def banner(request,mode='',pk=''):
 			else:D=models.photo.Jenis.BANNER_TOP
 			H=A.POST.get(_AB);print(_AO);print(H)
 			if H:
-				K=H.replace(_s,'');L,M=models.photo.objects.update_or_create(site_id=C,jenis=D,defaults={_n:K});P,Q=models.banner.objects.update_or_create(site_id=C,position=B,defaults={_AC:L.id,_j:A.POST.get('banner-link')})
+				K=H.replace(_s,'');L,M=models.photo.objects.update_or_create(site_id=C,jenis=D,defaults={_p:K});P,Q=models.banner.objects.update_or_create(site_id=C,position=B,defaults={_AC:L.id,_j:A.POST.get('banner-link')})
 				if M:messages.info(A,mMsgBox.get(_X,B))
 				else:messages.info(A,mMsgBox.get(_P,B))
 			return redirect('/dashboard/banner')
@@ -258,12 +258,12 @@ def menu(request,mode='',pk=''):
 		W=crypt_uuid4.ClsCryptUuid4();M=W.dec_text(pk)
 		if M=='':return HttpResponse(_Z)
 		N=models.menu.objects.filter(site__id=E,id=M)
-	if D==_N or D==_o:
-		if D==_o:F=pk
+	if D==_N or D==_n:
+		if D==_n:F=pk
 		if A.method==_J:
 			C=forms.MenuForm(A.POST,label_suffix='')
 			if C.is_valid():
-				G=models.Site.objects.get(id=E);F=A.POST.get(_o)
+				G=models.Site.objects.get(id=E);F=A.POST.get(_n)
 				if not F:F=_H
 				O=_B;P=models.menu.objects.filter(site__id=G.id,nama__iexact=A.POST.get(_E),parent_id=F).values_list(S,flat=_B)
 				if P.count()>0:
@@ -278,7 +278,7 @@ def menu(request,mode='',pk=''):
 		B=get_object_or_404(N)
 		if A.method==_J:
 			C=forms.MenuForm(A.POST,instance=B,label_suffix='')
-			if A.POST.get(_o)==str(B.id):messages.info(A,mMsgBox.get('circular_menu'));C=forms.MenuForm(instance=B,label_suffix='')
+			if A.POST.get(_n)==str(B.id):messages.info(A,mMsgBox.get('circular_menu'));C=forms.MenuForm(instance=B,label_suffix='')
 			elif A.POST.get(S):messages.info(A,mMsgBox.get(T));C=forms.MenuForm(instance=B,label_suffix='')
 			elif C.is_valid():B=C.save(commit=_C);B.is_statis_menu=1;B.is_visibled=1;B.save();G=models.Site.objects.get(id=E);B.site.add(G);messages.info(A,mMsgBox.get(_P,A.POST.get(_E)));return redirect(_A3)
 		else:C=forms.MenuForm(instance=B,label_suffix='');messages.info(A,mMsgBox.get(_a))
@@ -524,7 +524,7 @@ def pejabat(request,mode='',pk=''):
 			if D.is_valid():
 				K=A.POST.get(_AB)
 				if K:
-					P=K.replace(_s,'');Q,R=models.photo.objects.update_or_create(site_id=B,jenis=O,defaults={_n:P});print('siteID',B);print('models.pejabat.Position.PEJABAT_OPD',models.pejabat.Position.PEJABAT_OPD);L,S=models.pejabat.objects.update_or_create(site__id=B,jabatan_index=models.pejabat.Position.PEJABAT_OPD,defaults={_AC:Q.id,_E:A.POST.get(_E),_AG:A.POST.get(_AG),'admin_id':A.user.id,'is_default':0});print(L,S);T=models.Site.objects.get(id=B);L.site.add(T)
+					P=K.replace(_s,'');Q,R=models.photo.objects.update_or_create(site_id=B,jenis=O,defaults={_p:P});print('siteID',B);print('models.pejabat.Position.PEJABAT_OPD',models.pejabat.Position.PEJABAT_OPD);L,S=models.pejabat.objects.update_or_create(site__id=B,jabatan_index=models.pejabat.Position.PEJABAT_OPD,defaults={_AC:Q.id,_E:A.POST.get(_E),_AG:A.POST.get(_AG),'admin_id':A.user.id,'is_default':0});print(L,S);T=models.Site.objects.get(id=B);L.site.add(T)
 					if R:messages.info(A,mMsgBox.get(_X,A.POST.get(_E)))
 					else:messages.info(A,mMsgBox.get(_P,A.POST.get(_E)))
 				return redirect(_AF)
@@ -575,7 +575,7 @@ def dokumen(request,mode='',pk=''):
 		if A.method==_J:
 			C=forms.DokumenForm(A.POST,A.FILES,label_suffix='')
 			if C.is_valid():
-				M=A.FILES.get(_n)
+				M=A.FILES.get(_p)
 				if models.dokumen.objects.filter(site_id=E,nama__iexact=A.POST.get(_E)).exists():messages.info(A,mMsgBox.get(_v,A.POST.get(_E)))
 				else:
 					B=models.dokumen.objects.create(site_id=E,nama=A.POST.get(_E),admin_id=A.user.id,file_path=M,deskripsi=A.POST.get(_y),status=A.POST.get(_e));B.size=os.stat(B.file_path.path).st_size;B.save()
@@ -714,7 +714,7 @@ def popup(request,mode='',pk='',photoID=''):
 					I=A.POST.get(_M+str(C)+_b)
 					if I:
 						K=I.replace(_s,'');L=models.photo.Jenis.POPUP;U=A.POST.get(_M+str(C)+_c)
-						if U:M,b=models.photo.objects.update_or_create(id=U,defaults={_l:B,_r:L,_n:K})
+						if U:M,b=models.photo.objects.update_or_create(id=U,defaults={_l:B,_r:L,_p:K})
 						else:M,b=models.photo.objects.update_or_create(site_id=B,jenis=L,file_path=K)
 						G.photo_id=M.id;G.save()
 					C+=1
@@ -894,7 +894,7 @@ def banner_all(request,mode='',pk='',photoID=''):
 					J=A.POST.get(_M+str(C)+_b)
 					if J:
 						L=J.replace(_s,'');M=models.photo.Jenis.BANNER_ALL;W=A.POST.get(_M+str(C)+_c)
-						if W:N,c=models.photo.objects.update_or_create(id=W,defaults={_l:G,_r:M,_n:L})
+						if W:N,c=models.photo.objects.update_or_create(id=W,defaults={_l:G,_r:M,_p:L})
 						else:N,c=models.photo.objects.update_or_create(site_id=G,jenis=M,file_path=L)
 						F.photo_id=N.id;F.save()
 					C+=1
@@ -929,10 +929,10 @@ def banner_ajax(request):
 	for B in A:B[_D]=get_natural_datetime(B[_D])
 	D=list(A);return JsonResponse(D,safe=_C)
 def menu_ajax(request):
-	C=get_siteID(request);A=models.menu.objects.filter(site__id=C,is_admin_menu=_C,is_master_menu=_C).values(_A,_E,'href','icon',_u,_D).order_by(_o,_w)
+	C=get_siteID(request);A=models.menu.objects.filter(site__id=C,is_admin_menu=_C,is_master_menu=_C).values(_A,_E,'href','icon',_u,_D).order_by(_n,_w)
 	for B in A:B[_D]=get_natural_datetime(B[_D])
 	D=list(A);return JsonResponse(D,safe=_C)
-def menu_statis_ajax(request):A=get_siteID(request);B=models.menu.objects.filter(site__id=A,is_statis_menu=_B,is_admin_menu=_C).exclude(href='#').order_by(_o,_w);C=serializers.serialize('json',B,fields=(_A,_E));return HttpResponse(C,content_type='application/json')
+def menu_statis_ajax(request):A=get_siteID(request);B=models.menu.objects.filter(site__id=A,is_statis_menu=_B,is_admin_menu=_C).exclude(href='#').order_by(_n,_w);C=serializers.serialize('json',B,fields=(_A,_E));return HttpResponse(C,content_type='application/json')
 def berita_ajax(request):
 	C='photo__berita__id';D=get_siteID(request);E={'berita__id':OuterRef(C)};B=models.berita.objects.filter(site_id=D).values(_A,_F,_x,'kategori__nama',_e,_D).distinct().annotate(foto=get_topFoto(E)).annotate(foto_count=Count(C))
 	for A in B:A[_D]=get_natural_datetime(A[_D]);A[_F]=Truncator(A[_F]).words(5);A[_x]=Truncator(A[_x]).chars(50)
@@ -954,9 +954,9 @@ def artikel_ajax(request):
 	for A in B:A[_D]=get_natural_datetime(A[_D]);A[_F]=Truncator(A[_F]).words(5);A[_A5]=Truncator(A[_A5]).words(30)
 	F=list(B);return JsonResponse(F,safe=_C)
 def dokumen_ajax(request):
-	C='size';B=request;E=get_siteID(B);D=models.dokumen.objects.filter(site_id=E).values(_A,_E,_y,C,_n,_D)
-	for A in D:A[_D]=get_natural_datetime(A[_D]);A[C]=naturalsize(A[C]);A[_n]=Truncator(A[_n]).chars(30);A['extra_field']='%s://%s%s%s'%(B.scheme,B.get_host(),settings.MEDIA_URL,A[_n])
-	F=list(D);return JsonResponse(F,safe=_C)
+	C='size';B=request;F=get_siteID(B);D=models.dokumen.objects.filter(site_id=F).values(_A,_E,_y,C,_p,_D)
+	for A in D:A[_D]=get_natural_datetime(A[_D]);A[C]=naturalsize(A[C]);E=A[_p];A['extra_field']='%s://%s%s%s'%(B.scheme,B.get_host(),settings.MEDIA_URL,E);A[_p]=Truncator(E).chars(30)
+	G=list(D);return JsonResponse(G,safe=_C)
 def agenda_ajax(request):
 	C=get_siteID(request);B=models.agenda.objects.filter(site_id=C).values(_A,_E,_y,'lokasi',_AH,'jam','penyelenggara','dihadiri_oleh',_e,_D)
 	for A in B:A[_D]=get_natural_datetime(A[_D]);A[_y]=Truncator(A[_y]).words(30)
@@ -1048,7 +1048,7 @@ def site_activity(request):
 		J=models.halaman_statis.objects.filter(site__id=A[_A],menu__id__in=B);C=len(B);E=J.filter(is_edited=_B).count()
 		if C==0:F=0
 		else:F=E/C*100
-		K={_A:A[_A],_I:A[_I],_A7:C,_p:E,_A0:F};D.append(K)
+		K={_A:A[_A],_I:A[_I],_A7:C,_o:E,_A0:F};D.append(K)
 	return JsonResponse(D,safe=_C)
 def site_activity_pie_chart(request):
 	C=[];P=list(models.Site.objects.exclude(id=1).order_by(_I).values(_A,_I));Q=0
@@ -1058,7 +1058,7 @@ def site_activity_pie_chart(request):
 		T=models.halaman_statis.objects.filter(site__id=A[_A],menu__id__in=D);E=len(D);H=T.filter(is_edited=_B).count()
 		if E==0:F=0
 		else:F=H/E*100
-		Q+=F;U={_A:A[_A],_I:A[_I],_A7:E,_p:H,_A0:F};C.append(U)
+		Q+=F;U={_A:A[_A],_I:A[_I],_A7:E,_o:H,_A0:F};C.append(U)
 	C=sorted(C,key=lambda x:x[_A0],reverse=_B);B=[];I=10;J=0;K=0;L=0;M=0;G=_C;N=get_siteID(request);O=0
 	for A in C:
 		J+=1
@@ -1068,16 +1068,16 @@ def site_activity_pie_chart(request):
 		elif len(B)<=I:
 			if G:B.append(A);G=_C;print(_AL)
 			elif A[_A]==N:B.append(A)
-			else:K+=A[_p];L+=A[_A7];M+=A[_A0];O+=1
-		else:K+=A[_p];L+=A[_A7];M+=A[_A0];O+=1
+			else:K+=A[_o];L+=A[_A7];M+=A[_A0];O+=1
+		else:K+=A[_o];L+=A[_A7];M+=A[_A0];O+=1
 	return JsonResponse(B,safe=_C)
 def site_activity_detail(request,siteID):
 	B=siteID;C=[];H=[];F=list(models.menu.objects.filter(site__id=B,is_admin_menu=_C,is_statis_menu=_B,is_visibled=_B).order_by(_AE,_w).values(_A,_E,_u))
 	for A in F:
 		D=models.halaman_statis.objects.filter(site__id=B,menu__id=A[_A],is_edited=_B)[:1]
 		if D:
-			for G in D:E={_A:A[_A],_o:A[_u],_L:A[_E],_F:G.judul,_p:1}
-		else:E={_A:A[_A],_o:A[_u],_L:A[_E],_F:'',_p:0}
+			for G in D:E={_A:A[_A],_n:A[_u],_L:A[_E],_F:G.judul,_o:1}
+		else:E={_A:A[_A],_n:A[_u],_L:A[_E],_F:'',_o:0}
 		C.append(E)
 	return JsonResponse(C,safe=_C)
 def site_activity_detail_pie_chart(request,siteID):
@@ -1085,10 +1085,10 @@ def site_activity_detail_pie_chart(request,siteID):
 	for A in I:
 		G=models.halaman_statis.objects.filter(site__id=F,menu__id=A[_A],is_edited=_B)[:1]
 		if G:
-			for J in G:H={_A:A[_A],_o:A[_u],_L:A[_E],_F:J.judul,_p:1}
-		else:H={_A:A[_A],_o:A[_u],_L:A[_E],_F:'',_p:0}
+			for J in G:H={_A:A[_A],_n:A[_u],_L:A[_E],_F:J.judul,_o:1}
+		else:H={_A:A[_A],_n:A[_u],_L:A[_E],_F:'',_o:0}
 		B.append(H)
-	print('begin create pie chart data');E=len(B);print(E);C=len(list(filter(lambda x:x[_p]==0,B)));print(C);D=len(list(filter(lambda x:x[_p]==1,B)));print(D);C=C/E*100;D=D/E*100;K=[{_m:'Menu Terisi','y':D,'sliced':_B,'selected':_B},{_m:'Menu Kosong','y':C}];return JsonResponse(K,safe=_C)
+	print('begin create pie chart data');E=len(B);print(E);C=len(list(filter(lambda x:x[_o]==0,B)));print(C);D=len(list(filter(lambda x:x[_o]==1,B)));print(D);C=C/E*100;D=D/E*100;K=[{_m:'Menu Terisi','y':D,'sliced':_B,'selected':_B},{_m:'Menu Kosong','y':C}];return JsonResponse(K,safe=_C)
 def site_productivity(request):
 	B=[];F=list(models.Site.objects.exclude(id=1).order_by(_I).values(_A,_I))
 	for A in F:I=[];C=models.berita.objects.filter(site_id=A[_A]).count();D=models.artikel.objects.filter(site_id=A[_A]).count();E=models.pengumuman.objects.filter(site_id=A[_A]).count();G=C+D+E;H={_A:A[_A],_I:A[_I],_f:C,_g:E,_h:D,_d:G};B.append(H)
