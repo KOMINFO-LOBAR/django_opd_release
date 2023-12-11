@@ -1,16 +1,17 @@
-_j='backgroundColors'
-_i='borderColors'
-_h='tableCellProperties'
-_g='tableProperties'
-_f='styles'
-_e='heading3'
-_d='heading2'
-_c='heading1'
-_b='paragraph'
-_a='mediaEmbed'
-_Z='italic'
-_Y='MEDIA_ROOT'
-_X='STATIC_ROOT'
+_k='backgroundColors'
+_j='borderColors'
+_i='tableCellProperties'
+_h='tableProperties'
+_g='styles'
+_f='heading3'
+_e='heading2'
+_d='heading1'
+_c='paragraph'
+_b='mediaEmbed'
+_a='italic'
+_Z='MEDIA_ROOT'
+_Y='STATIC_ROOT'
+_X='manjarolinux-aspire4740'
 _W='DB_NAME'
 _V='ENGINE'
 _U='BACKEND'
@@ -36,7 +37,9 @@ _B='color'
 _A='|'
 import logging,os
 from pathlib import Path
+import socket
 from encryption import OutboxEncryption
+import socket
 logger=logging.getLogger(__name__)
 BASE_DIR=Path(__file__).resolve().parent.parent
 lib=OutboxEncryption(BASE_DIR)
@@ -69,11 +72,13 @@ TIME_ZONE='Asia/Makassar'
 USE_I18N=_D
 USE_L10N=_D
 USE_TZ=_D
-STATIC_URL='/static/'
-STATIC_ROOT=key[_X]if key.get(_X)else os.path.join(BASE_DIR,'staticfiles')
+if socket.gethostname()==_X:STATIC_URL='static/'
+else:STATIC_URL='https://cdn.lombokbaratkab.go.id/static/'
+STATIC_ROOT=key[_Y]if key.get(_Y)else os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
-MEDIA_URL='/media/'
-MEDIA_ROOT=key[_Y]if key.get(_Y)else os.path.join(BASE_DIR,'media')
+if socket.gethostname()==_X:MEDIA_URL='media/'
+else:MEDIA_URL='https://cdn.lombokbaratkab.go.id/media/'
+MEDIA_ROOT=key[_Z]if key.get(_Z)else os.path.join(BASE_DIR,'media')
 SITE_ID=1
 DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
 LOCALE_PATHS=BASE_DIR/'locale',
@@ -85,4 +90,4 @@ CACHES_TIMEOUT=24*60*60
 CELERY_ENABLE_UTC=False
 CELERY_TIMEZONE=TIME_ZONE
 customColorPalette=[{_B:'hsl(4, 90%, 58%)',_C:'Red'},{_B:'hsl(340, 82%, 52%)',_C:'Pink'},{_B:'hsl(291, 64%, 42%)',_C:'Purple'},{_B:'hsl(262, 52%, 47%)',_C:'Deep Purple'},{_B:'hsl(231, 48%, 48%)',_C:'Indigo'},{_B:'hsl(207, 90%, 54%)',_C:'Blue'}]
-CKEDITOR_5_CONFIGS={_E:{_K:[_L,_A,'bold',_Z,'link',_M,_N,_O,'imageUpload']},'extends':{'blockToolbar':[_b,_c,_d,_e,_A,_M,_N,_A,_O],_a:{'previewsInData':_G},_K:[_L,_A,'outdent','indent',_A,'alignment',_A,'bold',_Z,'underline','strikethrough',_A,'link',_A,'code','subscript','superscript','highlight',_A,_M,_N,'todoList',_A,'codeBlock','sourceEditing','insertImage',_A,_O,_A,'fontFamily','fontSize','fontColor','fontBackgroundColor',_a,'removeFormat','insertTable'],'image':{_K:['imageTextAlternative',_A,'imageStyle:alignLeft','imageStyle:alignRight','imageStyle:alignCenter','imageStyle:side',_A],_f:['full','side','alignLeft','alignRight','alignCenter']},'table':{'contentToolbar':['tableColumn','tableRow','mergeTableCells',_g,_h],_g:{_i:customColorPalette,_j:customColorPalette},_h:{_i:customColorPalette,_j:customColorPalette}},_L:{'options':[{_H:_b,_I:'Paragraph',_J:'ck-heading_paragraph'},{_H:_c,_P:'h1',_I:'Heading 1',_J:'ck-heading_heading1'},{_H:_d,_P:'h2',_I:'Heading 2',_J:'ck-heading_heading2'},{_H:_e,_P:'h3',_I:'Heading 3',_J:'ck-heading_heading3'}]}},'list':{'properties':{_f:_G,'startIndex':_G,'reversed':_G}}}
+CKEDITOR_5_CONFIGS={_E:{_K:[_L,_A,'bold',_a,'link',_M,_N,_O,'imageUpload']},'extends':{'blockToolbar':[_c,_d,_e,_f,_A,_M,_N,_A,_O],_b:{'previewsInData':_G},_K:[_L,_A,'outdent','indent',_A,'alignment',_A,'bold',_a,'underline','strikethrough',_A,'link',_A,'code','subscript','superscript','highlight',_A,_M,_N,'todoList',_A,'codeBlock','sourceEditing','insertImage',_A,_O,_A,'fontFamily','fontSize','fontColor','fontBackgroundColor',_b,'removeFormat','insertTable'],'image':{_K:['imageTextAlternative',_A,'imageStyle:alignLeft','imageStyle:alignRight','imageStyle:alignCenter','imageStyle:side',_A],_g:['full','side','alignLeft','alignRight','alignCenter']},'table':{'contentToolbar':['tableColumn','tableRow','mergeTableCells',_h,_i],_h:{_j:customColorPalette,_k:customColorPalette},_i:{_j:customColorPalette,_k:customColorPalette}},_L:{'options':[{_H:_c,_I:'Paragraph',_J:'ck-heading_paragraph'},{_H:_d,_P:'h1',_I:'Heading 1',_J:'ck-heading_heading1'},{_H:_e,_P:'h2',_I:'Heading 2',_J:'ck-heading_heading2'},{_H:_f,_P:'h3',_I:'Heading 3',_J:'ck-heading_heading3'}]}},'list':{'properties':{_g:_G,'startIndex':_G,'reversed':_G}}}

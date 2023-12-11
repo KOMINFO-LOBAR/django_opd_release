@@ -1,1 +1,8 @@
-{% load static %} <a href="/"> {% if logoBottom %} <img class=max-s-full  src="{{logoBottom}}" alt="LOGO {{namaOPD}}"> {% else %} <img class=max-s-full  src="{% static 'opd/images/icons/logo-empty.png' %}" alt="LOGO {{namaOPD}}"> {% endif %} </a>
+{% load static %}
+<a href="/">
+    {% if logoBottom %}  
+        <img class="max-s-full" src="{{logoBottom}}" alt="LOGO {{namaOPD}}"> <!-- logo 02-->
+    {% else %}
+        <img class="max-s-full" src="{{static_prefix}}opd/images/icons/logo-empty.png" alt="LOGO {{namaOPD}}">
+    {% endif %}            
+</a>

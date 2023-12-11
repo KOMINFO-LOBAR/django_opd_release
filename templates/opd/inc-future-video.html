@@ -1,1 +1,79 @@
-{% load static %} {% load embed_video_tags %} <div class=p-b-55 > <div class="how2 how2-cl4 flex-s-c m-b-35"> <h3 class="f1-m-2 cl3 tab01-title"> Video Unggulan </h3> </div> <div> {% for i in futureVideo %} {% if i.embed_video %} <div class="wrap-pic-w pos-relative"> {% video i.embed_video as v %} <img src="{{ v.thumbnail }}"> <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03" onclick="show_modal('{{ i.embed_video }}')"> <i class="fab fa-youtube"></i> </button> {% endvideo %} </div> <div class="p-tb-16 p-rl-25 bg3"> <h5 class=p-b-5 > <a href="javascript:void(0)" class="f1-m-3 cl0 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')"> {{i.judul|title}} </a> </h5> <span class=cl15 > <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')"> {{i.site__name|upper}} </a> <span class="f1-s-3 m-rl-3"> - </span> <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')"> {{i.admin__username|title}} </a> <span class="f1-s-3 m-rl-3"> - </span> <span class=f1-s-3 > {{i.created_at}} </span> </span> </div> {% endif %} {% endfor %} </div> </div>
+
+
+{% load embed_video_tags %}
+
+<!-- Video unggulan-->
+<div class="p-b-55">
+    <div class="how2 how2-cl4 flex-s-c m-b-35">
+        <h3 class="f1-m-2 cl3 tab01-title">
+            Video Unggulan
+        </h3>
+    </div>
+
+    <div>        
+        <!-- <button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">
+            <span class="fab fa-youtube"></span>
+        </button> -->
+        {% for i in futureVideo %}   
+            {% if i.embed_video %}
+                <div class="wrap-pic-w pos-relative">
+                    <!-- <img src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
+
+                    
+
+                    <!-- <div class="embed-responsive embed-responsive-16by9">
+                        {{i.embed|safe}}
+                    </div> -->
+
+                    {% video i.embed_video as v %}
+                        <img src="{{ v.thumbnail }}">
+                        <!-- <a href="javascript:void(0)" onclick="show_modal()">TEST TEST TEST </a> data-toggle="modal" data-target="#modal-video-02"-->
+                        <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03"  onclick="show_modal('{{ i.embed_video }}')">
+                            <i class="fab fa-youtube"></i>
+                        </button>
+                    {% endvideo %}
+                    
+                </div>
+
+                <div class="p-tb-16 p-rl-25 bg3">
+                    <h5 class="p-b-5">
+                        <a href="javascript:void(0)" class="f1-m-3 cl0 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')">
+                            {{i.judul|title}}
+                        </a>
+                    </h5>
+
+                    <span class="cl15">
+                        <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')">
+                            {{i.site__name|upper}}
+                        </a>
+
+                        <span class="f1-s-3 m-rl-3">
+                            -
+                        </span>
+
+                        <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal('{{ i.embed_video }}')">
+                            {{i.admin__username|title}}
+                        </a>
+
+                        <span class="f1-s-3 m-rl-3">
+                            -
+                        </span>
+
+                        <span class="f1-s-3">
+                            {{i.created_at}}
+                        </span>
+
+                        <!-- <span class="f1-s-3 m-rl-3">
+                            -
+                        </span> -->
+
+                        <!-- <span class="f1-s-3">                        
+                            View Count {{i.view_count}}
+                        </span> -->
+                    </span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    
+    </div>	
+</div>

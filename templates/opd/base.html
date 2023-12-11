@@ -1,4 +1,6 @@
 {% load static %}
+{% get_media_prefix as media_prefix %}   
+{% get_static_prefix as static_prefix %}   
 
 <!DOCTYPE html>
 <html lang="id">
@@ -20,6 +22,8 @@
     
 </head>
 <body class="animsition">
+    <!-- media prefix is {{media_prefix}} <br>
+    static prefix is {{static_prefix}} <br> -->
     <!-- <span itemprop="image" itemscope itemtype="image/jpeg">
         <link itemprop="url" href="{{news_img_meta}}">
     </span> -->
@@ -115,9 +119,10 @@
             </div>
         </div>
     </div> -->
-
+    
     <!-- Modal Video 01-->
-    {% for i in popup %}        
+    {% for i in popup %}   
+                                              
         <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document" data-dismiss="modal">
                 <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
@@ -126,7 +131,7 @@
                         <!-- <iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe> -->
                         <!-- <iframe src="images/video-01.jpg" allowfullscreen></iframe> -->
                             <!-- <img src="/media/{{i.photo__file_path}}" alt="IMG"> -->
-                            <img src="/media/{{i.photo__file_path}}" alt="IMG">
+                            <img src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
                         </div>
                     </div>
                 
@@ -191,10 +196,10 @@
         // console.log('{{debug_flag}}');
     </script>
 
-    <!-- <script src="{% static 'isso/js/require.js' %}"></script> -->
+    <!-- <script src="static 'isso/js/require.js' %}"></script> -->
 
     <!-- aktifkan comment di bawah ini untuk isso -->
-    <!-- <script data-isso="//127.0.0.1:8080/" src="{% static 'isso/js/embed.min.js' %}"></script> -->
+    <!-- <script data-isso="//127.0.0.1:8080/" src="static 'isso/js/embed.min.js' %}"></script> -->
 
     {% if not debug_flag %}       
         <!-- Histats.com  START  (aync)-->
