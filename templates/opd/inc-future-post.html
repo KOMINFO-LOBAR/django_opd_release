@@ -1,1 +1,39 @@
-{% load static %} <section class=bg0 > <div class=container > <div class="row m-rl--1"> <div class="col-md-12 p-rl-1 p-b-15 "> <div class=content > <div id=slide_wrap > <ul style="display: none;"> {% for i in galeryLayanan%} <li data-img="{{i.photo.file_path.url}}">{{i.judul}} {% endfor %} </ul> </div> </div> </div> </div> </div> </section>
+
+
+<!-- Feature post -->
+<section class="bg0">
+    <div class="container">
+        <div class="row m-rl--1">
+            <!-- news 1-->
+            <div class="col-md-12 p-rl-1 p-b-15 ">                                  
+                <div class="content">
+              
+        
+                    <!-- //////////////////////////////////////////////// -->
+                    <!-- REQUIRED HTML -->
+
+                    <!--<h3>Ken Burns effect demo (JS randomized movement using plugin events)</h3>-->
+                    
+                    <div id="slide_wrap">
+                        <ul style="display: none;">
+                            {% for i in galeryLayanan%}
+                                <li data-img="{{i.photo.file_path.url}}">{{i.judul}}</li>
+                                <!--<li data-img="/media/jellyfish.jpg">Lorem ipsum 2</li>
+                                <li data-img="/media/frog.jpg">Lorem ipsum 3</li>
+                                <li data-img="/media/chameleon.jpg">Lorem ipsum 4</li>
+                                <li data-img="/media/cat.jpg">Lorem ipsum 5</li>-->
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!-- //////////////////////////////////////////////// -->
+                
+                
+                </div>
+                                
+            </div>        
+            
+          
+        </div>
+    </div>
+</section>

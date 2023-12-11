@@ -46,7 +46,7 @@
                                 <!-- {% comment %} {{i.embed}}  width="425px" height="349px"-->
                                 <!-- ini : {% video i.embed_video '425x349'%} {% endcomment %}-->
                                 {% video i.embed_video as v %}
-                                    <img src="{{ v.thumbnail }}">
+                                    <img class="lazy" data-src="{{ v.thumbnail }}">
                                     <!-- <a href="javascript:void(0)" onclick="show_modal()">TEST TEST TEST </a> data-toggle="modal" data-target="#modal-video-02"-->
                                     <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03"  onclick="show_modal('{{ i.embed_video }}')">
                                         <span class="fab fa-youtube"></span>

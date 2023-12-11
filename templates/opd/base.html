@@ -91,8 +91,8 @@
                     <div class="video-mo-03">
                     <!-- <iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe> -->
                     <!-- <iframe src="images/video-03.jpg" allowfullscreen></iframe> -->
-                        <!-- <img src="/media/{{i.photo__file_path}}" alt="IMG"> -->
-                        <img src="" alt="IMG">
+                        <!-- <img class="lazy" data-src="/media/{{i.photo__file_path}}" alt="IMG"> -->
+                        <img class="lazy" data-src="" alt="IMG">
                     </div>
                 </div>
             
@@ -130,8 +130,8 @@
                         <div class="video-mo-01">
                         <!-- <iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe> -->
                         <!-- <iframe src="images/video-01.jpg" allowfullscreen></iframe> -->
-                            <!-- <img src="/media/{{i.photo__file_path}}" alt="IMG"> -->
-                            <img src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
+                            <!-- <img class="lazy" data-src="/media/{{i.photo__file_path}}" alt="IMG"> -->
+                            <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
                         </div>
                     </div>
                 
@@ -151,6 +151,9 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+
+
+
             {% block jquery-doc-ready %}{% endblock %}
 
             // $('#my_slider').revolver({transition: {type: 'fade'}});
@@ -158,6 +161,13 @@
             //     // console.log($('.video-mo-02').html());
             //     $('.video-mo-02').find('iframe').attr('src', '');
             //     // console.log($('.video-mo-02').html());
+            // });
+
+            // Add lazy load
+            // $('.lazy').lazy({
+            //     effect: "fadeIn",
+            //     effectTime: 2000,
+            //     threshold: 0
             // });
         });
 

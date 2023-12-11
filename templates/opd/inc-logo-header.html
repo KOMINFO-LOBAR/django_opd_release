@@ -1,8 +1,8 @@
 
 <div class="logo">  
     {% if logoTop %}
-        <a href="/"><img src="{{logoTop}}" alt="LOGO {{namaOPD}}"></a>
+        <a href="/"><img class="lazy" data-src="{{logoTop}}" alt="LOGO {{namaOPD}}"></a>
     {% else %}
-        <a href="/"><img src="{{static_prefix}}opd/images/icons/logo-empty.png" alt="LOGO {{namaOPD}}"></a>
+        <a href="/"><img class="lazy" data-src="{{static_prefix}}opd/images/icons/logo-empty.png" alt="LOGO {{namaOPD}}"></a>
     {% endif %}
 </div>

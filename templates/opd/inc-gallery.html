@@ -36,7 +36,7 @@
                 <div class="m-b-45">
                     <!-- <a href="javascript:void(0)" class="wrap-pic-w hov1 trans-03"> -->
                     <a href="javascript:void(0)" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
+                        <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
                         <!-- <iframe src="{{i.embed}}" frameborder="0" allowfullscreen>
                         </iframe> >http://www.youtube.com/embed/UnBlst3T7bY width="425" height="349" -->
                     </a>

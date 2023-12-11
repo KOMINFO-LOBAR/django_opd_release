@@ -119,11 +119,11 @@
                                 <div class="m-b-30 "> <!--fullBackground_pengumumanAll-->
 
                                     <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
-                                        <!-- <img src="/media/{{i.foto}}" alt="IMG" >                                   -->
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG" >                                   -->
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" />
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" />                                            
                                         {% endif %} 
                                     </a>
                                         <!--
@@ -177,9 +177,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -223,11 +223,11 @@
                             {% for i in pengumumanLain|slice:":1" %}                          
                                 <div class="m-b-30 "> <!--fullBackground_pengumumanLain-->
                                     <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
-                                        <!-- <img src="/media/{{i.foto}}" alt="IMG"> -->
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
                                     <!--
@@ -281,9 +281,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -369,7 +369,7 @@
                         {% else %}
                             <div class="m-b-30 fullBackground_beritaTerbaruAll">
                                 <a href="#" class="wrap-pic-w trans-03">
-                                    <img src="" alt="IMG">
+                                    <img class="lazy" data-src="" alt="IMG">
                                 </a>
 
                                 {% if beritaTerbaruAll|slice:":3"|length > 1 %}
@@ -425,9 +425,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -471,7 +471,7 @@
                         {% else %}
                             <div class="m-b-30 fullBackground_beritaTerbaruLain">
                                 <a href="#" class="wrap-pic-w trans-03">
-                                    <img src="" alt="IMG">
+                                    <img class="lazy" data-src="" alt="IMG">
                                 </a>
 
                                 {% if beritaTerbaruLain|slice:":3"|length > 1 %}
@@ -522,9 +522,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -611,7 +611,7 @@
                         {% else %}
                             <div class="m-b-30 fullBackground_beritaTerpopulerAll">
                                 <a href="#" class="wrap-pic-w trans-03">
-                                    <img src="" alt="IMG">
+                                    <img class="lazy" data-src="" alt="IMG">
                                 </a>
 
                                 {% if beritaTerpopulerAll|slice:":3"|length > 1 %}
@@ -661,9 +661,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -705,7 +705,7 @@
                         {% else %}
                             <div class="m-b-30 fullBackground_beritaTerpopulerLain">
                                 <a href="#" class="wrap-pic-w trans-03">
-                                    <img src="" alt="IMG">
+                                    <img class="lazy" data-src="" alt="IMG">
                                 </a>
 
                                 {% if beritaTerpopulerLain|slice:":3"|length > 1 %}
@@ -755,9 +755,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -842,11 +842,11 @@
                             {% for i in artikelAll|slice:":1" %}                          
                                 <div class="m-b-30 "> <!--fullBackground_artikelAll-->
                                     <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
-                                        <!-- <img src="/media/{{i.foto}}" alt="IMG"> -->
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -900,9 +900,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>                                    
 
@@ -945,11 +945,11 @@
                             {% for i in artikelLain|slice:":1" %}                          
                                 <div class="m-b-30 "> <!--fullBackground_artikelLain-->
                                     <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
-                                        <!-- <img src="/media/{{i.foto}}" alt="IMG"> -->
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -1002,9 +1002,9 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                         {% else %}
-                                            <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                            <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
                                     </a>
 
@@ -1200,7 +1200,7 @@
                             {% for i in agenda %} 
                                 <li class="flex-wr-sb-s p-b-30">
                                     <a href="/agenda/{{i.nama_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">                                        
-                                        <img src="{{static_prefix}}opd/images/agenda.jpg" alt="IMG">                                                                                    
+                                        <img class="lazy" data-src="{{static_prefix}}opd/images/agenda.jpg" alt="IMG">                                                                                    
                                     </a>
 
                                     <div class="size-w-11">

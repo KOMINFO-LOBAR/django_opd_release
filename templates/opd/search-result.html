@@ -249,9 +249,9 @@
                                         <li class="flex-wr-sb-s p-b-30">
                                             <a href="/pengumuman/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 
@@ -305,9 +305,9 @@
                                         <li class="flex-wr-sb-s p-b-30">
                                             <a href="/artikel/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 

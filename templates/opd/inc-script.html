@@ -1,12 +1,17 @@
 
 {% load humanize %}
 <!-- {% load cache %} -->
+<!-- Add Lazy load image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+    <!-- jsDeliver -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.plugins.min.js"></script>
 
 <!--===============================================================================================-->	
 	<!-- <script src=" static 'opd/vendor/jquery/jquery-3.2.1.min.js' %}"></script> -->
     <!-- <script src="static 'opd/vendor/datatables/jquery-3.5.1.js' %}"></script>  -->    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-    
+            
 <!--===============================================================================================-->
 	<!-- <script src="static 'opd/vendor/animsition/js/animsition.min.js' %}"></script> -->
     <script src="https://res.cloudinary.com/drs8uoqys/raw/upload/v1701933415/opd-website/animsition.min_wcliwc.js"></script>
@@ -72,8 +77,19 @@
     <script src="https://res.cloudinary.com/drs8uoqys/raw/upload/v1702022568/django_ckeditor_5_dist_bundle_pbm31v.js"></script>    
     <!-- <script src="static 'django_ckeditor_5/dist/bundle.js' %}"></script>     -->
 
+
+    
+
 <script>    
     $( document ).ready(function() {  
+        
+        // Add lazy load
+        $('.lazy').lazy({
+            effect: "fadeIn",
+            effectTime: 2000,
+            threshold: 0
+        });
+
         // alert('masuk');
         // BANNER ALL
             //#banner0 {

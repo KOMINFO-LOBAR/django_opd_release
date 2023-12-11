@@ -49,9 +49,9 @@
                                         <div class="m-b-45">
                                             <a href="/berita/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 
@@ -98,9 +98,9 @@
                                         <div class="m-b-45">
                                             <a href="/{{section}}/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 
@@ -147,9 +147,9 @@
                                         <div class="m-b-45">
                                             <a href="/{{section}}/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 
@@ -194,7 +194,7 @@
                                     {% if jenis == 'video' %}
                                         <!--{% comment %} {% if jenis == 'foto' %}
                                             <a href="javascript:void(0)" class="wrap-pic-w hov1 trans-03">                                                                                 
-                                                <img src="/media/{{i.photo__file_path}}" alt="IMG">                                            
+                                                <img class="lazy" data-src="/media/{{i.photo__file_path}}" alt="IMG">                                            
                                             </a>
                                         {% else %} {% endcomment %}-->
                                         {% if i.embed_video %}
@@ -206,7 +206,7 @@
                                                     </div> -->
 
                                                     <div class="wrap-pic-w pos-relative">
-                                                        <!-- <img src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
+                                                        <!-- <img class="lazy" data-src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
                                     
                                                         
                                     
@@ -215,7 +215,7 @@
                                                         </div> -->
                                     
                                                         {% video i.embed_video as v %}
-                                                            <img src="{{ v.thumbnail }}">
+                                                            <img class="lazy" data-src="{{ v.thumbnail }}">
                                                             <!-- <a href="javascript:void(0)" onclick="show_modal()">TEST TEST TEST </a> data-toggle="modal" data-target="#modal-video-02"-->
                                                             <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03"  onclick="show_modal('{{ i.embed_video }}')">
                                                                 <span class="fab fa-youtube"></span>
@@ -268,7 +268,7 @@
                                                 </div> -->
 
                                                 <div class="wrap-pic-w pos-relative">
-                                                    <!-- <img src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
+                                                    <!-- <img class="lazy" data-src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
                                 
                                                     
                                 
@@ -278,7 +278,7 @@
                                 
                                                     <!-- <a href="javascript:void(0)" class="wrap-pic-w hov1 trans-03">                                                                                  -->
                                                     <a href="javascript:void(0)" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')" class="wrap-pic-w hov1 trans-03">
-                                                        <img src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">                                            
+                                                        <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">                                            
                                                     </a>
                                                     
                                                 </div>
@@ -508,9 +508,9 @@
                                         <li class="flex-wr-sb-s p-b-30">
                                             <a href="/pengumuman/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 
@@ -557,9 +557,9 @@
                                         <li class="flex-wr-sb-s p-b-30">
                                             <a href="/artikel/{{i.judul_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
-                                                    <img src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                                    <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
-                                                    <img src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
+                                                    <img class="lazy" data-src="{{static_prefix}}opd/images/post-none.png" alt="IMG">                                            
                                                 {% endif %}
                                             </a>
 

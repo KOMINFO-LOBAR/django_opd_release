@@ -4,11 +4,11 @@
 <div class="banner-header">        
     {% if bannerTop %}                
         <a target="_blank" href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}">
-            <img src="{{bannerTop.photo}}" alt="BANNER TOP">
+            <class="lazy" data-src="{{bannerTop.photo}}" alt="BANNER TOP">
         </a>                       
     {% else %}
         <a target="_blank" href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}">
-            <img src="{{static_prefix}}opd/images/banner-hor.jpg" alt="BANNER TOP2">
+            <class="lazy" data-src="{{static_prefix}}opd/images/banner-hor.jpg" alt="BANNER TOP2">
         </a>            
     {% endif %}        
 </div> 

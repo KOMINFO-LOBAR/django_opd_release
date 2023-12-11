@@ -17,7 +17,7 @@
         {% for i in futureVideo %}   
             {% if i.embed_video %}
                 <div class="wrap-pic-w pos-relative">
-                    <!-- <img src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
+                    <!-- <img class="lazy" data-src="static 'opd/images/video-01.jpg' %}" alt="IMG"> -->
 
                     
 
@@ -26,7 +26,7 @@
                     </div> -->
 
                     {% video i.embed_video as v %}
-                        <img src="{{ v.thumbnail }}">
+                        <img class="lazy" data-src="{{ v.thumbnail }}">
                         <!-- <a href="javascript:void(0)" onclick="show_modal()">TEST TEST TEST </a> data-toggle="modal" data-target="#modal-video-02"-->
                         <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03"  onclick="show_modal('{{ i.embed_video }}')">
                             <i class="fab fa-youtube"></i>
