@@ -1,11 +1,10 @@
 from celery import shared_task
-from django.conf import settings
 from django.core import management
 from outbox_hitcount.hit_summary import auto_get_location,auto_hit_summary
-from .data_cleanup import clean_unused_pages
-from .data_fetch import auto_get_hoax_issue,auto_get_widget
+from.data_cleanup import clean_unused_pages
+from.data_fetch import auto_get_hoax_issue,auto_get_widget
 @shared_task()
-def session_cleanup():print('begin clear session');management.call_command('clearsessions',verbosity=0);print('end clear session');return True
+def session_cleanup():A='Done';management.call_command('clearsessions',verbosity=0);print(A);return A
 @shared_task()
 def summary_hitcount():print('begin summary hitcount');auto_hit_summary();print('end summary hitcount');return True
 @shared_task()
