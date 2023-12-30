@@ -137,11 +137,11 @@ class popup(models.Model):
 	def __str__(A):return A.photo
 	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);super().save(*B,**C)
 class info_hoax(models.Model):
-	name=models.CharField(max_length=100);slug=models.SlugField(max_length=100,default='',unique=_A,blank=_A);link=models.URLField(max_length=200);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
+	name=models.CharField(max_length=255);slug=models.SlugField(max_length=255,default='',unique=_A,blank=_A);link=models.URLField(max_length=255);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.name
-	def save(A,*B,**C):A.slug=uuslug(A.name,instance=A,max_length=100);super().save(*B,**C)
+	def save(A,*B,**C):A.slug=uuslug(A.name,instance=A,max_length=255);super().save(*B,**C)
 class info_widget(models.Model):
-	title=models.CharField(max_length=200);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
+	title=models.CharField(max_length=255);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.name
 class banner_all(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);name=models.CharField(max_length=50);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)

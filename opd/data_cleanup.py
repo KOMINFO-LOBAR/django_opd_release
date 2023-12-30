@@ -1,4 +1,4 @@
-from .models import halaman_statis
+from.models import halaman_statis
 from django.db import transaction
 @transaction.atomic
 def clean_unused_pages():

@@ -11,8 +11,8 @@ def summary_hitcount(max_data=500):auto_hit_summary(max_data);print(_A);return _
 @shared_task()
 def geo_location_hitcount(max_data=500):auto_get_location(max_data=max_data);print(_A);return _A
 @shared_task()
-def clean_unused_pages_():print('begin clean static pages');A=clean_unused_pages();print('end clean static pages');return A
+def clean_unused_pages_():clean_unused_pages();print(_A);return _A
 @shared_task()
-def auto_get_hoax_issue_():print('begin get hoax issue');A=auto_get_hoax_issue();print('end get hoax issue');return A
+def auto_get_hoax_issue_():auto_get_hoax_issue();print(_A);return _A
 @shared_task()
-def auto_get_widget_():print('begin get widget');A=auto_get_widget();print('end get widget');return A
+def auto_get_widget_():auto_get_widget();print(_A);return _A
