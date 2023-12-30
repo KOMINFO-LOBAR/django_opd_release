@@ -14,7 +14,7 @@
 }
 #gpr-kominfo-widget-header {
     background-color: #23277B!important;
-    background-image: url(../images/header-covid-19.jpg);
+    background-image: url("https://res.cloudinary.com/drs8uoqys/image/upload/v1703929579/header-covid-19_ma00tr.jpg");
     background-position: center center!important;
     padding: 5px!important;
     margin-right: 5px!important;
@@ -22,7 +22,7 @@
     height: 70px!important;
 }
 #gpr-kominfo-widget-footer {
-    background-image: url(../images/footer-covid-19.png);
+    background-image: url("https://res.cloudinary.com/drs8uoqys/image/upload/v1703929587/footer-covid-19_ylwmao.png");
     background-position: top!important;
     height: 55px!important;
     margin: -10px 5px 5px;
@@ -87,7 +87,7 @@ li.gpr-kominfo-widget-icon-artikel {
 }
 */
 li.gpr-kominfo-widget-icon-infografis {
-    background: url(../images/infografis.png) left center no-repeat;
+    background: url("https://res.cloudinary.com/drs8uoqys/image/upload/v1703929591/infografis_x2kway.png") left center no-repeat;
     background-size: 55px!important;
 }
 /*

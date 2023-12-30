@@ -1,6 +1,6 @@
 
 <!-- widget -->
-{% if feed2.entries|length > 0 %}
+{% if feed2 %}
     <div class="p-t-50">
 
         <div class="how2 how2-cl4 flex-s-c">
@@ -27,10 +27,10 @@
                 <div id="gpr-kominfo-widget-header"></div>
                 <div id="gpr-kominfo-widget-body">
                     <ul id="gpr-kominfo-widget-list">
-                        {% for i in feed2.entries|slice:":5" %}                        
+                        {% for i in feed2 %}                        
                             <li class="gpr-kominfo-widget-list-item gpr-kominfo-widget-icon-infografis">
-                                <small class="gpr-kominfo-align-left"><b>{{i.category_title}}</b></small>
-                                <small class="gpr-kominfo-align-right gpr-small-date">{{i.pubDate}}</small><br>
+                                <small class="gpr-kominfo-align-left"><b>{{i.categori}}</b></small>
+                                <small class="gpr-kominfo-align-right gpr-small-date">{{i.publish_date}}</small><br>
                                 <a href="{{i.link}}" target="_blank">
                                     {{i.title}}</a><br>
                                 <small class="gpr-kominfo-align-right">{{i.author}}</small>
