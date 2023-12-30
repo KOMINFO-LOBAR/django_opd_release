@@ -98,7 +98,7 @@ def get_bottomSection(siteID,context,optID):
 	context['instansi']=instansi.objects.filter(site_id=siteID)[:1]
 	if optID==1:context['agenda']=agenda.objects.filter(site_id=siteID).order_by(_B)[:5]
 	context['feed']=info_hoax.objects.order_by(_B)[:6]
-	if optID==1:context['feed2']=info_widget.objects.order_by(_B)[:10]
+	if optID==1:context['feed2']=info_widget.objects.order_by(_B)[:6]
 def get_middleSection(siteID,context,optID):
 	bannerBottom=banner.objects.filter(site_id=siteID,position=banner.Position.BOTTOM)
 	if bannerBottom.count()>0:context['bannerBottom']=bannerBottom[0]
@@ -219,27 +219,27 @@ def get_galeryVideo(siteID,context,opd):
 def get_linkTerkait(siteID):linkTerkait=link_terkait.objects.filter(site__id=siteID).order_by(_C);return linkTerkait
 def get_galeryLayanan(siteID,context):foto=galery_layanan.objects.filter(site_id=siteID,status=Status.PUBLISHED).order_by(_B)[:5];context['galeryLayanan']=foto
 def get_meta(request,obj,context,jenis):
-	I='is_mobile';H='%s://%s%s';G='news_title';F='news_desc';E='%s://%s/%s/%s/';D='news_url';C='news_img_meta';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_T else'pages';context[I]=request.device[I]
+	I='is_mobile';H='%s';G='news_img_meta';F='news_title';E='news_desc';D='%s://%s/%s/%s/';C='news_url';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_T else'pages';context[I]=request.device[I]
 	if jenis==_V:
 		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_V,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_V,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
-		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo);print("context['news_img_meta'] = ");print(context[C])
+		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
 	elif jenis==_b:
 		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_U);a=pengumuman.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_b,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_b,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
+		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
 	elif jenis==_c:
 		context[B]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_U);a=artikel.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_c,i.judul_seo);context[F]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_c,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=artikel.photo.through.objects.filter(artikel__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
+		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
 	elif jenis==_T:
 		context[B]=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id).values(_U);a=halaman_statis.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_T,i.judul);context[F]=Truncator(strip_tags(i.isi_halaman)).words(30).strip();context[G]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_T,i.judul);context[E]=Truncator(strip_tags(i.isi_halaman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[C]=H%(A,request.get_host(),news_img_meta[0].photo)
+		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
 def get_newsList(request,siteID,context,opt,section,jenis):
 	news_per_page=6;mList=_D
 	if section==_V:
