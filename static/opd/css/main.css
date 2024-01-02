@@ -44,31 +44,32 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 @font-face {
   font-family: Roboto-Regular;
-  src: url('../fonts/Roboto/Roboto-Regular.ttf'); 
+  src: url('https://res.cloudinary.com/drs8uoqys/raw/upload/v1704191160/Roboto-Regular_slu6lj.ttf'); 
 }
 
 @font-face {
   font-family: Roboto-Medium;
-  src: url('../fonts/Roboto/Roboto-Medium.ttf'); 
+  src: url('https://res.cloudinary.com/drs8uoqys/raw/upload/v1704191926/Roboto-Medium_abdvxf.ttf'); 
 }
 
 @font-face {
   font-family: Roboto-Bold;
-  src: url('../fonts/Roboto/Roboto-Bold.ttf'); 
+  src: url('https://res.cloudinary.com/drs8uoqys/raw/upload/v1704191986/Roboto-Bold_xbxo6l.ttf'); 
 }
 
 @font-face {
   font-family: Roboto-Black;
-  src: url('../fonts/Roboto/Roboto-Black.ttf'); 
+  src: url('https://res.cloudinary.com/drs8uoqys/raw/upload/v1704192015/Roboto-Black_pxfphj.ttf'); 
 }
 
 
 /*------------------------------------------------------------------
 [ 2 ]*/
 
+
 @font-face {
   font-family: Lato-Regular;
-  src: url('../fonts/Lato/Lato-Regular.ttf'); 
+  src: url('https://res.cloudinary.com/drs8uoqys/raw/upload/v1704192063/Lato-Regular_kepoai.ttf'); 
 }
 
 
