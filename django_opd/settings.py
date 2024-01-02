@@ -55,6 +55,7 @@ UNDER_CONSTRUCTION_TEMPLATE='opd/construction.html'
 LOGIN_REDIRECT_URL='/dashboard/dashboard'
 LOGOUT_REDIRECT_URL='/'
 ALLOWED_HOSTS=key[_S]
+CORS_ALLOWED_ORIGINS=['https://cdn.lombokbaratkab.go.id']
 INSTALLED_APPS=['django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles','django.contrib.sites','django.contrib.humanize','embed_video','simple_open_graph','django_social_share','easy_thumbnails','hitcount','outbox_hitcount','opd','account','django_underconstruction','import_export','django_ckeditor_5','corsheaders','debug_toolbar','cachalot','mobiledetect']
 EMAIL_HOST=_T
 EMAIL_PORT=1025
