@@ -93,12 +93,12 @@ def get_topSection(siteID,context,active_menu):
 	bannerTop=banner.objects.filter(site_id=siteID,position=banner.Position.TOP)
 	if bannerTop.count()>0:context['bannerTop']=bannerTop[0]
 def get_bottomSection(siteID,context,optID):
-	logoBottom=logo.objects.filter(site_id=siteID,position=logo.Position.BOTTOM)
+	A='-publish_date_convert';logoBottom=logo.objects.filter(site_id=siteID,position=logo.Position.BOTTOM)
 	if logoBottom.count()>0:context['logoBottom']=logoBottom[0].photo
 	context['instansi']=instansi.objects.filter(site_id=siteID)[:1]
 	if optID==1:context['agenda']=agenda.objects.filter(site_id=siteID).order_by(_B)[:5]
-	context['feed']=info_hoax.objects.order_by(_B)[:6]
-	if optID==1:context['feed2']=info_widget.objects.order_by(_B)[:6]
+	context['feed']=info_hoax.objects.order_by(A,_B)[:6]
+	if optID==1:context['feed2']=info_widget.objects.order_by(A,_B)[:10]
 def get_middleSection(siteID,context,optID):
 	bannerBottom=banner.objects.filter(site_id=siteID,position=banner.Position.BOTTOM)
 	if bannerBottom.count()>0:context['bannerBottom']=bannerBottom[0]

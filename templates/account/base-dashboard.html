@@ -1,1 +1,443 @@
-{% extends "account/base.html" %} {% load static %} {% block title-page %} {{namaOPD}} - Admin Page {% endblock %} {% block header %} <header id=header > <div id=logo-group > <span id=logo > <img src="{% static 'opd/images/icons/logo-adminpage.png' %}" alt="Admin OPD"> </span> </div> <div class="project-context hidden-xs"> <span class=label >Profil</span> <span class="project-selector dropdown-toggle" data-toggle=dropdown >Pengguna : {{ user.username|default:'Guest'|title }} &nbsp;<i class="fa fa-angle-down"></i></span> <ul class=dropdown-menu > <li> <a href="/account/password_change/"><i class="fa fa-lock"></i> &nbsp; Ganti Password</a> <li class=divider > <li> <a href="/account/logout/" data-action=userLogout  data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser"><i class="fa fa-power-off"></i> &nbsp; Logout</a> </ul> </div> <div class=pull-right > <div id=hide-menu  class="btn-header pull-right"> <span> <a href="javascript:void(0);" data-action=toggleMenu  title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span> </div> <ul id=mobile-profile-img  class="header-dropdown-list hidden-xs padding-5"> <li class=""> <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle=dropdown > <img src="{% static 'account/img/avatars/sunny.png' %}" alt="John Doe" class=online  /> </a> <ul class="dropdown-menu pull-right"> <li> <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a> <li class=divider > <li> <a href=profile.html  class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a> <li class=divider > <li> <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action=toggleShortcut ><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a> <li class=divider > <li> <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action=launchFullscreen ><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a> <li class=divider > <li> <a href="/account/logout" data-action=userLogout  data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser" class="padding-10 padding-top-5 padding-bottom-5" data-action=userLogout ><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a> </ul> </ul> <div id=logout  class="btn-header transparent pull-right"> <span> <a href="/account/logout" title="Sign Out" data-action=userLogout  data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser"><i class="fa fa-sign-out"></i></a> </span> </div> <div id=search-mobile  class="btn-header transparent pull-right"> <span> <a href="javascript:void(0)" title=Search ><i class="fa fa-search"></i></a> </span> </div> <form action=search.html  class="header-search pull-right"> <input id=search-fld  type=text  name=param  placeholder="Find reports and more"> <button type=submit > <i class="fa fa-search"></i> </button> <a href="javascript:void(0);" id=cancel-search-js  title="Cancel Search"><i class="fa fa-times"></i></a> </form> <div id=fullscreen  class="btn-header transparent pull-right"> <span> <a href="javascript:void(0);" data-action=launchFullscreen  title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span> </div> </div> </header> {% endblock %} {% block left-panel %} <aside id=left-panel > <div class=login-info > <span> <a href="javascript:void(0);" id=show-shortcut  data-action=toggleShortcut > <img src="{% static 'account/img/avatars/sunny.png' %}" alt=me  class=online  /> <span> {{ user.username|default:'Guest' }} </span> <i class="fa fa-angle-down"></i> </a> </span> </div> <nav> <ul> {% if menu is None %} <li class=active  > <a href="/dashboard/dashboard" title=Dashboard > <i class="fa fa-lg fa-fw fa-home"></i> <span class=menu-item-parent > Dashboard</span></a> {% else %} {% for n in menu %} <li {% if n.nama|lower in activeMenuList %} class=active  {% endif %}> {% if n.href == '#' or n.href == '/' or n.href == "" %} <a href="{{n.href}}" title="{{n.nama}}"> {% else %} <a href="/{{n.href}}" title="{{n.nama}}"> {% endif %} <i class="fa fa-lg fa-fw fa-{{n.icon}}"> {% if n.nama|lower == 'komentar' and comment_count > 0 %} <em>{{comment_count}}</em> {% endif %} </i> <span class=menu-item-parent > {{n.nama}}</span> </a> {% if n.haveChild == 1 %} <ul> {% else %} {% endif %} {% if n.haveChildEndTag > 0 %} {% if n.haveChildEndTag >= 3 %} </ul> {% endif %} {% if n.haveChildEndTag >= 2 %} </ul> {% endif %} {% if n.haveChildEndTag >= 1 %} </ul> {% endif %} {% endif %} {% endfor %} {% endif %} </ul> </nav> <span class=minifyme  data-action=minifyMenu > <i class="fa fa-arrow-circle-left hit"></i> </span> </aside> {% endblock %} {% block footer %} <div class=page-footer > <div class=row > <div class="col-xs-12 col-sm-6"> <span class=txt-color-white >DISKOMINFOTIK <span class=hidden-xs > - Kabupaten Lombok Barat</span> © 2021</span> </div> </div> </div> {% endblock %} {% block scripts %} <script data-pace-options='{ "restartOnRequestAfter": true }' src="{% static 'account/js/plugin/pace/pace.min.js' %}"></script> <script src="{% static 'account/js/libs/jquery-2.1.1.min.js' %}"></script> <script src="{% static 'account/js/libs/jquery-ui-1.10.3.min.js' %}"></script> <script src="{% static 'account/js/app.config.js' %}"></script> <script src="{% static 'account/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js' %}"></script> <script src="{% static 'account/js/bootstrap/bootstrap.min.js' %}"></script> <script src="{% static 'account/js/notification/SmartNotification.min.js' %}"></script> <script src="{% static 'account/js/smartwidgets/jarvis.widget.min.js' %}"></script> <script src="{% static 'account/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script> <script src="{% static 'account/js/plugin/sparkline/jquery.sparkline.min.js' %}"></script> <script src="{% static 'account/js/plugin/jquery-validate/jquery.validate.min.js' %}"></script> <script src="{% static 'account/js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script> <script src="{% static 'account/js/plugin/select2/select2.min.js' %}"></script> <script src="{% static 'account/js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script> <script src="{% static 'account/js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script> <script src="{% static 'account/js/plugin/fastclick/fastclick.min.js' %}"></script> <script src="{% static 'account/js/app.min.js' %}"></script> <script src="{% static 'account/js/speech/voicecommand.min.js' %}"></script> <script src="{% static 'account/js/smart-chat-ui/smart.chat.ui.min.js' %}"></script> <script src="{% static 'account/js/smart-chat-ui/smart.chat.manager.min.js' %}"></script> <script src="{% static 'account/js/cropper.min.js' %}"></script> {% block related-plugin %} {% endblock %} <script> {% block java-script %} {% endblock %} </script> <script> $(document).ready(function() { pageSetUp(); $('#id_old_password').addClass('form-control'); $('#id_new_password1').addClass('form-control'); $('#id_new_password2').addClass('form-control'); $('#id_email').addClass('form-control'); {% block jquery-doc-ready %} {% endblock %} }); </script> {% endblock %} {% block shortcut %} <div id=shortcut > <ul> <li> <a href="/account/password_change" class="jarvismetro-tile big-cubes bg-color-blue"> <span class=iconbox > <i class="fa fa-lock fa-4x"></i> <span>Ganti Password </span> </span> </a> </ul> </div> {% endblock %}
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block title-page %}
+    {{namaOPD}} - Admin Page
+{% endblock %}
+
+{% block header %}
+    <!-- #HEADER -->
+    <header id="header">
+        <div id="logo-group">
+
+            <!-- PLACE YOUR LOGO HERE -->
+            <span id="logo"> <img src="{% static 'opd/images/icons/logo-adminpage.png' %}" alt="Admin OPD"> </span>
+            <!-- END LOGO PLACEHOLDER -->
+            
+            <!-- Lokasi admin icon dan lookup ajax -->
+        </div>
+
+        <!-- #PROJECTS: projects dropdown -->
+        <div class="project-context hidden-xs">
+
+            <span class="label">Profil</span>
+            <span class="project-selector dropdown-toggle" data-toggle="dropdown">Pengguna : {{ user.username|default:'Guest'|title }} &nbsp;<i class="fa fa-angle-down"></i></span>
+
+            <!-- Suggestion: populate this list with fetch and push technique -->
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="/account/password_change/"><i class="fa fa-lock"></i> &nbsp; Ganti Password</a>
+                </li>
+                <!-- <li>
+                    <a href="javascript:void(0);"><i class="fa fa-user"></i> &nbsp; Ganti Foto Admin</a>
+                </li> -->
+                <!-- <li>
+                    <a href="javascript:void(0);"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log Aktifitas User</a>
+                </li> -->
+                <li class="divider"></li>
+                <li>
+                    <a href="/account/logout/" data-action="userLogout" data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser"><i class="fa fa-power-off"></i> &nbsp; Logout</a>
+                </li>
+            </ul>
+            <!-- end dropdown-menu-->
+
+        </div>
+        <!-- end projects dropdown -->
+
+        <!-- #TOGGLE LAYOUT BUTTONS -->
+        <!-- pulled right: nav area -->
+        <div class="pull-right">
+            
+            <!-- collapse menu button -->
+            <div id="hide-menu" class="btn-header pull-right">
+                <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+            </div>
+            <!-- end collapse menu -->
+            
+            <!-- #MOBILE -->
+            <!-- Top menu profile link : this shows only when top menu is active -->
+            <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+                <li class="">
+                    <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
+                        <img src="{% static 'account/img/avatars/sunny.png' %}" alt="John Doe" class="online" />  
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/account/logout" data-action="userLogout" data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- logout button -->
+            <div id="logout" class="btn-header transparent pull-right">
+                <span> <a href="/account/logout" title="Sign Out" data-action="userLogout" data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser"><i class="fa fa-sign-out"></i></a> </span>
+            </div>
+            <!-- end logout button -->
+
+            <!-- search mobile button (this is hidden till mobile view port) -->
+            <div id="search-mobile" class="btn-header transparent pull-right">
+                <span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+            </div>
+            <!-- end search mobile button -->
+            
+            <!-- #SEARCH -->
+            <!-- input: search field -->
+            <form action="search.html" class="header-search pull-right">
+                <input id="search-fld" type="text" name="param" placeholder="Find reports and more">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
+            </form>
+            <!-- end input: search field -->
+
+            <!-- fullscreen button -->
+            <div id="fullscreen" class="btn-header transparent pull-right">
+                <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+            </div>
+            <!-- end fullscreen button -->
+            
+            <!-- #Voice Command: Start Speech -->
+            <!-- <div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
+                <div> 
+                    <a href="javascript:void(0)" title="Voice Command" data-action="voiceCommand"><i class="fa fa-microphone"></i></a> 
+                    <div class="popover bottom"><div class="arrow"></div>
+                        <div class="popover-content">
+                            <h4 class="vc-title">Voice command activated <br><small>Please speak clearly into the mic</small></h4>
+                            <h4 class="vc-title-error text-center">
+                                <i class="fa fa-microphone-slash"></i> Voice command failed
+                                <br><small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
+                                <br><small class="txt-color-red">Must have <strong>Internet Connection</strong></small>
+                            </h4>
+                            <a href="javascript:void(0);" class="btn btn-success" onclick="commands.help()">See Commands</a> 
+                            <a href="javascript:void(0);" class="btn bg-color-purple txt-color-white" onclick="$('#speech-btn .popover').fadeOut(50);">Close Popup</a> 
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- end voice command -->
+
+            <!-- Posisi multi languange -->
+
+        </div>
+        <!-- end pulled right: nav area -->
+
+    </header>
+    <!-- END HEADER -->
+{% endblock %}
+
+<!-- content ada di dashboard -->
+
+{% block left-panel %}
+    <!-- #NAVIGATION -->
+    <!-- Left panel : Navigation area -->
+    <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+    <aside id="left-panel">
+
+        <!-- User info -->
+        <div class="login-info">
+            <span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
+                
+                <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                    <img src="{% static 'account/img/avatars/sunny.png' %}" alt="me" class="online" /> 
+                    <span>							 
+                        {{ user.username|default:'Guest' }}
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </a> 
+                
+            </span>
+        </div>
+        <!-- end user info -->
+
+        <nav>
+            <!-- 
+            NOTE: Notice the gaps after each icon usage <i></i>..
+            Please note that these links work a bit different than
+            traditional href="" links. See documentation for details.
+            -->
+
+            <ul>                 
+                {% if menu is None %}
+                    <li  class="active" >
+                           
+                        <a href="/dashboard/dashboard" title="Dashboard">
+                    
+                                                                        
+                        <i class="fa fa-lg fa-fw fa-home"></i>
+                        <span class="menu-item-parent"> Dashboard</span></a>
+
+                    <!-- mulai tag child -->
+                    </li>  
+                {% else %}
+                    {% for n in menu %}    						
+                        <li {% if n.nama|lower in activeMenuList %} class="active" {% endif %}>
+
+                        {% if n.href == '#' or n.href == '/' or n.href == "" %}
+                            <a href="{{n.href}}" title="{{n.nama}}">
+                        {% else %}
+                            <a href="/{{n.href}}" title="{{n.nama}}">
+                        {% endif %}
+                                                        
+                        
+                        <i class="fa fa-lg fa-fw fa-{{n.icon}}">
+                            {% if n.nama|lower == 'komentar' and comment_count > 0 %}
+                                <em>{{comment_count}}</em>
+                                <!-- <em class="bg-color-red flash animated">3</em> -->
+                            {% endif %}                        
+                        </i>
+
+
+                        <!-- <i class="fa fa-lg fa-fw fa-cloud"><em>3</em></i>  -->
+                        <span class="menu-item-parent"> {{n.nama}}</span>
+                    
+                            <!-- <span class="badge pull-right inbox-badge margin-right-13">14</span> -->
+                        </a>
+
+                        <!-- mulai tag child -->
+                        {% if n.haveChild == 1 %} <ul> {% else %} </li> {% endif %} 						
+                        {% if n.haveChildEndTag > 0 %} 
+                            {% if n.haveChildEndTag >= 3 %} </ul></li> {% endif %}
+                            {% if n.haveChildEndTag >= 2 %} </ul></li> {% endif %}
+                            {% if n.haveChildEndTag >= 1 %} </ul></li> {% endif %}                                   
+                        {% endif %}
+                        <!-- end tag child -->
+                    {% endfor %}	
+                {% endif %}
+            </ul>
+        </nav>
+        
+
+        <span class="minifyme" data-action="minifyMenu"> 
+            <i class="fa fa-arrow-circle-left hit"></i> 
+        </span>
+
+    </aside>
+    <!-- END NAVIGATION -->
+{% endblock %}
+
+{% block footer %}
+    <!-- PAGE FOOTER -->
+    <div class="page-footer">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <!-- <span class="txt-color-white">SmartAdmin 1.8.2 <span class="hidden-xs"> - Web Application Framework</span> © 2014-2015</span> -->
+                <span class="txt-color-white">DISKOMINFOTIK <span class="hidden-xs"> - Kabupaten Lombok Barat</span> © 2021</span>
+            </div>
+
+            <!-- lokasi server load -->
+        </div>
+    </div>
+    <!-- END PAGE FOOTER -->
+{% endblock %}
+
+{% block scripts %}
+    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+    <!--<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>-->
+    <script data-pace-options='{ "restartOnRequestAfter": true }' src="{% static 'account/js/plugin/pace/pace.min.js' %}"></script>
+
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="{% static 'account/js/libs/jquery-2.1.1.min.js' %}"></script>
+    <!--
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        if (!window.jQuery) {
+            document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+        }
+    </script>
+    -->
+
+    <script src="{% static 'account/js/libs/jquery-ui-1.10.3.min.js' %}"></script>
+    <!--
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+        if (!window.jQuery.ui) {
+            document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        }
+    </script>
+    -->
+
+    <!-- IMPORTANT: APP CONFIG -->
+    <script src="{% static 'account/js/app.config.js' %}"></script>
+
+    <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+    <script src="{% static 'account/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js' %}"></script> 
+
+    <!-- BOOTSTRAP JS -->
+    <!--<script src="{% static 'account/js/bootstrap/bootstrap.min.js' %}"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- CUSTOM NOTIFICATION -->
+    <script src="{% static 'account/js/notification/SmartNotification.min.js' %}"></script>
+
+    <!-- JARVIS WIDGETS -->
+    <script src="{% static 'account/js/smartwidgets/jarvis.widget.min.js' %}"></script>
+
+    <!-- EASY PIE CHARTS -->
+    <script src="{% static 'account/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js' %}"></script>
+
+    <!-- SPARKLINES -->
+    <script src="{% static 'account/js/plugin/sparkline/jquery.sparkline.min.js' %}"></script>
+
+    <!-- JQUERY VALIDATE -->
+    <script src="{% static 'account/js/plugin/jquery-validate/jquery.validate.min.js' %}"></script>
+
+    <!-- JQUERY MASKED INPUT -->
+    <script src="{% static 'account/js/plugin/masked-input/jquery.maskedinput.min.js' %}"></script>
+
+    <!-- JQUERY SELECT2 INPUT -->
+    <script src="{% static 'account/js/plugin/select2/select2.min.js' %}"></script>
+
+    <!-- JQUERY UI + Bootstrap Slider -->
+    <script src="{% static 'account/js/plugin/bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+
+    <!-- browser msie issue fix -->
+    <script src="{% static 'account/js/plugin/msie-fix/jquery.mb.browser.min.js' %}"></script>
+
+    <!-- FastClick: For mobile devices -->
+    <script src="{% static 'account/js/plugin/fastclick/fastclick.min.js' %}"></script>
+
+    <!--[if IE 8]>
+
+    <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+    <![endif]-->
+
+    <!-- Demo purpose only 
+    <script src="{% static 'account/js/demo.min.js' %}"></script>-->
+
+    <!-- MAIN APP JS FILE -->
+    <script src="{% static 'account/js/app.min.js' %}"></script>
+
+    <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
+    <!-- Voice command : plugin -->
+    <script src="{% static 'account/js/speech/voicecommand.min.js' %}"></script>
+
+    <!-- SmartChat UI : plugin -->
+    <script src="{% static 'account/js/smart-chat-ui/smart.chat.ui.min.js' %}"></script>
+    <script src="{% static 'account/js/smart-chat-ui/smart.chat.manager.min.js' %}"></script>
+
+    <!-- cropper-->
+    <script src="{% static 'account/js/cropper.min.js' %}"></script>
+
+    <!-- PAGE RELATED PLUGIN(S) 
+    <script src="..."></script>-->
+    {% block related-plugin %}       
+    {% endblock %}
+
+    <!-- di luar doc ready-->
+    <script>
+        {% block java-script %}
+        {% endblock %}
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            
+            /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                *
+                * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                *
+                * // activate tooltips
+                * $("[rel=tooltip]").tooltip();
+                *
+                * // activate popovers
+                * $("[rel=popover]").popover();
+                *
+                * // activate popovers with hover states
+                * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                *
+                * // activate inline charts
+                * runAllCharts();
+                *
+                * // setup widgets
+                * setup_widgets_desktop();
+                *
+                * // run form elements
+                * runAllForms();
+                *
+                ********************************
+                *
+                * pageSetUp() is needed whenever you load a page.
+                * It initializes and checks for all basic elements of the page
+                * and makes rendering easier.
+                *
+                */
+            
+                pageSetUp();
+                
+            /*
+                * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                * eg alert("my home function");
+                * 
+                * var pagefunction = function() {
+                *   ...
+                * }
+                * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                * 
+                * TO LOAD A SCRIPT:
+                * var pagefunction = function (){ 
+                *  loadScript(".../plugin.js", run_after_loaded);	
+                * }
+                * 
+                * OR
+                * 
+                * loadScript(".../plugin.js", run_after_loaded);
+                */
+            
+            $('#id_old_password').addClass('form-control');
+            $('#id_new_password1').addClass('form-control');
+            $('#id_new_password2').addClass('form-control');
+            $('#id_email').addClass('form-control');
+
+            {% block jquery-doc-ready %}
+            {% endblock %}
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block shortcut %}
+    <div id="shortcut">
+        <ul>
+            <li>
+                <a href="/account/password_change" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-lock fa-4x"></i> <span>Ganti Password </span> </span> </a> <!--<span class="label pull-right bg-color-darken">14</span>-->
+            </li>
+            <!-- <li>
+                <a href="javascript:void(0);" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>Ganti Foto Admin</span> </span> </a>
+            </li> -->
+            <!-- <li>
+                <a href="javascript:void(0);" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-tag fa-4x"></i> <span>Log Aktifitas User</span> </span> </a>
+            </li> -->
+            <!--<li>
+                <a href="/account/logout" data-action="userLogout" data-logout-msg="Anda dapat meningkatkan pengamanan halaman dashboard dengan menutup browser" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-power-off fa-4x"></i> <span>Logout </span> </span> </a> <span class="label pull-right bg-color-darken">99</span>
+            </li>
+            
+            <li>
+                <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+            </li>
+            <li>
+                <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+            </li>-->
+        </ul>
+    </div>
+{% endblock %}
