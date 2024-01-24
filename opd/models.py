@@ -151,7 +151,7 @@ class info_widget(models.Model):
 	title=models.CharField(max_length=255);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.title
 	def save(B,*C,**D):
-		if B.publish_date_convert is None:E=getattr(settings,'TIME_ZONE','UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
+		if B.publish_date_convert is None:E=getattr(settings,'TIME_ZONE','UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year-1,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
 		super().save(*C,**D)
 class banner_all(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);name=models.CharField(max_length=50);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
