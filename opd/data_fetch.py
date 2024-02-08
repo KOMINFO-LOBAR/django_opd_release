@@ -1,4 +1,4 @@
-_F='%d %B %Y %z'
+_F='%d %B %Y %H:%M:%S %z'
 _E='TIME_ZONE'
 _D='created: '
 _C='publish_date'
