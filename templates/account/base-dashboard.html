@@ -1,6 +1,17 @@
 {% extends "account/base.html" %}
 {% load static %}
 
+{% block custom-style %}
+	<style>
+		.form-control {
+			height: 32px;
+		}
+		.dt-toolbar {
+			padding: 0px;
+		}
+	</style>
+{% endblock %}
+
 {% block title-page %}
     {{namaOPD}} - Admin Page
 {% endblock %}
@@ -99,13 +110,13 @@
             
             <!-- #SEARCH -->
             <!-- input: search field -->
-            <form action="search.html" class="header-search pull-right">
+            <!--<form action="search.html" class="header-search pull-right">
                 <input id="search-fld" type="text" name="param" placeholder="Find reports and more">
                 <button type="submit">
                     <i class="fa fa-search"></i>
                 </button>
                 <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
-            </form>
+            </form>-->
             <!-- end input: search field -->
 
             <!-- fullscreen button -->
