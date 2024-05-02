@@ -1,0 +1,46 @@
+{% load static %}
+<!-- <div class="container">
+    <div class="flex-c-c">      -->
+        <!-- <div class="h-100 d-inline-block"> -->
+            <!-- <div class="row"> -->
+                <!-- <div class="large-12 columns">  class='img-fluid w-100 p-3'-->
+                    <!-- <div class="fadeOut owl-carousel owl-theme" > -->
+                        
+                        
+    <section id="demos">
+        <!-- <div class="container">
+            <div class="flex-c-c"> -->
+                <!-- <div class="row"> -->
+                    <div class="large-12 columns">
+                        <div class="owl-carousel owl-theme">
+                            <!-- <div class="item" style="height:auto">
+                                <img class="lazy" data-src="_4.png" />
+                            </div> -->
+
+                            {% for i in banner_all %}
+                                <div class="item" style="height:auto">
+                                    <a href="{% if i.link %}
+                                                {{i.link}}
+                                             {% else %}
+                                                javascript:void(0);
+                                             {% endif %}"                                    
+                                        target="_blank">                                        
+                                        <!--<img class="lazy" data-src="{{i.photo}}" alt="Info Penting" class="img-fluid" />   -->              
+                                        <img src="{{i.photo}}" alt="Info Penting" class="img-fluid" />                 
+                                    </a>    
+                                </div>
+                            {% endfor %}
+                        
+                        </div>
+                    </div>
+                <!-- </div> -->
+            <!-- </div>
+        </div> -->
+    </section>                    
+                    <!-- </div>         -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div>
+</div> -->
+

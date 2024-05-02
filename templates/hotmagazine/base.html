@@ -1,0 +1,64 @@
+{% load static %}
+{% get_media_prefix as media_prefix %}   
+{% get_static_prefix as static_prefix %}   
+
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<title>{% block page-title %}{% endblock %}</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	{% block extra_head %}{% endblock %}
+	{% include "hotmagazine/snippets/style.html" %}
+</head>
+<body>
+
+	<!-- Container -->
+	<div id="container">
+		
+		{% block header %}{% endblock %}
+
+		{% block content %}{% endblock %}
+
+
+		<!-- footer 
+			================================================== -->
+		{% include "hotmagazine/snippets/footer.html" %}
+		<!-- End footer -->
+
+	</div>
+	<!-- End Container -->
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<span class="fa fa-angle-up"></span>
+		</span>
+	</div>  
+	
+	{% include "hotmagazine/snippets/script.html" %}
+	{% block extra_body %}{% endblock  %} 
+	<!-- <script type="text/javascript" src="js/scrollax.min.js"></script> -->
+		    
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/dyscrollupjs@2.0.0/dist/js/dyscrollup.min.js"></script>
+	<script>		
+		// dyscrollup.init();
+		dyscrollup.init({
+			showafter : 600,
+			scrolldelay : 500,
+			position : "left",
+			image : "/home/manjaro/Documents/Template/News/hotmagazine-news-magazine-html-template-2022-02-21-23-53-02-utc/html/default-edit/images/arrowhead-up.png",
+			// shape : "other",
+			width : 30,
+			height : 30
+		});
+	</script> -->
+</body>
+</html>

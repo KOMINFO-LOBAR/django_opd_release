@@ -1,0 +1,46 @@
+
+<!-- widget -->
+{% if feed2 %}
+    <div class="p-t-50">
+
+        <div class="how2 how2-cl4 flex-s-c">
+            <h3 class="f1-m-2 cl3 tab01-title">
+                Widget
+            </h3>
+        </div>
+
+        <!--  -->    
+        <div class="flex-c-s p-t-8">
+            <!--<a href="#"></a>-->
+            <!--<img class="max-w-full" src=" static 'magnews2-master/images/banner-02.jpg' %}" alt="IMG">-->
+
+            <!--<div id="gpr-kominfo-widget-container"></div> -->
+
+            <!-- {% for i in widget %}
+                {{i.lokasi|safe}}            
+            {% endfor %}  -->
+
+            <!--DISINI {{widget1}}-->
+            <!--<div id="gpr-kominfo-widget-container"></div>-->
+            
+            <div id="gpr-kominfo-widget-container">
+                <div id="gpr-kominfo-widget-header"></div>
+                <div id="gpr-kominfo-widget-body">
+                    <ul id="gpr-kominfo-widget-list">
+                        {% for i in feed2 %}                        
+                            <li class="gpr-kominfo-widget-list-item gpr-kominfo-widget-icon-infografis">
+                                <small class="gpr-kominfo-align-left"><b>{{i.categori}}</b></small>
+                                <small class="gpr-kominfo-align-right gpr-small-date">{{i.publish_date}}</small><br>
+                                <a href="{{i.link}}" target="_blank">
+                                    {{i.title}}</a><br>
+                                <small class="gpr-kominfo-align-right">{{i.author}}</small>
+                                <div class="gpr-kominfo-clear-fix"></div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="gpr-kominfo-widget-footer"></div>
+            </div>        
+        </div>       
+    </div>       
+{% endif %}  

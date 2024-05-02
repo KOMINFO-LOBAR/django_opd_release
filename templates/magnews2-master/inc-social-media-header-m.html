@@ -1,0 +1,31 @@
+{% if socialMedia %}
+    <li class="right-topbar">
+        {% for i in socialMedia %}
+            {% if i.jenis == 'facebook' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-facebook-f"></span>
+                </a>
+            {% elif i.jenis == 'twitter' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-twitter"></span>
+                </a>
+            {% elif i.jenis == 'pinterest' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-pinterest-p"></span>
+                </a>
+            {% elif i.jenis == 'vimeo' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-vimeo-v"></span>
+                </a>
+            {% elif i.jenis == 'youtube' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-youtube"></span>
+                </a>     
+            {% elif i.jenis == 'instagram' %}
+                <a target=_blank href="{{i.link}}">
+                    <span class="fab fa-instagram"></span>
+                </a>                                                     
+            {% endif %}
+        {% endfor %}                      
+    </li>
+{% endif %}

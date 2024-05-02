@@ -5,7 +5,7 @@ _C='publish_date'
 _B='link'
 _A=True
 import logging,feedparser,os
-from.models import info_hoax,info_widget
+from .models import info_hoax,info_widget
 import pytz
 from django.conf import settings
 import datetime
@@ -27,7 +27,7 @@ def auto_get_hoax_issue():
 	return _A
 @transaction.atomic
 def auto_get_widget():
-	D='https://widget.kominfo.go.id/data/latest/gpr.xml';C=3
+	D='https://widget.kominfo.go.id/data/covid-19/gpr.xml';C=3
 	while C>0:
 		B=feedparser.parse(D)
 		if B:

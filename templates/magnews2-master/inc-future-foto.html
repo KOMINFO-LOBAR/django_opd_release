@@ -1,0 +1,69 @@
+
+
+<!-- Foto Unggulan -->
+<div class="p-b-55">
+    <div class="how2 how2-cl4 flex-s-c m-b-35">
+        <h3 class="f1-m-2 cl3 tab01-title">
+            Foto Unggulan
+        </h3> 
+    </div>
+
+    <div>
+        {% for i in futureFoto %}
+            <div class="wrap-pic-w pos-relative">
+                <a href="javascript:void(0)" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')" class="wrap-pic-w hov1 trans-03">
+                    <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
+                </a>
+                <!-- <button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">
+                    <span class="fab fa-youtube"></span>
+                </button> -->
+                <!--
+                <button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">
+                    <span class="fab fa-youtube"></span>
+                </button> -->
+            </div>
+
+            
+
+            <div class="p-tb-16 p-rl-25 bg3">
+                <h5 class="p-b-5">
+                    <a href="javascript:void(0)" class="f1-m-3 cl0 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                        {{i.judul|title}} 
+                    </a>
+                    
+                </h5>
+
+                <span class="cl15">
+                    <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                        {{i.site__name|upper}}
+                    </a>
+
+                    <span class="f1-s-3 m-rl-3">
+                        -
+                    </span>
+
+                    <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                        {{i.admin__username|title}}
+                    </a>
+
+                    <span class="f1-s-3 m-rl-3">
+                        -
+                    </span>
+
+                    <span class="f1-s-3">
+                        {{i.created_at}}
+                    </span>
+
+                    <!-- <span class="f1-s-3 m-rl-3">
+                        -
+                    </span> -->
+
+                    <!-- <span class="f1-s-3">                        
+                        View Count {{i.view_count}}
+                    </span> -->
+                </span>
+            </div>                            
+        {% endfor %}
+    </div>	
+</div>
+								

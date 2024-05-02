@@ -1,4 +1,7 @@
 {% load static %}
+{% get_media_prefix as media_prefix %}   
+{% get_static_prefix as static_prefix %}
+
 <!DOCTYPE html>
 <html lang="en-us" {% block extra-page %}{% endblock %}> <!---->
 	<head>		

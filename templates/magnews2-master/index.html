@@ -1,0 +1,1258 @@
+{% extends 'magnews2-master/base-opd.html' %}
+
+{% load humanize %}
+
+
+<!--Nama OPD di title bar-->
+{% block page-title %}    
+    {{namaOPD|upper}}     
+{% endblock %}
+
+{% block trending %}
+    <!-- Headline -->
+    <div class="container">
+        <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+            <div class="f2-s-1 p-r-30 size-w-0 m-tb-6 flex-wr-s-c fix_height_div2">
+                <span class="text-uppercase cl2 p-r-8">
+                    Terbaru :
+                </span>
+
+                <span class="dis-inline-block cl6 slide100-txt pos-relative size-w-0" data-in="fadeInDown" data-out="fadeOutDown">
+                    {% for i, j, k in trending %}
+                        <span class="dis-inline-block slide100-txt-item animated visible-false how-txt1">
+                            <a href="/berita/{{k}}">{{j}}</a> <!-- Pake panjang ini |truncatechars:75-->
+                        </span>
+                    {% endfor %}                
+                </span>
+            
+            
+                
+            </div>
+            {% include "magnews2-master/inc-form-search.html" %}              
+        </div>
+    </div>       
+{% endblock %}
+    
+{% block future-post %} 
+        
+    {% if galeryLayanan %}
+        {% include "magnews2-master/inc-future-post.html" %}      
+    
+    {% endif %}
+
+    {% if banner_all %}
+        <section class="bg0 p-b-15">
+            <div class="container">
+                <div class="row"> <!--justify-content-center-->
+                    <div class="col-md-12 col-lg-12 ">
+                        <!-- <div class="p-b-20">    p-b-0 -->
+                            <div class="tab01 ">
+                                <div class="tab01-head how2 how2-cl19 bocl3 flex-s-c ">
+                                    <!-- Brand tab -->
+                                    <h3 class="f1-m-2 cl19 tab01-title">
+                                        Info Penting
+                                    </h3>                                    
+                                </div>
+                            </div>                            
+                        <!-- </div> -->
+                    </div>
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 ">
+                        <div class="p-t-15">
+                            {% include "magnews2-master/inc-advertise.html" %} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+{% endblock %}
+
+{% block pengumuman %}
+    <!-- pengumuman -->
+    <div class="tab01 p-b-20">
+        <div class="tab01-head how2 how2-cl1 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+            <!-- Brand tab -->
+            <h3 class="f1-m-2 cl12 tab01-title">
+                Pengumuman
+            </h3>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab1-1" role="tab">All</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab1-2" role="tab">OPD Lain</a>
+                </li>            
+
+                <li class="nav-item-more dropdown dis-none">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">                        
+                    </ul>
+                </li>
+            </ul>
+
+            <!--  -->
+            <a href="/list/pengumuman/terbaru?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                View all
+                <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+            </a>
+        </div>        
+
+        <!-- Tab panes -->
+        <div class="tab-content p-t-35">
+            <!-- - -->
+            <div class="tab-pane fade show active" id="tab1-1" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post fullBackground_pengumumanAll fullBackground_css2 -->                                            
+                        
+
+                        {% if pengumumanAll|slice:":1"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            {% for i in pengumumanAll|slice:":1" %}
+                                
+                                <div class="m-b-30 "> <!--fullBackground_pengumumanAll-->
+
+                                    <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG" >                                   -->
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" />
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" />                                            
+                                        {% endif %} 
+                                    </a>
+                                        <!--
+                                    {% if pengumumanAll|slice:":3"|length > 1 %} minimal ada 2 data
+                                        <div style="text-align:right; margin:0px 10px; ">      
+                                            {% for i in pengumumanAll|slice:":3" %}                          
+                                                <span class="dot"></span>
+                                            {% endfor %}                                    
+                                        </div>                                                                
+                                    {% endif %} -->
+
+                                    <div class="p-t-5 fix_height_div">
+                                        <h5 class="p-b-5">
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                                {{i.judul}} 
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.site__name|upper}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+                                            
+
+                                            <span class="slider-date f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if pengumumanAll|slice:"1:4"|length == 0 %} 
+                            {% include "magnews2-master/inc-no-data-list.html" %}                       
+                        {% else %}
+                            {% for i in pengumumanAll|slice:"1:4" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">                                        
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1 ">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %}                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- - -->
+            <div class="tab-pane fade" id="tab1-2" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if pengumumanLain|slice:":1"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            {% for i in pengumumanLain|slice:":1" %}                          
+                                <div class="m-b-30 "> <!--fullBackground_pengumumanLain-->
+                                    <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+                                    <!--
+                                    {% if pengumumanLain|slice:":1"|length > 1 %}
+                                        <div style="text-align:right; margin:0px 10px; ">      
+                                            {% for i in pengumumanLain|slice:":3" %}                          
+                                                <span class="dot"></span>
+                                            {% endfor %}                                    
+                                        </div>
+                                    {% endif %}
+                                    -->
+                                    <div class="p-t-5 fix_height_div">
+                                        <h5 class="p-b-5">
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.site__name|upper}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+                                            
+
+                                            <span class="slider-date f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->
+                        {% if pengumumanLain|slice:"1:4"|length == 0 %}                        
+                            {% include "magnews2-master/inc-no-data-list.html" %}
+                        {% else %}
+                            {% for i in pengumumanLain|slice:"1:4" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/pengumuman/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %}    
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+{% endblock %}
+
+{% block berita-terbaru %}
+    <!-- berita terbaru -->
+    <div class="tab01 p-b-20">
+        <div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+            <!-- Brand tab -->
+            <h3 class="f1-m-2 cl13 tab01-title">
+                Berita Terbaru
+            </h3>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab2-1" role="tab">All</a>
+                </li>                
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab2-2" role="tab">OPD Lain</a>
+                </li>
+
+                <li class="nav-item-more dropdown dis-none">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">  
+
+                    </ul>
+                </li>
+            </ul>
+
+            <!--  -->
+            <a href="/list/berita/terbaru?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                View all
+                <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+            </a>
+        </div>
+            
+        <!-- Tab panes -->
+        <div class="tab-content p-t-35">
+            <!-- - -->
+            <div class="tab-pane fade show active" id="tab2-1" role="tabpanel">
+                <div class="row">
+                    <!-- berita terbaru slide-->
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        
+                        {% if beritaTerbaruAll|slice:":3"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            <div class="m-b-30 fullBackground_beritaTerbaruAll">
+                                <a href="#" class="wrap-pic-w trans-03">
+                                    <img class="lazy" data-src="" alt="IMG">
+                                </a>
+
+                                {% if beritaTerbaruAll|slice:":3"|length > 1 %}
+                                    <div style="text-align:right; margin:0px 10px; ">      
+                                        {% for i in beritaTerbaruAll|slice:":3" %}                          
+                                            <span class="dot" id="dot{{forloop.counter0}}"></span>
+                                        {% endfor %}                                    
+                                    </div>
+                                {% endif %}
+
+                                <div class="p-t-5 fix_height_div">
+                                    <h5 class="p-b-5">
+                                        <a href="#" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03 ">
+                                            <!-- <div class="box-inner"> box d-flex
+                                                <p class="content"> -->
+                                                    <!-- American live music lorem ipsum dolor sit amet consectetur  -->
+                                                <!-- </p>
+                                            </div> -->
+                                        </a>
+                                    </h5>
+
+                                    <span class="cl8">
+                                        <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <a href="#" class="slider-admin f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="slider-date f1-s-3">
+                                            Feb 18
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!--berita terbaru all item-->
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerbaruAll|slice:"3:6"|length == 0 %} 
+                            {% include "magnews2-master/inc-no-data-list.html" %}                       
+                        {% else %}
+                            {% for i in beritaTerbaruAll|slice:"3:6" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">                                           
+
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %} 
+                    </div>
+                </div>
+            </div>
+
+            <!-- - -->
+            <div class="tab-pane fade" id="tab2-2" role="tabpanel">
+                <div class="row">
+                    <!-- berita terbaru opd lain slide -->
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerbaruLain|slice:":3"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            <div class="m-b-30 fullBackground_beritaTerbaruLain">
+                                <a href="#" class="wrap-pic-w trans-03">
+                                    <img class="lazy" data-src="" alt="IMG">
+                                </a>
+
+                                {% if beritaTerbaruLain|slice:":3"|length > 1 %}
+                                    <div style="text-align:right; margin:0px 10px; ">      
+                                        {% for i in beritaTerbaruLain|slice:":3" %}                          
+                                            <span class="dot" id="dot{{forloop.counter0}}"></span>
+                                        {% endfor %}                                    
+                                    </div>
+                                {% endif %}
+
+                                <div class="p-t-5 fix_height_div">
+                                    <h5 class="p-b-5">
+                                        <a href="#" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                            American live music lorem ipsum dolor sit amet consectetur 
+                                        </a>
+                                    </h5>
+
+                                    <span class="cl8">
+                                        <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+                                        <a href="#" class="slider-admin f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="slider-date f1-s-3">
+                                            Feb 18
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- berita terbaru opd lain item-->
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerbaruLain|slice:"3:6"|length == 0 %}                        
+                            {% include "magnews2-master/inc-no-data-list.html" %}
+                        {% else %}
+                            {% for i in beritaTerbaruLain|slice:"3:6" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                                
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %}    
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+{% endblock %}
+
+{% block berita-terpopuler %}
+    <!-- berita terpopuler -->
+    <div class="tab01 p-b-20">
+        <div class="tab01-head how2 how2-cl3 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+            <!-- Brand tab -->                                
+            <h3 class="f1-m-2 cl14 tab01-title">
+                Berita Terpopuler
+            </h3>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab3-1" role="tab">All</a>
+                </li>                
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab3-2" role="tab">OPD Lain</a>
+                </li>
+
+                <li class="nav-item-more dropdown dis-none">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">                        
+                    </ul>
+                </li>
+            </ul>
+
+            <!--  -->
+            <a href="/list/berita/terpopuler?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                View all
+                <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+            </a>
+        </div>
+            
+        <!-- Tab panes -->
+        <div class="tab-content p-t-35">
+            <!-- - -->
+            <div class="tab-pane fade show active" id="tab3-1" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        <!-- {% comment %} beritaTerpopulerAll = {{beritaTerpopulerAll}}
+                        beritaTerpopulerLain = {{beritaTerpopulerLain}} {% endcomment %} -->
+                        {% if beritaTerpopulerAll|slice:":3"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            <div class="m-b-30 fullBackground_beritaTerpopulerAll">
+                                <a href="#" class="wrap-pic-w trans-03">
+                                    <img class="lazy" data-src="" alt="IMG">
+                                </a>
+
+                                {% if beritaTerpopulerAll|slice:":3"|length > 1 %}
+                                    <div style="text-align:right; margin:0px 10px; ">      
+                                        {% for i in beritaTerpopulerAll|slice:":3" %}                          
+                                            <span class="dot" id="dot{{forloop.counter0}}"></span>
+                                        {% endfor %}                                    
+                                    </div>
+                                {% endif %}
+
+                                <div class="p-t-5 fix_height_div">
+                                    <h5 class="p-b-5">
+                                        <a href="#" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                            American live music lorem ipsum dolor sit amet consectetur 
+                                        </a>
+                                    </h5>
+
+                                    <span class="cl8">
+                                        <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+                                        <a href="#" class="slider-admin f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="slider-date f1-s-3">
+                                            Feb 18
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerpopulerAll|slice:"3:6"|length == 0 %} 
+                            {% include "magnews2-master/inc-no-data-list.html" %}                       
+                        {% else %}
+                            {% for i in beritaTerpopulerAll|slice:"3:6" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %} 
+                    </div>
+                </div>
+            </div>
+
+            <!-- - -->
+            <div class="tab-pane fade" id="tab3-2" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerpopulerLain|slice:":3"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            <div class="m-b-30 fullBackground_beritaTerpopulerLain">
+                                <a href="#" class="wrap-pic-w trans-03">
+                                    <img class="lazy" data-src="" alt="IMG">
+                                </a>
+
+                                {% if beritaTerpopulerLain|slice:":3"|length > 1 %}
+                                    <div style="text-align:right; margin:0px 10px; ">      
+                                        {% for i in beritaTerpopulerLain|slice:":3" %}                          
+                                            <span class="dot" id="dot{{forloop.counter0}}"></span>
+                                        {% endfor %}                                    
+                                    </div>
+                                {% endif %}
+
+                                <div class="p-t-5 fix_height_div">
+                                    <h5 class="p-b-5">
+                                        <a href="#" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                            American live music lorem ipsum dolor sit amet consectetur 
+                                        </a>
+                                    </h5>
+
+                                    <span class="cl8">
+                                        <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+                                        <a href="#" class="slider-admin f1-s-4 cl8 hov-cl10 trans-03">
+                                            Music
+                                        </a>
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="slider-date f1-s-3">
+                                            Feb 18
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if beritaTerpopulerLain|slice:"3:6"|length == 0 %}                        
+                            {% include "magnews2-master/inc-no-data-list.html" %}
+                        {% else %}
+                            {% for i in beritaTerpopulerLain|slice:"3:6" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/berita/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/berita/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %}    
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+{% endblock %}
+
+{% block artikel %}
+    <!-- artikel -->
+    <div class="tab01 p-b-20">
+        <div class="tab01-head how2 how2-cl5 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+            <!-- Brand tab -->
+            <h3 class="f1-m-2 cl17 tab01-title">
+                Artikel
+            </h3>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab4-1" role="tab">All</a>
+                </li>                
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab4-2" role="tab">OPD Lain</a>
+                </li>
+
+                <li class="nav-item-more dropdown dis-none">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">                        
+                    </ul>
+                </li>
+            </ul>
+
+            <!--  -->
+            <a href="/list/artikel/terbaru?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                View all
+                <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+            </a>
+        </div>
+            
+        <!-- Tab panes -->
+        <div class="tab-content p-t-35">
+            <!-- - -->
+            <div class="tab-pane fade show active" id="tab4-1" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if artikelAll|slice:":1"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            {% for i in artikelAll|slice:":1" %}                          
+                                <div class="m-b-30 "> <!--fullBackground_artikelAll-->
+                                    <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <!--
+                                    {% if artikelAll|slice:":1"|length > 1 %}
+                                        <div style="text-align:right; margin:0px 10px; ">      
+                                            {% for i in artikelAll|slice:":3" %}                          
+                                                <span class="dot"></span>
+                                            {% endfor %}                                    
+                                        </div>
+                                    {% endif %}-->
+
+                                    <div class="p-t-5 fix_height_div">
+                                        <h5 class="p-b-5">
+                                            <a href="/artikel/{{i.judul_seo}}" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.site__name|upper}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <a href="/artikel/{{i.judul_seo}}" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+                                            
+                                            <span class="slider-date f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if artikelAll|slice:"1:4"|length == 0 %} 
+                            {% include "magnews2-master/inc-no-data-list.html" %}                       
+                        {% else %}
+                            {% for i in artikelAll|slice:"1:4" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>                                    
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/artikel/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %} 
+                    </div>
+                </div>
+            </div>
+
+            <!-- - -->
+            <div class="tab-pane fade" id="tab4-2" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if artikelLain|slice:":1"|length == 0 %}
+                            {% include "magnews2-master/inc-no-data-post.html" %}
+                        {% else %}
+                            {% for i in artikelLain|slice:":1" %}                          
+                                <div class="m-b-30 "> <!--fullBackground_artikelLain-->
+                                    <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
+                                        <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <!--{% if artikelLain|slice:":1"|length > 1 %}
+                                        <div style="text-align:right; margin:0px 10px; ">      
+                                            {% for i in artikelLain|slice:":3" %}                          
+                                                <span class="dot"></span>
+                                            {% endfor %}                                    
+                                        </div>
+                                    {% endif %}-->
+
+                                    <div class="p-t-5 fix_height_div">
+                                        <h5 class="p-b-5">
+                                            <a href="/artikel/{{i.judul_seo}}" class="slider-title how-txt1 f1-m-3 cl2 hov-cl10 trans-03">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="#" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.site__name|upper}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+                                            
+                                            <a href="/artikel/{{i.judul_seo}}" class="slider-site f1-s-4 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>                                            
+
+                                            <span class="slider-date f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item post -->	
+                        {% if artikelLain|slice:"1:4"|length == 0 %}                        
+                            {% include "magnews2-master/inc-no-data-list.html" %}
+                        {% else %}
+                            {% for i in artikelLain|slice:"1:4" %}        
+                                <div class="flex-wr-sb-s m-b-30">
+                                    <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                        {% if i.foto %}                                        
+                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                        {% else %}
+                                            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="size-w-2">
+                                        <h5 class="p-b-5">
+                                            <a href="/artikel/{{i.judul_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.judul}}
+                                            </a>
+                                        </h5>
+
+                                        <span class="cl8">
+                                            <a href="/artikel/{{i.judul_seo}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                {{i.admin__username|title}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                {{i.created_at}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        {% endif %}    
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+{% endblock %}
+
+{% block link-terkait %}
+    <!-- <div class="container"> -->
+        <!--<div class="flex-c-c">-->
+            
+            <!-- Link terkait -->
+            <div class="tab01 p-b-20">
+                <div class="tab01-head how2 how2-cl4 bocl3 flex-s-c m-r-10 m-r-0-sr991">
+                    <!-- Brand tab -->
+                    <h3 class="f1-m-2 cl3 tab01-title">
+                        Link Terkait
+                    </h3>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <!--<li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab3-1" role="tab">All</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-2" role="tab">Diskominfotik</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-3" role="tab">Dinas Lain</a>
+                        </li>-->
+
+                        <!--<li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-4" role="tab">Beachs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-5" role="tab">Culture</a>
+                        </li>-->
+
+                        <li class="nav-item-more dropdown dis-none">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!--  -->
+                    <!-- <a href="/list/link/terkait?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                        View all
+                        <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+                    </a> -->
+                </div>        
+
+                <!-- Tab panes -->
+                <!--<div class="tab-content ">-->
+                <!-- - -->
+                <div class="tab-pane fade show active" id="tab3-1" role="tabpanel">
+                    <div class="container">
+                        <!--<div class="col-sm-12 p-r-25 p-r-15-sr991"> justify-content-between-->                        
+
+                        <div class="flex-wr-s-s m-rl--5 p-t-25">
+
+                            {% for i in linkTerkait %}
+                                <a href="{{i.link}}" target="_blank" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    <i class="fa fa-refresh"></i> {{i.nama}}
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                        <!-- <div class="row d-flex justify-content-start ">                                    
+                            {% for i in linkTerkait %}                                                                                                            
+                                <div class="hoverme"> 
+                                    <a href="{{j.link}}" class="cl3"> 
+                                        <div>
+                                            {{i.icon_awesome|safe}}
+                                            {{i.nama|safe}}
+                                        </div>
+                                    </a>                            
+                                </div>                                                                                    
+                            {% endfor %}  
+                        </div>                                             -->
+                    </div>
+                </div>                        														
+            </div>
+        
+        <!--</div>-->
+    <!--</div>    -->
+{% endblock %}
+
+{% block agenda %}
+    <!-- <div class="container"> -->
+        <!--<div class="flex-c-c">-->
+            
+            <!-- Link terkait p-t-5-->
+            <div class="tab01 p-b-20 ">
+                <div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+                    <!-- Brand tab -->
+                    <h3 class="f1-m-2 cl10 tab01-title">
+                        Agenda
+                    </h3>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <!--<li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab3-1" role="tab">All</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-2" role="tab">Diskominfotik</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-3" role="tab">Dinas Lain</a>
+                        </li>-->
+
+                        <!--<li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-4" role="tab">Beachs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab3-5" role="tab">Culture</a>
+                        </li>-->
+
+                        <li class="nav-item-more dropdown dis-none">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!--  -->
+                    <!-- <a href="/list/link/terkait?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+                        View all
+                        <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+                    </a> -->
+                </div>        
+
+                <!-- Tab panes -->
+                <!--<div class="tab-content ">-->
+                <!-- - -->
+                <div class="tab-pane fade show active" id="tab3-1" role="tabpanel">
+                    <div class="container">
+                        <!--<div class="col-sm-12 p-r-25 p-r-15-sr991"> justify-content-between-->                        
+
+                        <!-- <div class="flex-wr-s-s m-rl--5 p-t-25">
+
+                            {% for i in agenda %}
+                                <a href="{{i.link}}" target="_blank" class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                                    <i class="fa fa-refresh"></i> {{i.nama}}
+                                </a>
+                            {% endfor %}
+                        </div> -->
+
+                        <ul class="p-t-35">
+                            {% for i in agenda %} 
+                                <li class="flex-wr-sb-s p-b-30">
+                                    <a href="/agenda/{{i.nama_seo}}" class="size-w-4 wrap-pic-w hov1 trans-03">                                        
+                                        <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/agenda.jpg" alt="IMG">                                                                                    
+                                    </a>
+
+                                    <div class="size-w-11">
+                                        <h6 class="p-b-4">
+                                            <a href="/agenda/{{i.nama_seo}}" class="f1-s-5 cl3 hov-cl10 trans-03 how-txt1">
+                                                {{i.nama}}
+                                            </a>
+                                        </h6>
+
+                                        <span class="cl8 txt-center p-b-24">
+                                            <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                Lokasi : {{i.lokasi}}
+                                            </a>
+
+                                            <span class="f1-s-3 m-rl-3">
+                                                -
+                                            </span>
+
+                                            <span class="f1-s-3">
+                                                Tanggal : {{i.tanggal|date:"j M Y"}} {{i.jam|time:"hh:mm"}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <!-- <div class="row d-flex justify-content-start ">                                    
+                            {% for i in linkTerkait %}                                                                                                            
+                                <div class="hoverme"> 
+                                    <a href="{{j.link}}" class="cl3"> 
+                                        <div>
+                                            {{i.icon_awesome|safe}}
+                                            {{i.nama|safe}}
+                                        </div>
+                                    </a>                            
+                                </div>                                                                                    
+                            {% endfor %}  
+                        </div>                                             -->
+                    </div>
+                </div>                        														
+            </div>
+        
+        <!--</div>-->
+    <!--</div>    -->
+{% endblock %}
+
+<!--block dokumen di hapus-->
+

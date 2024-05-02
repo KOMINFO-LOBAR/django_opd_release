@@ -1,0 +1,77 @@
+{% load static %}
+<!-- Galeri foto -->
+<div class="tab01 p-b-20">
+    <div class="tab01-head how2 how2-cl6 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+        <!-- Brand tab -->
+        <h3 class="f1-m-2 cl18 tab01-title">
+            Galeri Foto 
+        </h3>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li class="nav-item-more dropdown dis-none">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    
+                </ul>
+            </li>
+        </ul>
+
+        <!--  -->
+        <a href="/list/galeri/foto?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+            View all
+            <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+        </a>
+    </div>
+        
+    <!-- foto content -->
+    <div class="row p-t-35">
+        {% for i in galeryFoto %}
+            <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                <!-- Item latest -->	
+                <div class="m-b-45">
+                    <!-- <a href="javascript:void(0)" class="wrap-pic-w hov1 trans-03"> -->
+                    <a href="javascript:void(0)" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')" class="wrap-pic-w hov1 trans-03">
+                        <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
+                        <!-- <iframe src="{{i.embed}}" frameborder="0" allowfullscreen>
+                        </iframe> >http://www.youtube.com/embed/UnBlst3T7bY width="425" height="349" -->
+                    </a>
+
+                    <div class="p-t-16">
+                        <h5 class="p-b-5">
+                            <a href="javascript:void(0)" class="f1-m-3 cl2 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                                {{i.judul}} 
+                            </a>
+                        </h5>
+
+                        <span class="cl8">
+                            <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                                {{i.site__name|upper}}
+                            </a>
+
+                            <span class="f1-s-3 m-rl-3">
+                                -
+                            </span>
+
+                            <a href="javascript:void(0)" class="f1-s-4 cl8 hov-cl10 trans-03" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')">
+                                {{i.admin__username}}
+                            </a>
+
+                            <span class="f1-s-3 m-rl-3">
+                                -
+                            </span>
+
+                            <span class="f1-s-3">
+                                {{i.created_at}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

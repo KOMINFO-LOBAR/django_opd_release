@@ -1,0 +1,115 @@
+
+{% load embed_video_tags %}
+
+<!-- Video -->
+<div class="tab01 p-b-20">
+    <div class="tab01-head how2 how2-cl6 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+        <!-- Brand tab -->
+        <h3 class="f1-m-2 cl18 tab01-title">
+            Galeri Video
+        </h3>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li class="nav-item-more dropdown dis-none">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    
+                </ul>
+            </li>
+        </ul>
+
+        <!--  -->
+        <a href="/list/galeri/video?page=1" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03">
+            View all
+            <i class="fs-12 m-l-5 fa fa-caret-right"></i>
+        </a>
+    </div>
+    
+    <div class="row p-t-35">        
+                
+        {% for i in galeryVideo %}                       
+            {% if i.embed_video %}         
+                <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                    <!-- Item latest class-video-->	
+                    <div class="m-b-45 ">
+                        <!--<a href="#" class="wrap-pic-w hov1 trans-03"> {{my_video.thumbnail}}-->
+                        <!-- <div class="wrap-pic-w hov1 trans-03"> -->
+                        <div class="wrap-pic-w pos-relative">
+                            <!-- <div class="embed-responsive embed-responsive-4by3" > -->
+                                <!-- {{i.embed|safe}} -->
+                                <!-- <div class="myiframe"> -->
+                                <!-- {% comment %} {{i.embed}}  width="425px" height="349px"-->
+                                <!-- ini : {% video i.embed_video '425x349'%} {% endcomment %}-->
+                                {% video i.embed_video as v %}
+                                    <img class="lazy" data-src="{{ v.thumbnail }}">
+                                    <!-- <a href="javascript:void(0)" onclick="show_modal()">TEST TEST TEST </a> data-toggle="modal" data-target="#modal-video-02"-->
+                                    <button class="s-full ab-t-l flex-c-c fs-32 cl19 hov-cl11 trans-03"  onclick="show_modal('{{ i.embed_video }}')">
+                                        <span class="fab fa-youtube"></span>
+                                    </button>
+                                {% endvideo %}
+                                <!-- </div> -->
+                                <!--<iframe src="{{i.embed|safe}}" frameborder="0" allowfullscreen>-->
+                                <!--</iframe> >http://www.youtube.com/embed/UnBlst3T7bY width="425" height="349" -->
+                            <!-- </div> -->
+                            
+                        </div>
+                        <!--</a>-->
+
+                        <div class="p-t-16">
+                            <h5 class="p-b-5">
+                                <div class="f1-m-3 cl2  trans-03"> <!--hov-cl10-->
+                                    {{i.judul}}
+                                </div>
+                            </h5>
+
+                            <span class="cl8">
+                                <span class="f1-s-4 cl8  trans-03"> <!--hov-cl10-->
+                                    {{i.site__name|upper}}
+                                </span>
+
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
+                                <span class="f1-s-4 cl8  trans-03"> <!--hov-cl10-->
+                                    {{i.admin__username}}
+                                </span>
+
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
+                                <span class="f1-s-3">
+                                    {{i.created_at}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>  
+            {% endif %}          
+        {% endfor %}        
+    </div>
+</div>
+
+
+<!-- Modal Video 01 {{forloop.counter}} {{my_video.url}}-->
+<!--<div class="class-video">-->
+<!--    <div class="modal fade class-video" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document" data-dismiss="modal">
+            <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
+
+            <div class="wrap-video-mo-01">
+                <div class="video-mo-01">
+                    <iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>-->
+<!--</div>
+
+<div id="write-here">Test</div>-->

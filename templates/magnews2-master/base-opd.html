@@ -1,0 +1,332 @@
+{% extends 'magnews2-master/base.html' %}
+{% load humanize %}
+{% load social_share %}
+
+
+<!-- Header -->
+{% block page-header %}
+    <header>
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!--<div class="topbar">
+                <div class="content-topbar container h-100">
+                    <div class="left-topbar">
+                        <span class="left-topbar-item flex-wr-s-c">
+                            {% include "magnews2-master/inc-menu-topbar.html" %}                       
+                        </span>                    
+                    </div>
+
+                    {% include "magnews2-master/inc-social-media-header.html" %}
+                </div>
+            </div>-->
+
+            <!-- Header Mobile -->
+            <div class="wrap-header-mobile">
+                <!-- Logo moblie -->		
+                {% include "magnews2-master/inc-logo-header-m.html" %}
+
+                <!-- Button show menu -->
+                <div class="btn-show-menu-mobile hamburger hamburger--squeeze m-r--8">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Menu Mobile -->
+            <div class="menu-mobile">
+                <!--<ul class="topbar-mobile">
+                    <li class="left-topbar">
+                        <span class="left-topbar-item flex-wr-s-c">
+                            {% include "magnews2-master/inc-menu-topbar.html" %}                        
+                        </span>
+                    </li>            
+
+                    {% include "magnews2-master/inc-social-media-header-m.html" %}
+                </ul>-->
+
+                {% include "magnews2-master/inc-main-menu-m.html" %}
+            </div>
+            
+            <!-- logo & banner  -->
+            <div class="wrap-logo container">
+                <!-- Logo desktop -->		
+                {% include "magnews2-master/inc-logo-header.html" %}
+
+                <!-- Banner 1 -->
+                {% include "magnews2-master/inc-banner-top.html" %}
+            </div>	
+            
+            <!-- menus -->
+            <div class="wrap-main-nav">
+                <div class="main-nav">
+                    <!-- Menu desktop -->
+                    <nav class="menu-desktop">
+                        {% include "magnews2-master/inc-logo-header-stick.html" %} 
+
+                        {% include "magnews2-master/inc-main-menu.html" %}
+                    </nav>
+                </div>
+            </div>	
+        </div>
+    </header>
+{% endblock %}   
+<!-- End Header -->
+
+{% block section-content %} 
+    {% if jenis == 'index' %}
+        <!-- Post 
+            Atur ulang spasi di bawah galery layanan
+            jika tidak ada galery layanan spasi 10, jika ada spasi 20
+             {% if galeryLayanan %} p-t-20 {% else %} p-t-1 {% endif %}
+        -->
+        <section class="bg0">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="p-b-20">                                               
+                                                    
+                            {% block berita-terbaru %}{% endblock %}
+
+                            {% block berita-terpopuler %}{% endblock %}
+
+                            {% block pengumuman %}{% endblock %}
+
+                            {% block artikel %}{% endblock %}
+                            
+                            {% if agenda %}
+                                {% block agenda %}{% endblock %}
+                            {% endif %}
+                            <!--{% comment %} {% block dokumen %}{% endblock %}                         {% endcomment %}-->
+
+                            <!-- Link terkait -->
+                            {% if linkTerkait %}
+                                {% block link-terkait %}{% endblock %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-10 col-lg-4">
+                        <div class="p-l-10 p-rl-0-sr991 p-b-20">
+                            {% if pejabat %}
+                                {% include "magnews2-master/inc-profil-pejabat.html" %}
+                            {% endif %}
+                                                    
+                            <!-- banner 2-->
+                            {% include "magnews2-master/inc-banner-middle.html" %}    
+
+                            <!--widget1 = grp-kominfo-->
+                            {% include "magnews2-master/inc-widget.html" %}                            
+                            
+                            {% if tags %}
+                                {% include "magnews2-master/inc-tags.html" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+        
+        <!-- Banner 3 -->
+        {% include "magnews2-master/inc-banner-bottom.html" %}
+        
+        <!-- Galery -->
+        <section class="bg0 p-t-60 p-b-35">
+            <div class="container">
+                <div class="row justify-content-center">
+                
+                    <div class="col-md-10 col-lg-8 p-b-20">
+                        {% if galeryFoto %}
+                            {% include "magnews2-master/inc-gallery.html" %}
+                        {% endif %}
+
+                        {% if galeryVideo %}
+                            {% include "magnews2-master/inc-video.html" %}        
+                        {% endif %}
+
+                    </div>                
+
+                    <div class="col-md-10 col-lg-4">
+                        <div class="p-l-10 p-rl-0-sr991 p-b-20">
+
+                            {% if futureFoto %}
+                                {% include "magnews2-master/inc-future-foto.html" %}
+                            {% endif %}
+
+                            {% if futureVideo %}
+                                {% include "magnews2-master/inc-future-video.html" %}					
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        {% block section-content-detail %}{% endblock %}
+        
+    {% endif %}
+{% endblock %}
+
+{% block page-footer %}
+    <footer>
+        <div class="bg2 p-t-40 p-b-25">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 p-b-20">
+                        <div class="size-h-3 flex-s-c">
+                            {% include "magnews2-master/inc-logo-footer.html" %}                      
+                        </div>
+
+                        <div>
+                            {% for i in instansi %}
+                                <p class="f1-s-1 cl11 p-b-16">
+                                    {{i.nama}}
+                                </p>
+
+                                <p class="f1-s-1 cl11 p-b-16">
+                                    {% if i.alamat %}
+                                        {{i.alamat}}
+                                    {% else %}
+                                        - 
+                                    {% endif %}
+                                </p>
+
+                                <p class="f1-s-1 cl11 p-b-16">
+                                    Telp. 
+                                    {% if i.telp %}
+                                        {{i.telp}}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </p>
+
+                                <p class="f1-s-1 cl11 p-b-16">
+                                    Email. 
+                                    {% if i.email %}
+                                        {{i.email}}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </p>
+
+                                <p class="f1-s-1 cl11 p-b-16">
+                                    Kode Post. 
+                                    {% if i.kode_post %}
+                                        {{i.kode_post}}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </p>
+
+                                <div class="p-t-15">
+                                    {% include "magnews2-master/inc-social-media-footer.html" %}                             
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 p-b-20">
+                        <div class="size-h-3 flex-s-c">
+                            <h5 class="f1-m-7 cl0">
+                                <span class="zmdi-hc-stack zmdi-hc-lg">
+                                        <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                        <i class="zmdi zmdi-view-agenda zmdi-hc-stack-1x"></i> 
+                                </span> 
+                            Statistik : 
+                            <!--   <br> nama domain = {{domain_name}} <br>
+                                jumlah online = {{jumlah_ol}} <br>
+                                proto = {{proto}} <br>
+								
+								getHost = {{get_host}} <br>
+                            -->
+                            
+
+                            </h5>
+                        </div>
+                        <!--postingTerbanyak_admin = {{postingTerbanyak_admin}}-->
+                                            
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Online : &nbsp; {{hit_online|intcomma}} 
+                        </div>                    
+                    
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Hari Ini : &nbsp; {{hit_today|intcomma}}
+                        </div>                    
+                    
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Kemarin : &nbsp; {{hit_yesterday|intcomma}}
+                        </div>                    
+                    
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Minggu Ini : &nbsp; {{hit_this_week|intcomma}}
+                        </div>
+                                        
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Minggu Lalu : &nbsp; {{hit_last_week|intcomma}}
+                        </div>
+                                        
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Bulan Ini : &nbsp; {{hit_this_month|intcomma}}
+                        </div>                    
+                    
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Kunjungan Bulan Lalu : &nbsp; {{hit_last_month|intcomma}}
+                        </div>                    
+                                                    
+                        <div class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                            Total Kunjungan : &nbsp; {{hit_all|intcomma}}
+                        </div>                                
+                                                                                                                                                           
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 p-b-20">
+                        <div class="size-h-3 flex-s-c">
+                            <h5 class="f1-m-7 cl0">
+                                <span class="zmdi-hc-stack zmdi-hc-lg">
+                                        <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                        <i class="zmdi zmdi-info zmdi-hc-stack-1x"></i> 
+                                </span> Info Hoaks :
+                            </h5>
+                        </div>
+
+                        <ul class="m-t--12" style="list-style-type: none;">
+                            
+                            {% for i in feed %}
+                                <li class="how-bor1 p-rl-5 p-tb-10">
+                                    <a href="{{i.link}}" target="_blank" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                                        {{i.name}} 
+                                    </a>
+                                </li>
+                            {% endfor %} 
+
+                            {% comment %}                                
+                                {% for i in feed %}
+                                    <li class="how-bor1 p-rl-5 p-tb-10">
+                                        <a href="{{i.link}}" target="_blank" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                                            {{i.name}} 
+                                        </a>
+                                    </li>
+                                {% endfor %}   
+                            {% endcomment %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg11">
+            <div class="container size-h-4 flex-c-c p-tb-15">
+                <span class="f1-s-1 cl0 txt-center">
+                    Copyright © 2021 
+
+                    &nbsp;<a href="https://lombokbaratkab.go.id/" target="_blank" class="f1-s-1 cl10 hov-link1"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        DISKOMINFOTIK <a href='https://lombokbaratkab.go.id/' target="_blank">&nbsp; Kabupaten Lombok Barat</a>
+                        <!--Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </span>
+            </div>
+        </div>
+    </footer>
+    
+{% endblock  %}

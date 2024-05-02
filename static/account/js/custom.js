@@ -44,7 +44,7 @@ function do_copy_to_clipboard(pData) {
     document.execCommand("copy");
     $temp.remove();
 
-    alert('URL sudah di copy!')
+    alert('URL telah di copy!')
 };
 
 var randomColorFactor = function() {

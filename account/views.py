@@ -109,7 +109,7 @@ from account.commonf import get_topFoto
 from account.forms import CustomUserCreationForm
 from django_opd.commonf import get_natural_datetime
 from opd import menus,models
-from.import crypt_uuid4,forms,msgbox
+from .  import crypt_uuid4,forms,msgbox
 mMsgBox=msgbox.ClsMsgBox()
 def unicode_to_string(value):B='ascii';A=value;A=str(A);A=unicodedata.normalize('NFKD',A).encode(B,'ignore').decode(B);return A
 def redirect_to_login(request):
@@ -971,9 +971,13 @@ def artikel_ajax(request):
 	for A in B:A[_D]=get_natural_datetime(A[_D]);A[_F]=Truncator(A[_F]).words(5);A[_A8]=Truncator(A[_A8]).words(30)
 	F=list(B);return JsonResponse(F,safe=_C)
 def dokumen_ajax(request):
-	C='size';B=request;F=get_siteID(B);D=models.dokumen.objects.filter(site_id=F).values(_A,_E,_z,C,_q,_D)
-	for A in D:A[_D]=get_natural_datetime(A[_D]);A[C]=naturalsize(A[C]);E=A[_q];A['extra_field']='%s://%s%s%s'%(B.scheme,B.get_host(),settings.MEDIA_URL,E);A[_q]=Truncator(E).chars(30)
-	G=list(D);return JsonResponse(G,safe=_C)
+	F='extra_field';D='size';B=request;G=get_siteID(B);E=models.dokumen.objects.filter(site_id=G).values(_A,_E,_z,D,_q,_D)
+	for A in E:
+		A[_D]=get_natural_datetime(A[_D]);A[D]=naturalsize(A[D]);C=A[_q]
+		if'https://'in settings.MEDIA_URL:A[F]='%s%s'%(settings.MEDIA_URL,C)
+		else:A[F]='%s://%s%s%s'%(B.scheme,B.get_host(),settings.MEDIA_URL,C)
+		A[_q]=Truncator(C).chars(30)
+	H=list(E);return JsonResponse(H,safe=_C)
 def agenda_ajax(request):
 	C=get_siteID(request);B=models.agenda.objects.filter(site_id=C).values(_A,_E,_z,'lokasi',_AN,'jam','penyelenggara','dihadiri_oleh',_e,_D)
 	for A in B:A[_D]=get_natural_datetime(A[_D]);A[_z]=Truncator(A[_z]).words(30)
@@ -1024,7 +1028,7 @@ def toggle_comment_activate(request,pID):A=models.comment.objects.get(id=pID);A.
 def toggle_comment_activate_all(request):A=models.comment.objects.filter(site_id=get_siteID(request),active=_C).update(active=_B);return HttpResponse('True')
 def top_kontributor_berita(request):
 	F=models.berita.objects.exclude(admin_id=1).values_list(_AO).annotate(jumlah=Count(_A)).order_by(_AP);A=[];B=_C;D=request.user.id
-	for(C,E)in F:
+	for (C,E) in F:
 		if len(A)<5:
 			A.append(list(models.User.objects.filter(id=C).values_list(_A,_i))+[E])
 			if D==C:B=_B
@@ -1036,7 +1040,7 @@ def top_kontributor_berita(request):
 	return JsonResponse(A,safe=_C)
 def top_kontributor_pengumuman(request):
 	F=models.pengumuman.objects.exclude(admin_id=1).values_list(_AO).annotate(jumlah=Count(_A)).order_by(_AP);A=[];B=_C;D=request.user.id
-	for(C,E)in F:
+	for (C,E) in F:
 		if len(A)<5:
 			A.append(list(models.User.objects.filter(id=C).values_list(_A,_i))+[E])
 			if D==C:B=_B
@@ -1048,7 +1052,7 @@ def top_kontributor_pengumuman(request):
 	return JsonResponse(A,safe=_C)
 def top_kontributor_artikel(request):
 	F=models.artikel.objects.exclude(admin_id=1).values_list(_AO).annotate(jumlah=Count(_A)).order_by(_AP);A=[];B=_C;D=request.user.id
-	for(C,E)in F:
+	for (C,E) in F:
 		if len(A)<5:
 			A.append(list(models.User.objects.filter(id=C).values_list(_A,_i))+[E])
 			if D==C:B=_B
@@ -1158,7 +1162,7 @@ def kontribusi_kualitas_periode(request,kategori_id,periode_id):
 	C=0;D=0;B=periode_id.split('.')
 	if len(B)>=2:C=int(B[0]);D=int(B[1])
 	if C and D:
-		for A in I:Q=[];J=models.berita.objects.filter(site_id=A[_A],created_at__month=int(C),created_at__year=int(D),word_count__gte=H).count();print('ret_tmp',J);M=models.artikel.objects.filter(site_id=A[_A],created_at__month=C,created_at__year=D,word_count__gte=H).count();N=models.pengumuman.objects.filter(site_id=A[_A],created_at__month=C,created_at__year=D,word_count__gte=L).count();K=J+M+N;O=K/4*100;P={_A:A[_A],_H:A[_H],_c:K,'persentase':O,'ket':''};F.append(P)
+		for A in I:Q=[];J=models.berita.objects.filter(site_id=A[_A],created_at__month=C,created_at__year=D,word_count__gte=H).count();print('ret_tmp',J);M=models.artikel.objects.filter(site_id=A[_A],created_at__month=C,created_at__year=D,word_count__gte=H).count();N=models.pengumuman.objects.filter(site_id=A[_A],created_at__month=C,created_at__year=D,word_count__gte=L).count();K=J+M+N;O=K/4*100;P={_A:A[_A],_H:A[_H],_c:K,'persentase':O,'ket':''};F.append(P)
 	return JsonResponse(F,safe=_C)
 def site_kontribusi_kualitas_pie_chart(request,kategori_id):
 	J=kategori_id;C=[];K=[];L=100;T=50

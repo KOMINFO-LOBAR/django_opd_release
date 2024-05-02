@@ -1,0 +1,332 @@
+{% extends 'hotmagazine/base-index.html' %}
+{% block content %}
+    <!-- block-wrapper-section
+        ================================================== -->
+    <section class="block-wrapper">
+        <div class="container-fluid">
+            
+            <div class="row">
+                <div class="col-md-7 col-sm-8">
+
+                    <!-- block content -->
+                    <div class="block-content">
+                        
+
+                        <!-- grid box -->
+                        <!-- Latest Newst -->
+                        {% include "hotmagazine/snippets/latest-news.html" %}
+                        <!-- End grid box -->
+
+                        <!-- grid box -->
+                        <!-- Latest Announcement -->
+                        {% include "hotmagazine/snippets/latest-announcement.html" %}
+                        <!-- End grid box -->
+
+                        <!-- carousel box -->
+                        <!-- Schedule -->
+                        {% include "hotmagazine/snippets/latest-schedule.html" %}
+                        <!-- End carousel box -->
+
+                        <!-- Carousel box -->
+                        <!-- Photo Gallery -->
+                        {% include "hotmagazine/snippets/photo-gallery.html" %}
+                        <!-- End carousel box -->
+
+                        <!-- Carousel box -->
+                        <!-- Video gallery -->
+                        {% include "hotmagazine/snippets/video-gallery.html" %}
+                        <!-- End carousel box -->
+
+                        <!-- google addsense -->
+                        <!-- Banner bottom -->
+
+                        <!-- End google addsense -->
+                        {% include "hotmagazine/snippets/banner-landscape.html" %}
+                        <!-- article box -->
+                        <!-- <div class="article-box">
+                            <div class="title-section">
+                                <h1><span>Latest Articles</span></h1>
+                            </div>
+
+                            <div class="news-post article-post">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="post-gallery">
+                                            <img alt="" src="upload/news-posts/art1.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="post-content">
+                                            <h2><a href="single-post.html">Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</a></h2>
+                                            <ul class="post-tags">
+                                                <li><i class="fa fa-clock-o"></i>27 may 2013</li>
+                                                <li><i class="fa fa-user"></i>by <a href="#">John Doe</a></li>
+                                                <li><a href="#"><i class="fa fa-comments-o"></i><span>23</span></a></li>
+                                                <li><i class="fa fa-eye"></i>872</li>
+                                            </ul>
+                                            <span class="post-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <p>Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-post article-post">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="post-gallery">
+                                            <img alt="" src="upload/news-posts/art2.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="post-content">
+                                            <h2><a href="single-post.html">Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</a></h2>
+                                            <ul class="post-tags">
+                                                <li><i class="fa fa-clock-o"></i>27 may 2013</li>
+                                                <li><i class="fa fa-user"></i>by <a href="#">John Doe</a></li>
+                                                <li><a href="#"><i class="fa fa-comments-o"></i><span>23</span></a></li>
+                                                <li><i class="fa fa-eye"></i>872</li>
+                                            </ul>
+                                            <span class="post-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <p>Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-post article-post">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="post-gallery">
+                                            <img alt="" src="upload/news-posts/art3.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="post-content">
+                                            <h2><a href="single-post.html">Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</a></h2>
+                                            <ul class="post-tags">
+                                                <li><i class="fa fa-clock-o"></i>27 may 2013</li>
+                                                <li><i class="fa fa-user"></i>by <a href="#">John Doe</a></li>
+                                                <li><a href="#"><i class="fa fa-comments-o"></i><span>23</span></a></li>
+                                                <li><i class="fa fa-eye"></i>872</li>
+                                            </ul>
+                                            <span class="post-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <p>Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-post article-post">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="post-gallery">
+                                            <img alt="" src="upload/news-posts/art4.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="post-content">
+                                            <h2><a href="single-post.html">Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</a></h2>
+                                            <ul class="post-tags">
+                                                <li><i class="fa fa-clock-o"></i>27 may 2013</li>
+                                                <li><i class="fa fa-user"></i>by <a href="#">John Doe</a></li>
+                                                <li><a href="#"><i class="fa fa-comments-o"></i><span>23</span></a></li>
+                                                <li><i class="fa fa-eye"></i>872</li>
+                                            </ul>
+                                            <span class="post-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <p>Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> -->
+                        <!-- End article box -->
+
+                        <!-- Pagination box -->
+                        <!-- <div class="pagination-box">
+                            <ul class="pagination-list">
+                                <li><a class="active" href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><span>...</span></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                            <p>Page 1 of 9</p>
+                        </div> -->
+                        <!-- End Pagination box -->
+
+                    </div>
+                    <!-- End block content -->
+
+                </div>
+
+                <div class="col-md-2 col-sm-0">
+
+                    <!-- sidebar -->
+                    <div class="sidebar small-sidebar">
+
+                        <!-- Side bar - latest news continue -->
+                        {% include "hotmagazine/snippets/sidebar-latest-news.html" %}
+
+                        
+                        <!-- Banner 1 -->
+                        {% include "hotmagazine/snippets/banner-portrait1.html" %}
+
+                        <!-- Banner 2 -->
+                        {% include "hotmagazine/snippets/banner-portrait2.html" %}
+                        
+
+                        <!-- <div class="widget categories-widget">
+                            <div class="title-section">
+                                <h1><span>Kategori Teratas</span></h1>
+                            </div>
+                            <ul class="category-list">
+                                <li>
+                                    <a href="#">Business <span>12</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Sport <span>26</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">LifeStyle <span>55</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Fashion <span>37</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Technology <span>62</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Music <span>10</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Culture <span>43</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Design <span>74</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Entertainment <span>11</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">video <span>41</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Travel <span>11</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Food <span>29</span></a>
+                                </li>
+                            </ul>
+                        </div> -->
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+
+                    <!-- sidebar -->
+                    <div class="sidebar large-sidebar">
+
+                        <!-- <div class="widget search-widget">
+                            <form role="search" class="search-form">
+                                <input type="text" id="search" name="search" placeholder="Mulai Pencarian">
+                                <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div> -->
+
+                        <!-- Side bar - social media  -->
+                        {% include "hotmagazine/snippets/social-media.html" %}
+
+                        <!-- OPD News -->
+                        {% include "hotmagazine/snippets/OPD-news.html" %}
+
+                        <!-- Banner -->
+                        {% include "hotmagazine/snippets/banner-box.html" %}
+
+
+                        <!-- Relate Link (Application link) -->
+                        {% include "hotmagazine/snippets/related-link.html" %}
+
+                        <!-- <div class="widget post-widget">
+                            <div class="title-section">
+                                <h1><span>Video Unggulan</span></h1>
+                            </div>
+                            <div class="news-post video-post">
+                                <img alt="" src="upload/news-posts/video-sidebar.jpg">
+                                <a href="https://www.youtube.com/watch?v=LL59es7iy8Q" class="video-link"><i class="fa fa-play-circle-o"></i></a>
+                                <div class="hover-box">
+                                    <h2><a href="single-post.html">Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. </a></h2>
+                                    <ul class="post-tags">
+                                        <li><i class="fa fa-clock-o"></i>27 may 2013</li>
+                                    </ul>
+                                </div>
+                                <p></p>
+                            </div>
+                            <p>Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis. </p>
+                        </div> -->
+
+                    </div>
+                    <!-- End sidebar -->
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End block-wrapper-section -->
+{% endblock %}
+
+{% block extra_body %}
+    <script>
+        window.addEventListener("load", () => {
+            clock();
+
+            function clock() {
+                const today = new Date();
+                const hours = today.getHours();
+                const minutes = today.getMinutes();
+                const seconds = today.getSeconds();
+
+                const hour = hours < 10 ? "0" + hours : hours;
+                const minute = minutes < 10 ? "0" + minutes : minutes;
+                const second = seconds < 10 ? "0" + seconds : seconds;
+
+                // const ampm = hours < 12 ? "AM" : "PM";
+
+                const formattedTime = `${hour}:${minute}:${second}`;
+                document.getElementById("clock").innerHTML = formattedTime;
+
+                setTimeout(clock, 1000);
+            }
+        });
+    </script>
+{% endblock %}

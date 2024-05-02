@@ -1,0 +1,103 @@
+<ul class="main-menu-m">
+    {% for n in menu %}    						
+        <li>
+        {% if n.href is None %}
+            <a href="#" title="{{n.nama}}" >
+        {% elif n.href == '#' or n.href == '/' or n.href == '' %}
+            {% if '://' in n.href %}
+                <a target=_blank href="{{n.href}}" title="{{n.nama}}" >
+            {% else %}
+                <a href="{{n.href}}" title="{{n.nama}}" >
+            {% endif %}
+        {% else %}
+            {% if '://' in n.href %}
+                <a target=_blank href="{{n.href}}" title="{{n.nama}}" >
+            {% else %}
+                <a href="/{{n.href}}" title="{{n.nama}}" > <!--style="white-space: nowrap"-->
+            {% endif %}
+        {% endif %}
+        
+        {% if n.icon == '' or n.icon is None %}
+            {{n.nama}}</a>
+        {% else %}            
+            <i class="fa fa-lg fa-fw fa-{{n.icon}}"></i> {{n.nama}}</a>
+        {% endif %}
+
+        <!-- mulai tag child -->
+        {% if n.haveChild == 1 %} <ul class="sub-menu-m"> {% else %} </li> {% endif %} 						
+        {% if n.haveChildEndTag > 0 %} 
+            {% if n.haveChildEndTag >= 3 %} 
+            </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li> 
+            {% endif %}
+            {% if n.haveChildEndTag >= 2 %} 
+            </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>  
+            {% endif %}
+            {% if n.haveChildEndTag >= 1 %} 
+            </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>  
+            {% endif %}        
+        {% endif %}
+        <!-- end tag child -->
+    {% endfor %}
+    
+    <!--
+    <li>
+        <a href="index.html">Beranda</a>                    
+    </li>
+
+    <li>
+        <a href="#">Profil</a>
+        <ul class="sub-menu-m">
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#">Visi dan Misi</a></li>
+            <li><a href="#">Tugas dan Fungsi</a></li>
+            <li><a href="#">Struktur Organisasi</a></li>
+            <li><a href="#">Profil Pejabat Struktural</a></li>
+        </ul>
+
+        <span class="arrow-main-menu-m">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </span>
+    </li>
+
+    <li>
+        <a href="category-02.html">Berita </a>
+    </li>
+
+    <li>
+        <a href="category-01.html">Pengumuman</a>
+    </li>
+
+    <li>
+        <a href="#">Data</a>
+        <ul class="sub-menu-m">
+            <li><a href="#">PPID</a></li>
+            <li><a href="#">Statistik Sektoral</a></li>							
+        </ul>
+
+        <span class="arrow-main-menu-m">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </span>
+    </li>
+
+    <li>
+        <a href="#">Galery</a>
+    </li>
+
+    <li>
+        <a href="#">Kontak</a>
+    </li>
+    -->
+    
+</ul>

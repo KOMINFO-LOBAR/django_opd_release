@@ -1,0 +1,126 @@
+.top-line ul.social-icons li a,
+.top-line ul.top-line-list li span,		
+.top-line ul.top-line-list li a {		
+    color: white;
+}
+.top-line svg path{
+    fill: white;
+}
+.section.ticker-news {
+    padding: 10px 0 0;
+}
+div.block-content {
+    padding: 20px 0 50px;
+}
+.sidebar {
+    padding: 20px;
+}
+
+.slider-item-show h1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    color: white;
+    text-shadow: 1px 1px 15px black;			
+}
+/* @media (max-width: 1199px) {
+    .slider-item-show h1 {
+        margin-top: 10%;
+    }
+} */
+.slider-item-show .title {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 40px;
+}
+.slider-item-show .sub-title {
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 34px;
+    padding: 5px 0 0;
+}
+.slider-item-show .content {
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 14px;		
+    padding: 15px 0 0;	
+}
+.slider-item-show a,
+.slider-item-show p {			
+    margin-left: 10%;
+    color: white;
+    text-shadow: 1px 1px 15px black;
+}
+footer .categories-widget ul.category-list li {
+    list-style: none;
+    width: 100%;
+    /* float: left; */
+    margin-bottom: 10px;
+}
+footer .categories-widget ul.category-list li:nth-child(2n) {
+    padding-left: 0;
+}		
+footer .flickr-widget ul.flickr-list li:nth-child(3n) {
+    margin-right: 5px;
+}
+.navbar-brand h1 {
+    font-size: 36px;
+    /* font-weight: 200; */
+    /* line-height: 23px;	 */
+    /* font-stretch: wider; */
+    margin-left: -78px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+    font-weight: bold;
+    letter-spacing: -1px; 
+    color: rgb(41, 40, 40);
+
+    white-space: nowrap;
+    overflow: hidden;
+    
+} 
+@media (max-width: 1199px) {
+    .navbar-brand {
+        max-width: 400px;				
+    }
+}
+.navbar-brand h1 span {
+    color: red;
+    font-weight: 900;
+    /* font-weight: bold; */
+    /* font-stretch: condensed; */
+    
+} 
+.widget-footer-logo h1 {
+    font-size: 40px;			
+    margin-left: -101px;
+    /* margin-top: -6px; */
+    margin-bottom: -10px;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+    font-weight: bold;
+    border-bottom: 0;
+    /* float: left; */
+    white-space: nowrap;
+    overflow: hidden;
+} 
+.widget-footer-logo h1 span {
+    color: red;
+    font-weight: 900;			
+    font-stretch: condensed;
+} 
+.slider-item-show a {
+    background-color: #f44336;
+    border-color: #c22f25;
+    
+}
+.slider-item-show a:hover {
+    background-color: #f7594d;
+    border-color: #f7594d;
+    font-weight: bold;
+}
+footer .text-widget a img {
+    margin-top: -4px;
+    
+}

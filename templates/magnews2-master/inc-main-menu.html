@@ -1,0 +1,100 @@
+<!--<br><div><p>
+        {% for i in menu %}
+            parent={{i.parent_id}} name={{i.nama }} level={{i.level}} havechild={{ i.haveChild}} endtag={{i.haveChildEndTag}}  <br>
+        {% endfor %}
+    </p></div><br>-->    
+<ul class="main-menu">        
+
+    {% for n in menu %}           			
+        <li 
+            {% if n.nama|lower in activeMenuList %} 
+                class="main-menu-active 
+                    {% if n.haveChild == 1 and n.parent_id is not None %}
+                        carret
+                    {% endif %}" 
+            {% else %}
+                class="{% if n.haveChild == 1 and n.parent_id is not None %} carret {% endif %}" 
+            {% endif %}
+        >
+
+        <!--link external jika di jumpai kata //www. 
+            a target=_blank href="{{i.link}}" -->
+
+        {% if n.href is None %}
+            <a href="#" title="{{n.nama}}" >
+        {% elif n.href == '#' or n.href == '/' or n.href == '' %}
+            {% if '://' in n.href %}
+                <a target=_blank href="{{n.href}}" title="{{n.nama}}" >
+            {% else %}
+                <a href="{{n.href}}" title="{{n.nama}}" >
+            {% endif %}
+        {% else %}
+            {% if '://' in n.href %}
+                <a target=_blank href="{{n.href}}" title="{{n.nama}}" >
+            {% else %}
+                <a href="/{{n.href}}" title="{{n.nama}}" > <!--style="white-space: nowrap"-->
+            {% endif %}
+        {% endif %}
+                
+        {% if n.icon == '' or n.icon is None %}
+            {{n.nama}} {% if n.haveChild and n.parent_id %}  &nbsp;  <i class="zmdi zmdi-chevron-right"></i>{% endif %}        
+        {% else %}            
+            <i class="fa fa-lg fa-fw fa-{{n.icon}}"></i> {{n.nama}} {% if n.haveChild and n.parent_id %} &nbsp; <i class="zmdi zmdi-chevron-right"></i>{% endif %}        
+        {% endif %}
+
+        <!-- bug carret -->
+        {% if n.parent_id is None and n.haveChild %}
+            &nbsp; <i class="zmdi zmdi-chevron-down"></i>
+        {% endif %}
+        </a>
+
+        <!-- mulai tag child -->
+        {% if n.haveChild == 1 %} <ul class="sub-menu"> {% else %} </li> {% endif %} 						
+        {% if n.haveChildEndTag > 0 %} 
+            {% if n.haveChildEndTag >= 3 %} </ul></li> {% endif %}
+            {% if n.haveChildEndTag >= 2 %} </ul></li> {% endif %}
+            {% if n.haveChildEndTag >= 1 %} </ul></li> {% endif %}        
+        {% endif %}
+        <!-- end tag child -->
+    {% endfor %}	
+
+    <!--<br>
+
+    <li class="main-menu-active">
+        <a href="index.html">Beranda</a>                            
+    </li>
+
+    <li class="carret">
+        <a href="#" >Profil</a>
+        <ul class="sub-menu">
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#">Visi dan Misi</a></li>
+            <li><a href="#">Tugas dan Fungsi</a></li>
+            <li><a href="#">Struktur Organisasi</a></li>
+            <li><a href="#">Profil Pejabat Struktural</a></li>                                   									
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">Berita</a>								
+    </li>
+    <li>
+        <a href="#">Pengumuman</a>								
+    </li>
+
+    <li class="carret">
+        <a href="#">Data</a>
+        <ul class="sub-menu">
+            <li><a href="#">PPID</a></li>
+            <li><a href="#">Statistik Sektoral</a></li>                                    
+        </ul>
+    </li>
+    
+    <li>
+        <a href="#">Galeri</a>								
+    </li>
+    <li>
+        <a href="#">Kontak</a>								
+    </li>-->
+
+</ul>
