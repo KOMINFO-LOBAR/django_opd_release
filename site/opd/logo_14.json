@@ -1,0 +1,1 @@
+[{"condition": {"id": 25}, "defaults": {"site_id": 14, "photo_id": 48, "position": "TOP", "created_at": "2021-05-28T08:17:58.357Z", "updated_at": "2024-05-08T05:04:17.921Z"}}, {"condition": {"id": 26}, "defaults": {"site_id": 14, "photo_id": 49, "position": "BOTTOM", "created_at": "2021-05-28T08:18:51.447Z", "updated_at": "2024-05-08T05:10:20.160Z"}}]

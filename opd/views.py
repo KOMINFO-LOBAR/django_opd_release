@@ -47,7 +47,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.db.models import OuterRef,Q
-from django.http import JsonResponse
+from django.http import JsonResponse,Http404
 from django.shortcuts import get_object_or_404,redirect,render
 from django.utils.html import strip_tags
 from django.utils.safestring import SafeString
@@ -272,7 +272,7 @@ def index(request):
 		if pdata:
 			pdata=pdata.strip()
 			if pdata!='':return redirect(_W+slugify(pdata)+_X)
-	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_beritaTerpopuler(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);obj=Site.objects.get(id=siteID);get_hitCounter(request,obj,_n);statistik=get_statistic(siteID,_E);context.update(statistik);get_popup(siteID,context);get_weather(context);template_name=get_template(siteID);response=render(request,f"{template_name}index.html",context);response.set_cookie(key=_S,value='my_value',samesite='None',secure=_E);return response
+	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_beritaTerpopuler(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);obj=Site.objects.get(id=siteID);get_hitCounter(request,obj,_n);statistik=get_statistic(siteID,_E);context.update(statistik);get_popup(siteID,context);get_weather(context);template_name=get_template(siteID);print('TEMPLATENAME',template_name);response=render(request,f"{template_name}index.html",context);response.set_cookie(key=_S,value='my_value',samesite='None',secure=_E);return response
 def detail(request,pid,jenis):
 	A='email';context={};siteID=get_siteID(request)
 	if siteID==0:context[_L]=_N%(request.get_host(),_K);return render(request,_M,context)
