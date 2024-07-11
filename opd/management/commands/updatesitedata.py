@@ -46,32 +46,32 @@ class Command(BaseCommand):
 	@transaction.atomic
 	def update_menu_model(self,site_group):
 		print('Update Menu Model ...')
-		with open(os.path.join(self.site_list,site_group,'menu.json'),'r')as D:B=json.load(D)
-		C=1;E=len(B)
-		for A in B:F=C/E*100;print('ID-menu',A[_B][_C]);print(f"Writing [menu Default] to database [%d%%]\r"%F,end='');G,H=menu.objects.update_or_create(id=A[_B][_C],defaults=A[_A]);C+=1
+		with open(os.path.join(self.site_list,site_group,'menu.json'),'r')as D:A=json.load(D)
+		B=1;E=len(A)
+		for C in A:F=B/E*100;print(f"Writing [menu Default] to database [%d%%]\r"%F,end='');G,H=menu.objects.update_or_create(id=C[_B][_C],defaults=C[_A]);B+=1
 	@transaction.atomic
 	def update_data_by_site(self,site_group):
-		U='m2m';T='menu_id';S='tags';R=False;L=site_group;G=self;print('Update Site Data ...');M=os.path.join(G.site_list,L);H=[A for A in os.listdir(M)if os.path.isfile(os.path.join(M,A))]
-		for E in G.model_list:
-			print('proses model: ',E)
-			for A in range(len(H)):
-				D=H[A].split('_');F=D[len(D)-1];F=F.split('.')[:1];F=F[0];D.pop(len(D)-1);N=0;V='_'.join(D)
-				if E==V:
+		U='m2m';T='menu_id';S='tags';R=False;M=site_group;H=self;print('Update Site Data ...');I=os.path.join(H.site_list,M);print('source_folder',I);D=[A for A in os.listdir(I)if os.path.isfile(os.path.join(I,A))];print('source_file',D,len(D))
+		for F in H.model_list:
+			print('proses model: ',F)
+			for A in range(len(D)):
+				E=D[A].split('_');G=E[len(E)-1];G=G.split('.')[:1];G=G[0];E.pop(len(E)-1);N=0;V='_'.join(E)
+				if F==V:
 					c=None
-					with open(os.path.join(G.site_list,L,H[A]),'r')as W:O=json.load(W)
-					I=1;X=len(O)
+					with open(os.path.join(H.site_list,M,D[A]),'r')as W:O=json.load(W)
+					J=1;X=len(O)
 					for B in O:
-						J=apps.get_model('opd',E)
-						if J:
+						K=apps.get_model('opd',F)
+						if K:
 							P=R;Q=R
-							for K in J._meta.get_fields():
-								if K.many_to_many:
-									if K.name==S:P=True
-									elif K.name==_D:Q=True
-							if E==_E:
+							for L in K._meta.get_fields():
+								if L.many_to_many:
+									if L.name==S:P=True
+									elif L.name==_D:Q=True
+							if F==_E:
 								Y=menu.objects.filter(id=B[_A][T])
-								if not Y:N+=1;I+=1;print('SKIP',B[_A][T]);continue
-							Z=I/X*100;print(f"Writing [Site Default] to database [%d%%]\r"%Z,end='');C,d=J.objects.update_or_create(id=B[_B][_C],defaults=B[_A])
+								if not Y:N+=1;J+=1;print('SKIP',B[_A][T]);continue
+							Z=J/X*100;print(f"Writing [Site Default] to database [%d%%]\r"%Z,end='');C,d=K.objects.update_or_create(id=B[_B][_C],defaults=B[_A])
 							if P:
 								C.tags.clear()
 								for A in B[U][S]:a=tags.objects.get(id=A);C.tags.add(a)
@@ -80,7 +80,7 @@ class Command(BaseCommand):
 								C.photo.clear()
 								for A in B[U][_D]:b=photo.objects.get(id=A);C.photo.add(b)
 								C.save()
-							I+=1
+							J+=1
 			print('SKIP:',N)
 	def handle(A,*F,**B):
 		A.info('Begin get site data');C=B[_F];D=input('Confirm DB Name: ');E=settings.DATABASES

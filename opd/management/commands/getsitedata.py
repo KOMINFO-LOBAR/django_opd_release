@@ -166,13 +166,15 @@ class Command(BaseCommand):
 				else:print(_D)
 			else:print('---EMPTY TABLE---',B)
 	def get_data_by_site(A):
-		D=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(D)+']');C=[A.split('_')[len(A.split('_'))-1]for A in D];A.info('res_folder: ['+', '.join(C)+']')
-		for B in range(len(D)):
-			A.info('proses: '+D[B])
-			with open(os.path.join(A.site_list,D[B]),'r')as G:E=G.read()
+		D=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(D)+']');B=[A.split('_')[len(A.split('_'))-1]for A in D]
+		for F in range(len(B)):B[F]=B[F].split('.')[0]
+		A.info('res_folder: ['+', '.join(B)+']')
+		for C in range(len(D)):
+			A.info('proses: '+D[C])
+			with open(os.path.join(A.site_list,D[C]),'r')as H:E=H.read()
 			E=E.split('\n')
-			for F in range(len(E)):
-				if E[F]:A.get_site_model(C[B]);A.get_user_model(C[B]);A.get_kategori_model(C[B]);A.get_tags_model(C[B]);A.get_menu_model(C[B]);A.get_data(E[F],C[B])
+			for G in range(len(E)):
+				if E[G]:A.get_site_model(B[C]);A.get_user_model(B[C]);A.get_kategori_model(B[C]);A.get_tags_model(B[C]);A.get_menu_model(B[C]);A.get_data(E[G],B[C])
 	def handle(A,*D,**E):
 		A.info('Begin get site data');B=input('Confirm DB Name: ');C=settings.DATABASES
 		if B==C['default']['NAME']:A.get_data_by_site()
