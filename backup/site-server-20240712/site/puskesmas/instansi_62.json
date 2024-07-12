@@ -1,0 +1,1 @@
+[{"condition": {"id": 71}, "defaults": {"site_id": 62, "nama": "puskesmas sesela", "alamat": "jl.Raya Sesela No.17 KM.1 Dusun Kebon Bawak, Desa Sesela", "telp": null, "email": "puskesmas.sesela@gmail.com", "kode_post": "83351", "kategori_id": 3, "parent_id": 5, "created_at": "2021-07-07T15:17:56.948Z", "updated_at": "2022-09-02T14:24:38.462Z"}, "m2m": {"admin": [80]}}]

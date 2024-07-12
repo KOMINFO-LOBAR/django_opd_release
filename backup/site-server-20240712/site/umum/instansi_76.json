@@ -1,0 +1,1 @@
+[{"condition": {"id": 83}, "defaults": {"site_id": 76, "nama": "elapaksitebel", "alamat": null, "telp": null, "email": null, "kode_post": null, "kategori_id": null, "parent_id": null, "created_at": "2022-10-17T08:15:17.759Z", "updated_at": "2024-05-31T02:02:15.926Z"}, "m2m": {"admin": [105]}}]

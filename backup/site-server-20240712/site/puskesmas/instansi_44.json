@@ -1,0 +1,1 @@
+[{"condition": {"id": 51}, "defaults": {"site_id": 44, "nama": "Puskesmas Narmada", "alamat": "Jln. Raya Sembung ,Karang Kates ,Mekar Sari Narmada", "telp": "083129681684", "email": "pkm.narmada@gmail.com", "kode_post": "83371", "kategori_id": 3, "parent_id": 5, "created_at": "2021-06-07T09:32:20.246Z", "updated_at": "2022-09-02T14:25:51.388Z"}, "m2m": {"admin": [47]}}]

@@ -1,0 +1,1 @@
+[{"condition": {"id": 84}, "defaults": {"site_id": 77, "nama": "Dinas Pendidikan dan Kebudayaan", "alamat": "Jl. Soekarno Hatta Gerung", "telp": "(0370) 681540", "email": "dikbudlobar.kepeg@gmail.com", "kode_post": "83363", "kategori_id": null, "parent_id": null, "created_at": "2022-11-18T08:27:52.968Z", "updated_at": "2024-03-19T04:13:30.801Z"}, "m2m": {"admin": [106]}}]

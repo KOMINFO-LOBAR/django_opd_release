@@ -1,0 +1,1 @@
+[{"condition": {"id": 42}, "defaults": {"site_id": 37, "nama": "Kuripan", "alamat": "Jln. BY PASS BIL KM. 19 KURIPAN", "telp": null, "email": "kuripankecamatan@gmail.com", "kode_post": "83362", "kategori_id": 4, "parent_id": null, "created_at": "2021-05-28T01:54:40.570Z", "updated_at": "2023-11-03T05:31:51.847Z"}, "m2m": {"admin": [1, 35, 113]}}]

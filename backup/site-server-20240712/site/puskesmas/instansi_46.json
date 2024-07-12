@@ -1,0 +1,1 @@
+[{"condition": {"id": 53}, "defaults": {"site_id": 46, "nama": "Puskesmas Labuapi", "alamat": "Jl. TGH Lopan, Gg.Permas, Desa Labuapi, Kec.Labuapi, Lombok Barat", "telp": null, "email": "pkmlabuapi.ok@gmail.com", "kode_post": "83361", "kategori_id": 3, "parent_id": null, "created_at": "2021-06-07T09:33:00.111Z", "updated_at": "2024-01-22T07:31:35.299Z"}, "m2m": {"admin": [50]}}]
