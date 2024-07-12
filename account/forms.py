@@ -43,6 +43,12 @@ class BannerForm(ModelForm):
 		super(BannerForm,self).__init__(*(args),**kwargs)
 		for name in self.fields.keys():self.fields[name].widget.attrs.update({_A:_F})
 	class Meta:model=banner;fields=['str_banner_position','position','link']
+class MenuForm(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super(MenuForm,self).__init__(*(args),**kwargs)
+		for name in self.fields.keys():self.fields[name].widget.attrs.update({_A:_F})
+		self.fields['parent'].queryset=menu.objects.filter(is_admin_menu=_H)
+	class Meta:model=menu;fields=_B;exclude=_E,'is_admin_menu','href',_D,_C
 class BeritaForm(ModelForm):
 	def __init__(self,*args,**kwargs):
 		super().__init__(*(args),**kwargs);self.fields['isi_berita'].required=_H

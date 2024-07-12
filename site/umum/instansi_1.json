@@ -1,1 +1,1 @@
-[{"condition": {"id": 86}, "defaults": {"site_id": 1, "nama": "Admin OPD", "alamat": null, "telp": null, "email": null, "kode_post": null, "kategori_id": null, "parent_id": null, "created_at": "2023-02-20T10:43:10.504Z", "updated_at": "2023-02-20T10:43:10.504Z"}}]
+[{"condition": {"id": 86}, "defaults": {"site_id": 1, "nama": "Admin OPD", "alamat": null, "telp": null, "email": null, "kode_post": null, "kategori_id": null, "parent_id": null, "created_at": "2023-02-20T10:43:10.504Z", "updated_at": "2023-02-20T10:43:10.504Z"}, "m2m": {"admin": [1]}}]

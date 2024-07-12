@@ -1,1 +1,1 @@
-[{"condition": {"id": 75}, "defaults": {"site_id": 67, "nama": "LPA", "alamat": null, "telp": null, "email": null, "kode_post": null, "kategori_id": 6, "parent_id": null, "created_at": "2022-01-11T14:38:39.876Z", "updated_at": "2022-09-02T14:27:41.634Z"}}]
+[{"condition": {"id": 75}, "defaults": {"site_id": 67, "nama": "LPA", "alamat": null, "telp": null, "email": null, "kode_post": null, "kategori_id": 6, "parent_id": null, "created_at": "2022-01-11T14:38:39.876Z", "updated_at": "2022-09-02T14:27:41.634Z"}, "m2m": {"admin": [97]}}]
