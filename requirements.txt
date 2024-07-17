@@ -5,7 +5,7 @@ attrs==23.2.0
 authbox-menu==1.0.0
 authbox-setup-version==1.0.9
 Automat==22.10.0
-backports.zoneinfo==0.2.1
+backports.zoneinfo==0.2.1;python_version<"3.9"
 beautifulsoup4==4.12.2
 billiard==4.1.0
 celery==5.3.1
@@ -24,7 +24,7 @@ defusedxml==0.7.1
 diff-match-patch==20230430
 distlib==0.3.8
 Django==3.2.8
-django-cachalot==2.5.3
+django-cachalot==2.6.2
 django-ckeditor==6.6.1
 django-ckeditor-5==0.2.8
 django-cors-headers==4.1.0
