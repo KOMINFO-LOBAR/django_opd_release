@@ -887,7 +887,7 @@ def agenda(request,mode='',pk=''):
 @login_required(login_url=_O)
 def info_hoax(request,mode='',pk=''):
 	H='/dashboard/info-hoax';C=mode;A=request;cek_user(A);E=get_siteID(A);print('siteID = ');print(E)
-	if E!=1:messages.info(A,_Ab);return redirect(_AC)
+	if not(E==1 or E==68):messages.info(A,_Ab);return redirect(_AC)
 	F=menus.ClsMenus(E,_B);B=_I
 	if C==_L or C==_G:
 		if pk=='':return HttpResponse(_Y)
@@ -913,9 +913,9 @@ def info_hoax(request,mode='',pk=''):
 	G='info hoaks';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(E),_S:M};return render(A,'account/info-hoax.html',N)
 @login_required(login_url=_O)
 def banner_all(request,mode='',pk='',photoID=''):
-	T='/dashboard/banner-all';K=photoID;D=mode;A=request;cek_user(A);G=get_siteID(A)
-	if G!=1:messages.info(A,_Ab);return redirect(_AC)
-	P=menus.ClsMenus(G,_B);C=_I;E=_I;K=[];H=''
+	T='/dashboard/banner-all';K=photoID;D=mode;A=request;cek_user(A);E=get_siteID(A)
+	if not(E==1 or E==68):messages.info(A,_Ab);return redirect(_AC)
+	P=menus.ClsMenus(E,_B);C=_I;F=_I;K=[];H=''
 	if D==_L or D==_G:
 		if pk=='':return HttpResponse(_Y)
 		Z=crypt_uuid4.ClsCryptUuid4();H=Z.dec_text(pk)
@@ -926,34 +926,34 @@ def banner_all(request,mode='',pk='',photoID=''):
 	elif D==_N:I=formset_factory(forms.PhotoForm)
 	if D==_N:
 		if A.method==_J:
-			C=forms.BannerAllForm(A.POST);E=I(A.POST)
+			C=forms.BannerAllForm(A.POST);F=I(A.POST)
 			if C.is_valid():
 				print('form valid');B=0
-				for b in E:
+				for b in F:
 					J=A.POST.get(_M+str(B)+_b)
 					if J:
-						L=J.replace(_u,'');M=models.photo.Jenis.BANNER_ALL;N=models.photo.objects.create(site_id=G,jenis=M,file_path=L);Q=C.cleaned_data.get('site');F=C.save(commit=_C);F.photo_id=N.id;F.save()
-						for R in Q:F.site.add(R)
+						L=J.replace(_u,'');M=models.photo.Jenis.BANNER_ALL;N=models.photo.objects.create(site_id=E,jenis=M,file_path=L);Q=C.cleaned_data.get('site');G=C.save(commit=_C);G.photo_id=N.id;G.save()
+						for R in Q:G.site.add(R)
 					B+=1
 			return redirect(T)
-		else:C=forms.BannerAllForm(label_suffix='');E=I();messages.info(A,mMsgBox.get(_W))
+		else:C=forms.BannerAllForm(label_suffix='');F=I();messages.info(A,mMsgBox.get(_W))
 	elif D==_L:
 		V=get_object_or_404(U);I=modelformset_factory(models.photo,form=forms.PhotoForm,extra=1-len(K))
 		if A.method==_J:
-			C=forms.BannerAllForm(A.POST,instance=V);E=I(A.POST)
+			C=forms.BannerAllForm(A.POST,instance=V);F=I(A.POST)
 			if C.is_valid():
-				Q=C.cleaned_data.get('site');models.banner_all.site.through.objects.filter(banner_all_id=H).delete();F=C.save();B=0
-				for b in E:
+				Q=C.cleaned_data.get('site');models.banner_all.site.through.objects.filter(banner_all_id=H).delete();G=C.save();B=0
+				for b in F:
 					J=A.POST.get(_M+str(B)+_b)
 					if J:
 						L=J.replace(_u,'');M=models.photo.Jenis.BANNER_ALL;W=A.POST.get(_M+str(B)+_d)
-						if W:N,c=models.photo.objects.update_or_create(id=W,defaults={_k:G,_t:M,_q:L})
-						else:N,c=models.photo.objects.update_or_create(site_id=G,jenis=M,file_path=L)
-						F.photo_id=N.id;F.save()
+						if W:N,c=models.photo.objects.update_or_create(id=W,defaults={_k:E,_t:M,_q:L})
+						else:N,c=models.photo.objects.update_or_create(site_id=E,jenis=M,file_path=L)
+						G.photo_id=N.id;G.save()
 					B+=1
-				for R in Q:F.site.add(R)
+				for R in Q:G.site.add(R)
 				messages.info(A,mMsgBox.get(_T,A.POST.get(_F)));return redirect(T)
-		else:C=forms.BannerAllForm(instance=V,label_suffix='');E=I(queryset=models.photo.objects.filter(id__in=K));messages.info(A,mMsgBox.get(_a))
+		else:C=forms.BannerAllForm(instance=V,label_suffix='');F=I(queryset=models.photo.objects.filter(id__in=K));messages.info(A,mMsgBox.get(_a))
 	elif D==_G:
 		X=''
 		for B in U:
@@ -964,7 +964,7 @@ def banner_all(request,mode='',pk='',photoID=''):
 					if Y:Y.close()
 			O.delete()
 		messages.info(A,mMsgBox.get(_G,X));return redirect(T)
-	S='Banner All';d=models.menu.objects.filter(nama=S,is_admin_menu=_B);e={_K:P.get_menus(),_Q:P.create_breadCrumb(S),_P:P.find_activeMenuList(S),_V:D,_U:C,_r:E,_R:get_namaOPD(G),_S:d};return render(A,'account/banner-all.html',e)
+	S='Banner All';d=models.menu.objects.filter(nama=S,is_admin_menu=_B);e={_K:P.get_menus(),_Q:P.create_breadCrumb(S),_P:P.find_activeMenuList(S),_V:D,_U:C,_r:F,_R:get_namaOPD(E),_S:d};return render(A,'account/banner-all.html',e)
 def social_media_ajax(request):
 	C=get_siteID(request);A=models.social_media.objects.filter(site_id=C).values(_A,_t,_j,_D)
 	for B in A:B[_D]=get_natural_datetime(B[_D])
