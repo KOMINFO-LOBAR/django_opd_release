@@ -29,7 +29,7 @@ def auto_get_hoax_issue():
 def auto_get_widget():
 	D='https://widget.kominfo.go.id/data/covid-19/gpr.xml';C=3
 	while C>0:
-		B=feedparser.parse(D)
+		B=feedparser.parse(D);print(f"res {B}")
 		if B:
 			if B.entries:
 				C=0
@@ -41,4 +41,4 @@ def auto_get_widget():
 	for A in F:
 		if not A.publish_date:G=getattr(settings,_E,'UTC');H=pytz.timezone(G);I=datetime.datetime.now();J=datetime.datetime(I.year,1,1,tzinfo=H);A.publish_date=J.strftime(_F)
 		A.save()
-	return _A
+	print('Everything is ok');return _A
