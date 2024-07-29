@@ -33,7 +33,8 @@ ALLOWED_HOSTS=.lombokbaratkab.go.id
 # STATIC_ROOT=/home/u1578244/public_html/static/
 # MEDIA_ROOT=/home/u1578244/public_html/media/
 
-MEDIA_ROOT=/src/portal_kelurahan/media/
+STATIC_ROOT=/src/portal/static/
+MEDIA_ROOT=/src/portal/media/
 
 # Social media auth :
 # -------------------
