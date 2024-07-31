@@ -3,8 +3,8 @@ _J='html.parser'
 _I='nama_seo'
 _H='{} - {}'
 _G='/%s/%s'
-_F='src'
-_E=None
+_F=None
+_E='src'
 _D='judul_seo'
 _C='extends'
 _B=False
@@ -84,13 +84,13 @@ def save_embed_video(embed):
 		if B:break
 		G=F.split('=');B=_B
 		for C in G:
-			if not B and C.lower()==_F:B=_A
-			if B and C.lower()!=_F:
+			if not B and C.lower()==_E:B=_A
+			if B and C.lower()!=_E:
 				if D==0:A+=C;D+=1
 				else:A+='='+C
 				print(A)
 	if A.find('watch')<=0:A=A.replace('"','');A=A.replace('&quot;','');return A
-	else:return _E
+	else:return _F
 class galery_video(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);view_count=models.IntegerField(default=0);embed=CKEditor5Field(blank=_A,null=_A,config_name=_C);embed_video=EmbedVideoField(blank=_A,null=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
@@ -156,13 +156,13 @@ class info_hoax(models.Model):
 	def __str__(A):return A.name
 	def save(A,*B,**C):
 		A.slug=uuslug(A.name,instance=A,max_length=255)
-		if A.publish_date_convert is _E:A.publish_date_convert=parser.parse(A.publish_date)
+		if A.publish_date_convert is _F:A.publish_date_convert=parser.parse(A.publish_date)
 		super().save(*(B),**C)
 class info_widget(models.Model):
 	title=models.CharField(max_length=255);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.title
 	def save(B,*C,**D):
-		if B.publish_date_convert is _E:E=getattr(settings,_K,'UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
+		if B.publish_date_convert is _F:E=getattr(settings,_K,'UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
 		super().save(*(C),**D)
 class banner_all(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);name=models.CharField(max_length=50);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
@@ -178,29 +178,30 @@ def create_unique_filename(file_ext):A=datetime.datetime.now();return A.strftime
 def get_site(domain):
 	A=Site.objects.filter(domain=domain)
 	if A:A=A.get();B=A.name.replace(' ','-');B=B.lower();C=A.id;return C,B
-	return _E,_E
+	return _F,_F
 def clear_empty_array(split_path):
 	B=split_path;A=0
 	while A<len(B):
 		if not B[A]:B.pop(A)
 		else:A=A+1
 def move_image(isi_berita,obj_photo,site_id,site_name):
-	P='thumbnail/';J=isi_berita;F=site_name;B='/'
-	if J:
-		G=getattr(settings,'BASE_DIR','');K=BeautifulSoup(J,_J);L=1024;M=_B
-		for N in K.findAll('img'):
-			H=N[_F];A=H.split(B)
-			if not('https:'in A or'http:'in A):
-				clear_empty_array(A)
-				if'thumbnail'in A and F in A:print('File Already moved');continue
-				C=A[0];A.pop(0)
-				if len(A)<=0:continue
-				Q=A[len(A)-1];D=Q.split('.');D=D[len(D)-1];R=create_unique_filename(D);H=B.join(A);I=P+F+B+R;S=P+F;os.makedirs(os.path.join(G,C,S),exist_ok=_A);O=os.path.join(G,C,H);E=os.path.join(G,C,I)
-				if os.path.isfile(O):
-					shutil.move(O,E);compress_img(E,new_size_ratio=1,quality=80,replace=_A);T=Image.open(E);U,W=T.size[:2]
-					if U>L:resize_width_to(E,L)
-					V=photo.objects.create(site_id=site_id,jenis=photo.Jenis.HIGHLIGHT_EDITOR,file_path=I);obj_photo.append(V);N[_F]=B+C+B+I;M=_A
-		return M,K
+	P='thumbnail/';K=isi_berita;F=site_name;B='/'
+	if K:
+		G=getattr(settings,'BASE_DIR','');L=BeautifulSoup(K,_J);M=1024;N=_B
+		for H in L.findAll('img'):
+			if _E in H:
+				I=H[_E];A=I.split(B)
+				if not('https:'in A or'http:'in A):
+					clear_empty_array(A)
+					if'thumbnail'in A and F in A:print('File Already moved');continue
+					C=A[0];A.pop(0)
+					if len(A)<=0:continue
+					Q=A[len(A)-1];D=Q.split('.');D=D[len(D)-1];R=create_unique_filename(D);I=B.join(A);J=P+F+B+R;S=P+F;os.makedirs(os.path.join(G,C,S),exist_ok=_A);O=os.path.join(G,C,I);E=os.path.join(G,C,J)
+					if os.path.isfile(O):
+						shutil.move(O,E);compress_img(E,new_size_ratio=1,quality=80,replace=_A);T=Image.open(E);U,W=T.size[:2]
+						if U>M:resize_width_to(E,M)
+						V=photo.objects.create(site_id=site_id,jenis=photo.Jenis.HIGHLIGHT_EDITOR,file_path=J);obj_photo.append(V);H[_E]=B+C+B+J;N=_A
+		return N,L
 @receiver(models.signals.post_save,sender=berita)
 @receiver(models.signals.post_save,sender=artikel)
 @receiver(models.signals.post_save,sender=pengumuman)
