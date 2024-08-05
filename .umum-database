@@ -1,0 +1,52 @@
+# local settings : venv (server 192.168.13.29)
+# varsion : 1.0.15
+
+# Option :
+# --------
+DEBUG=True
+UNDER_CONSTRUCTION=False
+
+# Optional Database :
+# -------------------
+# Choose database type
+# DB_TYPE=sqlite
+DB_TYPE=mysql
+
+# Choose database engine :
+# DB_ENGINE=django.db.backends.sqlite3
+DB_ENGINE=django.db.backends.mysql
+
+# Database connection property :
+DB_NAME=portal_db_umum
+DB_USER=dbopdweb
+DB_HOST=127.0.0.1
+DB_PORT=3306
+
+# Allowed host :
+# -------------------
+ALLOWED_HOSTS=.lombokbaratkab.go.id
+# .lombokbaratkab.go.id, localhost,
+
+# Optional Static and media :
+# ---------------------------
+# set comment if not used
+# STATIC_ROOT=/home/u1578244/public_html/static/
+# MEDIA_ROOT=/home/u1578244/public_html/media/
+
+STATIC_ROOT=/src/portal/static/
+MEDIA_ROOT=/src/portal/media/
+
+# Social media auth :
+# -------------------
+# social media login (deprecated) its not save
+# MAIN_DOMAIN=authbox.my.id
+
+# Encrypt section :
+# -----------------
+DB_PASSWORD=674141414141426d6c384456534b37786559336e746d4948444e69597a6f716d767a524b78644d575f506d68756d35466d516e3078433178507735566b72354532666e5344676b65306431505442743937787032664670684e4973536431384d79673d3d
+SECRET_KEY=674141414141426d6c3844566c66626a6f5176795a5049427266635251534b75613467385f355151744e6343714479466e735369426642792d3632537935486e30374b76366d5550655747727332387038664a4858757645424f3052425853334e4f476e356d587044674e422d57784a4c7145325056645635547473374a68716f6b42516c724358666b30393035714450564d6c324542783737484a6647786435673d3d
+DB_KEY=50506777533370423733585165646e787678636562576f78744a647755375446497643377748704a3771493d
+
+
+# END
+
