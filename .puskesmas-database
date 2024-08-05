@@ -3,7 +3,7 @@
 
 # Option :
 # --------
-DEBUG=True
+DEBUG=False
 UNDER_CONSTRUCTION=False
 
 # Optional Database :
