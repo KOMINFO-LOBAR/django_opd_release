@@ -5,14 +5,14 @@ class Command(BaseCommand):
 	help='Add User Admin to All Sites'
 	def info(A,message):A.stdout.write(message)
 	def debug(A,message):A.stdout.write(message)
-	def handle(C,*H,**I):
-		C.info('Begin Add admin');B=User.objects.get(id=1);G=Site.objects.all()
-		for D in G:
-			A=instansi.objects.filter(site=D);print(A)
+	def handle(B,*H,**I):
+		B.info('Begin Add admin');C=User.objects.get(id=1);F=Site.objects.all()
+		for D in F:
+			A=instansi.objects.filter(site=D)[:1]
 			if A:
 				A=A.get()
-				for E in A.admin.all():
-					F=False;print(E.id,B.id)
-					if E.id==B.id:F=True;break
-				if not F:A.admin.add(B);C.info('Add '+B.username+' to '+D.domain)
-		C.info('End Add admin')
+				for G in A.admin.all():
+					E=False
+					if G.id==C.id:E=True;break
+				if not E:A.admin.add(C);B.info('Add '+C.username+' to '+D.domain)
+		B.info('End Add admin')
