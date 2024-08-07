@@ -1,8 +1,10 @@
-_U='is_frontend'
-_T='rel_path'
-_S='script'
-_R='tanggal'
-_Q='file_path'
+_W='is_frontend'
+_V='rel_path'
+_U='script'
+_T='tanggal'
+_S='file_path'
+_R='order_menu'
+_Q='parent'
 _P='active'
 _O='created_at'
 _N='kategori'
@@ -26,6 +28,7 @@ from import_export.admin import ImportExportModelAdmin
 class commentAdmin(admin.ModelAdmin):
 	list_display=_F,'body','post',_O,_P;list_filter=_P,_O;search_fields=_F,'email','body';actions=['approve_comments']
 	def approve_comments(self,request,queryset):queryset.update(active=True)
+class menuAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_Q,'is_admin_menu','is_master_menu','is_statis_menu';list_display=[_Q,_A,'href','icon',_R,_C];search_fields=_A,;ordering='-is_admin_menu','parent_id',_R
 class kategoriAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_C];search_fields=_A,;ordering=_A,
 class beritaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D,_N;list_display=[_D,_N,_E,_L,_C];search_fields=_D,;ordering=_G,
 class instansiKategoriAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_A,;list_display=[_A,_C];search_fields=_A,;ordering=_A,
@@ -33,25 +36,26 @@ class instansiAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A,_
 class social_mediaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_I;list_display=[_B,_I,_J,_C];search_fields=_J,;ordering=_I,
 class logoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_H;list_display=[_B,_H,_K,_C];search_fields=_H,;ordering=_H,
 class bannerAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_H;list_display=[_B,_H,_K,_J,_C];search_fields=_H,;ordering=_H,
-class photoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_I;list_display=[_B,_I,_Q,_C];search_fields=_I,;ordering=_I,
+class photoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_I;list_display=[_B,_I,_S,_C];search_fields=_I,;ordering=_I,
 class pengumumanAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D,_E;list_display=[_B,_D,_E,_C];search_fields=_D,;ordering=_G,
 class artikelAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D,_E;list_display=[_B,_D,_E,_C];search_fields=_D,;ordering=_G,
-class dokumenAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A,_E;list_display=[_B,_A,_Q,_E,_C];search_fields=_A,;ordering=_G,
+class dokumenAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A,_E;list_display=[_B,_A,_S,_E,_C];search_fields=_A,;ordering=_G,
 class link_terkaitAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_J,_C];search_fields=_A,;ordering=_A,
 class InfoHoaxAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_F,;list_display=[_F,_J,_C];search_fields=_F,;ordering=_F,
 class galery_fotoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D;list_display=[_B,_D,_K,_L,_C];search_fields=_D,;ordering=_G,
 class galery_videoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D;list_display=[_B,_D,'embed','embed_video',_L,_C];search_fields=_D,;ordering=_G,
 class tagsAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_C];search_fields=_A,;ordering=_A,
-class statistikAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,'ip';list_display=[_B,'ip','hits',_R];search_fields='ip',;ordering='-tanggal',
+class statistikAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,'ip';list_display=[_B,'ip','hits',_T];search_fields='ip',;ordering='-tanggal',
 class pejabatAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_M;list_display=[_A,_M,_K,_C];search_fields=_A,;ordering='jabatan_index',
 class no_pentingAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_M;list_display=[_B,_A,_M,'nomor',_C];search_fields=_A,;ordering=_A,
 class halaman_statisAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D;list_display=[_B,_D,_L,'menu',_C];search_fields=_D,;ordering=_G,
-class page_widgetAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_S,_E,_C];search_fields=_A,;ordering=_A,
-class agendaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_B,_A,_E,'lokasi',_R,'jam','penyelenggara'];search_fields=_A,;ordering=_G,
-class page_rssAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_S,_E,_C];search_fields=_A,;ordering=_A,
+class page_widgetAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_U,_E,_C];search_fields=_A,;ordering=_A,
+class agendaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_B,_A,_E,'lokasi',_T,'jam','penyelenggara'];search_fields=_A,;ordering=_G,
+class page_rssAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_U,_E,_C];search_fields=_A,;ordering=_A,
 class galery_layananAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D;list_display=[_B,_D,_K,_E,_C];search_fields=_D,;ordering=_G,
-class TemplateAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_F,_T,_U;list_display=[_F,_T,'get_sites',_U,_C];search_fields=_F,;ordering='-is_frontend',_C
+class TemplateAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_F,_V,_W;list_display=[_F,_V,'get_sites',_W,_C];search_fields=_F,;ordering='-is_frontend',_C
 admin.site.register(comment,commentAdmin)
+admin.site.register(menu,menuAdmin)
 admin.site.register(kategori,kategoriAdmin)
 admin.site.register(berita,beritaAdmin)
 admin.site.register(instansi_kategori,instansiKategoriAdmin)
