@@ -77,7 +77,7 @@ USE_L10N=_D
 USE_TZ=_D
 m_hostname='iwan-setiawan'
 if socket.gethostname()==m_hostname:STATIC_URL='static/'
-else:STATIC_URL='https://cdn.lombokbaratkab.go.id/static/'
+else:STATIC_URL='https://adminopd.lombokbaratkab.go.id/static/'
 STATIC_ROOT=key[_a]if key.get(_a)else os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 if socket.gethostname()==m_hostname:MEDIA_URL='media/'
