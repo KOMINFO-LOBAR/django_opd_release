@@ -75,13 +75,10 @@ TIME_ZONE='Asia/Makassar'
 USE_I18N=_D
 USE_L10N=_D
 USE_TZ=_D
-m_hostname='iwan-setiawan'
-if socket.gethostname()==m_hostname:STATIC_URL='static/'
-else:STATIC_URL='https://adminopd.lombokbaratkab.go.id/static/'
+STATIC_URL='static/'
 STATIC_ROOT=key[_a]if key.get(_a)else os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
-if socket.gethostname()==m_hostname:MEDIA_URL='media/'
-else:MEDIA_URL='https://adminopd.lombokbaratkab.go.id/media/'
+MEDIA_URL='media/'
 MEDIA_ROOT=key[_b]if key.get(_b)else os.path.join(BASE_DIR,'media')
 SITE_ID=1
 DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
