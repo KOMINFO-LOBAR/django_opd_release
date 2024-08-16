@@ -115,25 +115,27 @@ class Command(BaseCommand):
 			if D:A.append({_A:B});C.create_menu_recursive(D,A)
 			else:A.append({_A:B})
 	def get_menu_model(F,sub_folder):
-		L='menu.json';print('Proses MENU MODEL');A=os.path.join(F.site_list,sub_folder);C=os.path.join(A,L);M=menu.objects.filter(parent=None).order_by(_G,_H).values(_A);G=[]
-		for N in M:G.append(N[_A])
+		N='menu.json';print('Proses MENU MODEL');B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_G,_H).values(_A);G=[]
+		for P in O:G.append(P[_A])
 		H=[];F.create_menu_recursive(G,H)
-		if not os.path.isfile(C):
-			print('Recreate menu');D=[]
-			for B in H:
-				I=menu.objects.filter(id=B[_A])
+		if not os.path.isfile(D):
+			print('Recreate menu');E=[]
+			for C in H:
+				I=menu.objects.filter(id=C[_A])
 				if I:
-					J=list(I.values());O=len(J)
-					for P in range(O):
+					J=list(I.values());Q=len(J)
+					for R in range(Q):
 						K={}
-						for (E,B) in J[P].items():
-							if E==_A:Q={E:B}
-							else:K[E]=B
-						D.append({_B:Q,_C:K})
-					if D:
-						if not os.path.exists(A):os.makedirs(A)
-						C=os.path.join(A,L)
-						with open(C,_D)as R:R.write(json.dumps(D,cls=DjangoJSONEncoder))
+						for (A,C) in J[R].items():
+							if A==_A:L={A:C}
+							else:K[A]=C
+						M=[]
+						for A in menu.objects.get(id=L[_A]).site.all():M.append(A.id)
+						S={_F:M};E.append({_B:L,_C:K,'m2m':S})
+					if E:
+						if not os.path.exists(B):os.makedirs(B)
+						D=os.path.join(B,N)
+						with open(D,_D)as T:T.write(json.dumps(E,cls=DjangoJSONEncoder))
 					else:print(_E)
 		else:print('menu not recreate')
 	def get_data(Q,site_id,sub_folder):
@@ -189,15 +191,15 @@ class Command(BaseCommand):
 				else:print(_E)
 			else:print('---EMPTY TABLE---',E)
 	def get_data_by_site(A):
-		D=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(D)+']');B=[A.split('_')[len(A.split('_'))-1]for A in D]
-		for F in range(len(B)):B[F]=B[F].split('.')[0]
-		A.info('res_folder: ['+', '.join(B)+']')
-		for C in range(len(D)):
-			A.info('proses: '+D[C])
-			with open(os.path.join(A.site_list,D[C]),'r')as H:E=H.read()
-			E=E.split('\n')
-			for G in range(len(E)):
-				if E[G]:A.get_site_model(B[C]);A.get_user_model(B[C]);A.get_kategori_model(B[C]);A.get_tags_model(B[C]);A.get_menu_model(B[C]);A.get_photo_model(B[C]);A.get_data(E[G],B[C])
+		B=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(B)+']');C=[A.split('_')[len(A.split('_'))-1]for A in B]
+		for F in range(len(C)):C[F]=C[F].split('.')[0]
+		A.info('res_folder: ['+', '.join(C)+']')
+		for E in range(len(B)):
+			A.info('proses: '+B[E])
+			with open(os.path.join(A.site_list,B[E]),'r')as G:D=G.read()
+			D=D.split('\n')
+			for H in range(len(D)):
+				if D[H]:A.get_menu_model(C[E])
 	def handle(A,*D,**E):
 		A.info('Begin get site data');B=input('Confirm DB Name: ');C=settings.DATABASES
 		if B==C['default']['NAME']:A.get_data_by_site()

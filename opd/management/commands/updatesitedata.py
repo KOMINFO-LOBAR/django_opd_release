@@ -8,9 +8,9 @@ _K='admin'
 _J='photo'
 _I='tags'
 _H='photo_id'
-_G='m2m'
-_F=True
-_E=False
+_G=True
+_F=False
+_E='m2m'
 _D='r'
 _C='id'
 _B='condition'
@@ -63,9 +63,12 @@ class Command(BaseCommand):
 	@transaction.atomic
 	def update_menu_model(self,site_group):
 		print('Update Menu Model ...')
-		with open(os.path.join(self.site_list,site_group,'menu.json'),_D)as D:A=json.load(D)
-		B=1;E=len(A)
-		for C in A:F=B/E*100;print(f"Writing [menu] to database [%d%%]\r"%F,end='');G,H=menu.objects.update_or_create(id=C[_B][_C],defaults=C[_A]);B+=1
+		with open(os.path.join(self.site_list,site_group,'menu.json'),_D)as E:C=json.load(E)
+		D=1;F=len(C)
+		for A in C:
+			G=D/F*100;print(f"Writing [menu] to database [%d%%]\r"%G,end='');B,J=menu.objects.update_or_create(id=A[_B][_C],defaults=A[_A]);B.site.clear()
+			for H in A[_E]['site']:I=Site.objects.get(id=H);B.site.add(I)
+			B.save();D+=1
 	@transaction.atomic
 	def update_data_by_site(self,site_group):
 		M=site_group;I=self;print(_P);N=os.path.join(I.site_list,M);J=[A for A in os.listdir(N)if os.path.isfile(os.path.join(N,A))]
@@ -80,12 +83,12 @@ class Command(BaseCommand):
 					for A in P:
 						G=apps.get_model('opd',D)
 						if G:
-							Q=_E;R=_E;S=_E
+							Q=_F;R=_F;S=_F
 							for H in G._meta.get_fields():
 								if H.many_to_many:
-									if H.name==_I:Q=_F
-									elif H.name==_J:R=_F
-									elif H.name==_K:S=_F
+									if H.name==_I:Q=_G
+									elif H.name==_J:R=_G
+									elif H.name==_K:S=_G
 							if D==_M:
 								W=menu.objects.filter(id=A[_A][_L])
 								if not W:O+=1;K+=1;print('SKIP',A[_A][_L]);continue
@@ -97,17 +100,17 @@ class Command(BaseCommand):
 							else:B,Y=G.objects.update_or_create(id=A[_B][_C],defaults=A[_A])
 							if Q:
 								B.tags.clear()
-								for C in A[_G][_I]:Z=tags.objects.get(id=C);B.tags.add(Z)
+								for C in A[_E][_I]:Z=tags.objects.get(id=C);B.tags.add(Z)
 								B.save()
 							if R:
 								B.photo.clear()
-								for C in A[_G][_J]:
+								for C in A[_E][_J]:
 									L=photo.objects.filter(id=C)
 									if L:a=photo.objects.get(id=C);B.photo.add(a)
 								B.save()
 							if S:
 								B.admin.clear()
-								for C in A[_G][_K]:b=User.objects.get(id=C);B.admin.add(b)
+								for C in A[_E][_K]:b=User.objects.get(id=C);B.admin.add(b)
 								B.save()
 							K+=1
 			print('SKIP:',O)
@@ -125,12 +128,12 @@ class Command(BaseCommand):
 					for A in R:
 						C=apps.get_model('opd',F);print(W);print('i=====',C.__name__);print(W)
 						if C:
-							S=_E;T=_E;U=_E
+							S=_F;T=_F;U=_F
 							for H in C._meta.get_fields():
 								if H.many_to_many:
-									if H.name==_I:S=_F
-									elif H.name==_J:T=_F
-									elif H.name==_K:U=_F
+									if H.name==_I:S=_G
+									elif H.name==_J:T=_G
+									elif H.name==_K:U=_G
 							if F==_M:
 								Z=menu.objects.filter(id=A[_A][_L])
 								if not Z:P+=1;L+=1;print('SKIP',A[_A][_L]);continue
@@ -142,17 +145,17 @@ class Command(BaseCommand):
 							else:B,b=C.objects.update_or_create(id=A[_B][_C],defaults=A[_A])
 							if S:
 								B.tags.clear()
-								for E in A[_G][_I]:c=tags.objects.get(id=E);B.tags.add(c)
+								for E in A[_E][_I]:c=tags.objects.get(id=E);B.tags.add(c)
 								B.save()
 							if T:
-								B.photo.clear();V=_E
-								for E in A[_G][_J]:
+								B.photo.clear();V=_F
+								for E in A[_E][_J]:
 									I=photo.objects.filter(id=E)
-									if I:d=I.get();B.photo.add(d);V=_F
+									if I:d=I.get();B.photo.add(d);V=_G
 								if V:B.save()
 							if U:
 								B.admin.clear()
-								for E in A[_G][_K]:e=User.objects.get(id=E);B.admin.add(e)
+								for E in A[_E][_K]:e=User.objects.get(id=E);B.admin.add(e)
 								B.save()
 							L+=1
 			print('SKIP:',P)
