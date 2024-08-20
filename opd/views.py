@@ -58,9 +58,9 @@ from outbox_hitcount.views import get_statistic
 from account.commonf import get_topFoto
 from django_opd.commonf import get_natural_datetime
 from opd.models import comment
-from .  import menus
-from .forms import CommentForm
-from .models import *
+from.import menus
+from.forms import CommentForm
+from.models import*
 cache_item=dict()
 cache_item['feed1']=_D
 cache_item['date1']=_D
@@ -87,10 +87,10 @@ def document_clean(pdoc):document_test=pdoc;p=re.compile('<.*?>');document_test=
 def get_banner_all(siteID,context):banner=banner_all.objects.filter(site__id=siteID,status=Status.PUBLISHED).order_by(_B);context['banner_all']=banner
 def get_weather(context):
 	B='Weather:';A='weather';time_zone=getattr(settings,'TIME_ZONE','UTC');date_object=datetime.datetime.now(pytz.timezone(time_zone));a=Weather.objects.filter(tgl__lte=date_object).order_by('-tgl')[:1]
-	if a:context[A]=a[0];print(B,a[0],a[0].tgl,a[0].weather_info)
+	if a:context[A]=a[0];
 	else:
 		a=Weather.objects.filter(tgl__gte=date_object).order_by('tgl')[:1]
-		if a:context[A]=a[0];print(B,a[0],a[0].tgl,a[0].weather_info)
+		if a:context[A]=a[0];
 def get_topSection(siteID,context,active_menu):
 	namaOPD=Site.objects.filter(id=siteID).values_list(_S,flat=_K)
 	if namaOPD.count()>0:context['namaOPD']=namaOPD[0]
@@ -225,27 +225,27 @@ def get_galeryVideo(siteID,context,opd):
 def get_linkTerkait(siteID):linkTerkait=link_terkait.objects.filter(site__id=siteID).order_by(_C);return linkTerkait
 def get_galeryLayanan(siteID,context):foto=galery_layanan.objects.filter(site_id=siteID,status=Status.PUBLISHED).order_by(_B)[:5];context['galeryLayanan']=foto
 def get_meta(request,obj,context,jenis):
-	I='is_mobile';H='%s';G='news_img_meta';F='news_title';E='news_desc';D='%s://%s/%s/%s/';C='news_url';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_T else'pages';context[I]=request.device[I]
+	I='is_mobile';H='%s://%s%s';G='news_img_meta';F='news_title';E='news_desc';D='%s://%s/%s/%s/';C='news_url';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_T else'pages';context[I]=request.device[I]
 	if jenis==_a:
-		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);print("context['news_img'] = ");print(context[B]);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
+		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
 		for i in a:context[C]=D%(A,request.get_host(),_a,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
-		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
+		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_d:
 		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_U);a=pengumuman.objects.filter(id=obj.id)
 		for i in a:context[C]=D%(A,request.get_host(),_d,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
+		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_e:
 		context[B]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_U);a=artikel.objects.filter(id=obj.id)
 		for i in a:context[C]=D%(A,request.get_host(),_e,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=artikel.photo.through.objects.filter(artikel__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
+		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_T:
 		context[B]=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id).values(_U);a=halaman_statis.objects.filter(id=obj.id)
 		for i in a:context[C]=D%(A,request.get_host(),_T,i.judul);context[E]=Truncator(strip_tags(i.isi_halaman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
-		if news_img_meta.count()>0:context[G]=H%news_img_meta[0].photo
+		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
 def get_newsList(request,siteID,context,opt,section,jenis):
 	news_per_page=6;mList=_D
 	if section==_a:
@@ -271,7 +271,7 @@ def index(request):
 		if pdata:
 			pdata=pdata.strip()
 			if pdata!='':return redirect(_V+slugify(pdata)+_W)
-	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);get_popup(siteID,context);get_weather(context);template_name=get_template(siteID);print('TEMPLATENAME',template_name);response=render(request,f"{template_name}index.html",context);response.set_cookie(key=_S,value='my_value',samesite='None',secure=_K);return response
+	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_middleSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_trending(siteID,context);get_banner_all(siteID,context);get_beritaTerbaru(siteID,context,optID);get_pengumuman(siteID,context,optID);get_artikel(siteID,context,optID);get_galeryLayanan(siteID,context);get_popup(siteID,context);get_weather(context);template_name=get_template(siteID);response=render(request,f"{template_name}index.html",context);response.set_cookie(key=_S,value='my_value',samesite='None',secure=_K);return response
 def detail(request,pid,jenis):
 	A='email';context={};siteID=get_siteID(request)
 	if siteID==0:context[_L]=_N%(request.get_host(),_J);return render(request,_M,context)
@@ -345,8 +345,8 @@ def halaman_statis_akses(request,slug):
 		if pdata:
 			pdata=pdata.strip()
 			if pdata!='':return redirect(_V+slugify(pdata)+_W)
-	print('slug=',slug);menu_id=menu.objects.filter(href='menu/'+slug);print('count = ',menu_id.count())
-	for i in menu_id:print(_T,i.id,i.nama)
+	menu_id=menu.objects.filter(href='menu/'+slug);
+	for i in menu_id:pass
 	mFoundID=0;mNama=''
 	for i in menu_id:
 		mFoundID=i.id;mNama=i.nama
@@ -354,8 +354,8 @@ def halaman_statis_akses(request,slug):
 	if mFoundID==0:
 		for i in menu_id:
 			if halaman_statis.objects.filter(menu_id=i.id,site_id=siteID).order_by(A).exists():mFoundID=i.id;mNama=i.nama;break
-	news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_m)[:1];print('news [GET]= ');print(news)
-	if not news:news=halaman_statis.objects.create(menu_id=mFoundID,site_id=siteID,judul=mNama,isi_halaman='Informasi tentang "'+mNama+'". Silahkan update di halaman <a target="_blank" href="/dashboard/halaman-statis/">Dashboard.<a>'+'<br><br><br><br>'+'"Halaman ini dibuat otomatis oleh sistem, karena halaman statis untuk menu ini belum dibuat. '+'<br>Silahkan lakukan update di halaman statis."',admin_id=request.user.id);news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_m)[:1];print('news [CREATE]= ');print(news)
+	news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_m)[:1];
+	if not news:news=halaman_statis.objects.create(menu_id=mFoundID,site_id=siteID,judul=mNama,isi_halaman='Informasi tentang "'+mNama+'". Silahkan update di halaman <a target="_blank" href="/dashboard/halaman-statis/">Dashboard.<a>'+'<br><br><br><br>'+'"Halaman ini dibuat otomatis oleh sistem, karena halaman statis untuk menu ini belum dibuat. '+'<br>Silahkan lakukan update di halaman statis."',admin_id=request.user.id);news=halaman_statis.objects.filter(menu_id=mFoundID,site_id=siteID).order_by(_m)[:1];
 	news=news.get();optID=3;jenis=_T;get_topSection(siteID,context,_a);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_meta(request,news,context,jenis)
 	if news:news.created_at=get_natural_datetime(news.created_at)
 	context[_O]=jenis;context['news']=news;template_name=get_template(siteID);return render(request,f"{template_name}detail.html",context)
@@ -387,10 +387,10 @@ def dokumen_result(request):
 	if siteID==0:context[_L]=_N%(request.get_host(),_J);return render(request,_M,context)
 	optID=2;context[_O]=_E;active_menu=_E;get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);template_name=get_template(siteID);return render(request,f"{template_name}/dokumen-result.html",context)
 def get_template_id(site_id,is_frontend=_K):
-	print('site',site_id);template=Template.objects.filter(site__id=site_id,is_frontend=is_frontend).values_list(_C,flat=_K)[:1];print(_n,template)
+	template=Template.objects.filter(site__id=site_id,is_frontend=is_frontend).values_list(_C,flat=_K)[:1];
 	if template:return template[0]
 	raise Http404(_o%_J)
 def get_template(site_id,is_frontend=_K):
-	print('site',site_id);template=Template.objects.filter(site__id=site_id,is_frontend=is_frontend).values_list('rel_path',flat=_K)[:1];print(_n,template)
+	template=Template.objects.filter(site__id=site_id,is_frontend=is_frontend).values_list('rel_path',flat=_K)[:1];
 	if template:return template[0]
 	raise Http404(_o%_J)
