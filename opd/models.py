@@ -48,9 +48,7 @@ class berita(models.Model):
 	kategori=models.ForeignKey(kategori,on_delete=models.PROTECT);site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_berita=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);tags=models.ManyToManyField(tags,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
 	def get_absolute_url(A):B=A.site.domain;return'https://%s/%s/%s'%(B,'berita',A.judul_seo)
-	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255)
-		A.word_count=word_count(A.isi_berita);super().save(*B,**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_berita);super().save(*B,**C)
 	@property
 	def created_at_(self):return get_natural_datetime(self.created_at)
 class comment(models.Model):
@@ -61,16 +59,12 @@ class pengumuman(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_pengumuman=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);share_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
 	def get_absolute_url(A):return _G%('pengumuman',A.judul_seo)
-	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255)
-		A.word_count=word_count(A.isi_pengumuman);super().save(*B,**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_pengumuman);super().save(*B,**C)
 class artikel(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_artikel=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);share_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
 	def get_absolute_url(A):return _G%('artikel',A.judul_seo)
-	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255)
-		A.word_count=word_count(A.isi_artikel);super().save(*B,**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_artikel);super().save(*B,**C)
 class dokumen(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);file_path=models.FileField();nama=models.CharField(max_length=150);deskripsi=CKEditor5Field(blank=_A,null=_A,config_name=_C);size=models.BigIntegerField(null=_A,blank=_A,default=0);hits=models.IntegerField(default=0);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED)
 	def __str__(A):return A.nama
@@ -80,9 +74,7 @@ class link_terkait(models.Model):
 class galery_foto(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);view_count=models.IntegerField(default=0);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
-	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255)
-		super().save(*B,**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);super().save(*B,**C)
 class galery_layanan(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);link=models.URLField(max_length=200,null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
@@ -157,9 +149,7 @@ class page_rss(models.Model):
 class popup(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.photo
-	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255)
-		super().save(*B,**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);super().save(*B,**C)
 class info_hoax(models.Model):
 	name=models.CharField(max_length=255);slug=models.SlugField(max_length=255,default='',unique=_A,blank=_A);link=models.URLField(max_length=255);publish_date=models.CharField(max_length=50,null=_A,blank=_A);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.name

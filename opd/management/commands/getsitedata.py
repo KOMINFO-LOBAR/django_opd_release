@@ -20,14 +20,14 @@ class Command(BaseCommand):
 	def info(A,message):A.stdout.write(message)
 	def debug(A,message):A.stdout.write(message)
 	def get_site_model(J,sub_folder):
-		I='Site.json';print('Proses SITE ID');A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
+		I='Site.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
 		if not os.path.isfile(B):
 			E=Site.objects.all()
 			if E:
 				F=list(E.values());K=len(F);C=[]
 				for L in range(K):
 					G={}
-					for (D,H) in F[L].items():
+					for(D,H)in F[L].items():
 						if D==_A:M={D:H}
 						else:G[D]=H
 					C.append({_B:M,_C:G})
@@ -35,16 +35,16 @@ class Command(BaseCommand):
 					if not os.path.exists(A):os.makedirs(A)
 					B=os.path.join(A,I)
 					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
-				else:print(_E)
+				else:pass
 	def get_user_model(J,sub_folder):
-		I='User.json';print('Proses USER MODEL');A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
+		I='User.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
 		if not os.path.isfile(B):
 			E=User.objects.all()
 			if E:
 				F=list(E.values());K=len(F);C=[]
 				for L in range(K):
 					G={}
-					for (D,H) in F[L].items():
+					for(D,H)in F[L].items():
 						if D==_A:M={D:H}
 						else:G[D]=H
 					C.append({_B:M,_C:G})
@@ -52,16 +52,16 @@ class Command(BaseCommand):
 					if not os.path.exists(A):os.makedirs(A)
 					B=os.path.join(A,I)
 					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
-				else:print(_E)
+				else:pass
 	def get_photo_model(J,sub_folder):
-		I='photo.json';print('Proses PHOTO MODEL');A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
+		I='photo.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
 		if not os.path.isfile(B):
 			E=photo.objects.all()
 			if E:
 				F=list(E.values());K=len(F);C=[]
 				for L in range(K):
 					G={}
-					for (D,H) in F[L].items():
+					for(D,H)in F[L].items():
 						if D==_A:M={D:H}
 						else:G[D]=H
 					C.append({_B:M,_C:G})
@@ -69,16 +69,16 @@ class Command(BaseCommand):
 					if not os.path.exists(A):os.makedirs(A)
 					B=os.path.join(A,I)
 					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
-				else:print(_E)
+				else:pass
 	def get_kategori_model(J,sub_folder):
-		I='kategori.json';print('Proses KATEGORI MODEL');A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
+		I='kategori.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
 		if not os.path.isfile(B):
 			E=kategori.objects.all()
 			if E:
 				F=list(E.values());K=len(F);C=[]
 				for L in range(K):
 					G={}
-					for (D,H) in F[L].items():
+					for(D,H)in F[L].items():
 						if D==_A:M={D:H}
 						else:G[D]=H
 					C.append({_B:M,_C:G})
@@ -86,16 +86,16 @@ class Command(BaseCommand):
 					if not os.path.exists(A):os.makedirs(A)
 					B=os.path.join(A,I)
 					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
-				else:print(_E)
+				else:pass
 	def get_tags_model(J,sub_folder):
-		I='tags.json';print('Proses TAGS MODEL');A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
+		I='tags.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
 		if not os.path.isfile(B):
 			E=tags.objects.all()
 			if E:
 				F=list(E.values());K=len(F);C=[]
 				for L in range(K):
 					G={}
-					for (D,H) in F[L].items():
+					for(D,H)in F[L].items():
 						if D==_A:M={D:H}
 						else:G[D]=H
 					C.append({_B:M,_C:G})
@@ -103,7 +103,7 @@ class Command(BaseCommand):
 					if not os.path.exists(A):os.makedirs(A)
 					B=os.path.join(A,I)
 					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
-				else:print(_E)
+				else:pass
 	def is_have_child(D,menu_id):
 		B=menu.objects.filter(parent_id=menu_id).order_by(_G,_H).values(_A);A=[]
 		for C in B:A.append(C[_A])
@@ -115,18 +115,18 @@ class Command(BaseCommand):
 			if D:A.append({_A:B});C.create_menu_recursive(D,A)
 			else:A.append({_A:B})
 	def get_menu_model(F,sub_folder):
-		N='menu.json';print('Proses MENU MODEL');B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_G,_H).values(_A);G=[]
+		N='menu.json';B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_G,_H).values(_A);G=[]
 		for P in O:G.append(P[_A])
 		H=[];F.create_menu_recursive(G,H)
 		if not os.path.isfile(D):
-			print('Recreate menu');E=[]
+			E=[]
 			for C in H:
 				I=menu.objects.filter(id=C[_A])
 				if I:
 					J=list(I.values());Q=len(J)
 					for R in range(Q):
 						K={}
-						for (A,C) in J[R].items():
+						for(A,C)in J[R].items():
 							if A==_A:L={A:C}
 							else:K[A]=C
 						M=[]
@@ -136,72 +136,83 @@ class Command(BaseCommand):
 						if not os.path.exists(B):os.makedirs(B)
 						D=os.path.join(B,N)
 						with open(D,_D)as T:T.write(json.dumps(E,cls=DjangoJSONEncoder))
-					else:print(_E)
-		else:print('menu not recreate')
-	def get_data(Q,site_id,sub_folder):
-		b='admin';a='photo';Z='tags';P=True;O=False;K=site_id
-		for L in Q.model_list:
-			print('proses model: ',L);A=apps.get_model('opd',L);E=0;F=[]
-			for C in A._meta.fields:F.append(C.name)
-			if _F in F:E=1
+					else:pass
+		else:pass
+	def get_data(T,site_id,sub_folder):
+		c='admin';b='photo';a='tags';S=True;R=False;K=site_id
+		for L in T.model_list:
+			D=apps.get_model('opd',L);E=0;H=[]
+			for F in D._meta.fields:H.append(F.name)
+			if _F in H:E=1
 			if E==0:
-				F=[]
-				for C in A._meta.get_fields():F.append(C.name)
-				if _F in F:E=2
-			R=O;S=O;T=O
-			for C in A._meta.get_fields():
-				if C.many_to_many:
-					if C.name==Z:R=P
-					elif C.name==a:S=P
-					elif C.name==b:T=P
-			I=[];G=None
-			if E==1:G=A.objects.filter(site_id=K)
-			elif E==2:G=A.objects.filter(site__id=K)
-			elif E==0:G=A.objects.all()
-			if G:
-				U=list(G.values());c=len(U)
-				for d in range(c):
+				H=[]
+				for F in D._meta.get_fields():H.append(F.name)
+				if _F in H:E=2
+			U=R;V=R;W=R
+			for F in D._meta.get_fields():
+				if F.many_to_many:
+					if F.name==a:U=S
+					elif F.name==b:V=S
+					elif F.name==c:W=S
+			J=[];I=None
+			if E==1:I=D.objects.filter(site_id=K)
+			elif E==2:I=D.objects.filter(site__id=K)
+			elif E==0:I=D.objects.all()
+			if I:
+				X=list(I.values());d=len(X)
+				for e in range(d):
 					M={}
-					for (B,V) in U[d].items():
-						if B==_A:H={B:V}
-						else:M[B]=V
-					W={}
-					if R:
-						D=[]
-						for B in A.objects.get(id=H[_A]).tags.all():D.append(B.id)
-						W={Z:D}
-					X={}
-					if S:
-						D=[]
-						for B in A.objects.get(id=H[_A]).photo.all():D.append(B.id)
-						X={a:D}
-					Y={}
-					if T:
-						D=[]
-						for B in A.objects.get(id=H[_A]).admin.all():D.append(B.id)
-						Y={b:D}
-					J=W;J.update(X);J.update(Y)
-					if J:I.append({_B:H,_C:M,'m2m':J})
-					else:I.append({_B:H,_C:M})
-				if I:
-					N=os.path.join(Q.site_list,sub_folder)
-					if not os.path.exists(N):os.makedirs(N)
-					e=os.path.join(N,f"{L}_{K}.json")
-					with open(e,_D)as f:f.write(json.dumps(I,cls=DjangoJSONEncoder))
-				else:print(_E)
-			else:print('---EMPTY TABLE---',E)
+					for(A,Y)in X[e].items():
+						if A==_A:G={A:Y}
+						else:M[A]=Y
+					Z={}
+					if U:
+						B=[]
+						for A in D.objects.get(id=G[_A]).tags.all():B.append(A.id)
+						Z={a:B}
+					N={}
+					if V:
+						B=[]
+						for A in D.objects.get(id=G[_A]).photo.all():B.append(A.id)
+						N={b:B}
+					O={}
+					if W:
+						B=[]
+						for A in D.objects.get(id=G[_A]).admin.all():B.append(A.id)
+						O={c:B}
+					P={}
+					if E==2:
+						B=[]
+						for A in D.objects.get(id=G[_A]).site.all():B.append(A.id)
+						P={_F:B}
+					C=Z
+					if C:C.update(N)
+					else:C=N
+					if C:C.update(O)
+					else:C=O
+					if C:C.update(P)
+					else:C=P
+					if C:J.append({_B:G,_C:M,'m2m':C})
+					else:J.append({_B:G,_C:M})
+				if J:
+					Q=os.path.join(T.site_list,sub_folder)
+					if not os.path.exists(Q):os.makedirs(Q)
+					f=os.path.join(Q,f"{L}_{K}.json")
+					with open(f,_D)as g:g.write(json.dumps(J,cls=DjangoJSONEncoder))
+				else:pass
+			else:pass
 	def get_data_by_site(A):
-		B=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(B)+']');C=[A.split('_')[len(A.split('_'))-1]for A in B]
-		for F in range(len(C)):C[F]=C[F].split('.')[0]
-		A.info('res_folder: ['+', '.join(C)+']')
-		for E in range(len(B)):
-			A.info('proses: '+B[E])
-			with open(os.path.join(A.site_list,B[E]),'r')as G:D=G.read()
-			D=D.split('\n')
-			for H in range(len(D)):
-				if D[H]:A.get_menu_model(C[E])
+		D=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(D)+']');B=[A.split('_')[len(A.split('_'))-1]for A in D]
+		for F in range(len(B)):B[F]=B[F].split('.')[0]
+		A.info('res_folder: ['+', '.join(B)+']')
+		for C in range(len(D)):
+			A.info('proses: '+D[C])
+			with open(os.path.join(A.site_list,D[C]),'r')as H:E=H.read()
+			E=E.split('\n')
+			for G in range(len(E)):
+				if E[G]:A.get_site_model(B[C]);A.get_user_model(B[C]);A.get_kategori_model(B[C]);A.get_tags_model(B[C]);A.get_menu_model(B[C]);A.get_photo_model(B[C]);A.get_data(E[G],B[C])
 	def handle(A,*D,**E):
 		A.info('Begin get site data');B=input('Confirm DB Name: ');C=settings.DATABASES
 		if B==C['default']['NAME']:A.get_data_by_site()
-		else:print('db_name NOT MATCH:')
+		else:pass
 		A.info('End get site data')
