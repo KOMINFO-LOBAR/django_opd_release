@@ -34,7 +34,7 @@ def word_count(text):A=bs(text,_J);B=A.get_text();return sum([A.strip(string.pun
 class Status(models.TextChoices):DRAFT='draft';PUBLISHED='published'
 class photo(models.Model):
 	class Jenis(models.TextChoices):LOGO_TOP='logo-top';LOGO_BOTTOM='logo-bottom';BANNER_TOP='banner-top';BANNER_MIDDLE1='banner-middle1';BANNER_MIDDLE2='banner-middle2';BANNER_BOTTOM='banner-bottom';HIGHLIGHT1='highlight1';HIGHLIGHT2='highlight2';HIGHLIGHT3='highlight3';HIGHLIGHT_EDITOR='highlight-editor';BUPATI='bupati';WABUP='wabup';SEKDA='sekda';PEJABAT_OPD='pejabat-opd';POPUP='popup';BANNER_ALL='banner-all'
-	site=models.ForeignKey(Site,on_delete=models.CASCADE);file_path=models.ImageField();jenis=models.CharField(max_length=20,choices=Jenis.choices,default=Jenis.HIGHLIGHT1,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
+	site=models.ForeignKey(Site,on_delete=models.CASCADE);file_path=models.ImageField(max_length=255);jenis=models.CharField(max_length=20,choices=Jenis.choices,default=Jenis.HIGHLIGHT1,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.file_path.url
 class kategori(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);nama=models.CharField(max_length=50);slug=models.SlugField(max_length=50,default='',unique=_A,blank=_A);count=models.IntegerField(default=0);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)

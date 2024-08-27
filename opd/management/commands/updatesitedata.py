@@ -166,5 +166,5 @@ class Command(BaseCommand):
 	def handle(A,*F,**C):
 		A.info('Begin get site data');B=C[_P];D=input('Confirm DB Name: ');E=settings.DATABASES
 		if D==E['default']['NAME']:A.update_site_model(B);A.update_user_model(B);A.update_kategori_model(B);A.update_tags_model(B);A.update_menu_model(B);A.update_photo_model(B);A.update_data_by_site(B)
-		else:pass
+		else:A.info('db_name NOT MATCH:')
 		A.info('End get site data')
