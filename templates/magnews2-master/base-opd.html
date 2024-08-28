@@ -87,21 +87,28 @@
                         <div class="p-b-20">                                               
                                      
                             
-                            {% block berita-terbaru %}{% endblock %}
+                            {% if beritaTerbaruAll %}
+                                {% block berita-terbaru %}{% endblock %}
+                            {% endif %}
                             
                             
-                            {% block berita-terpopuler %}{% endblock %}
+                            {% if beritaTerpopulerAll %}
+                                {% block berita-terpopuler %}{% endblock %}
+                            {% endif %}
                             
-                            
-                            {% block pengumuman %}{% endblock %}
+                            {% if pengumumanAll %}
+                                {% block pengumuman %}{% endblock %}
+                            {% endif %}
                             
 
+                            {% if artikelAll %}
+                                {% block artikel %}{% endblock %}
+                            {% endif %}
                             
-                            {% block artikel %}{% endblock %}
                             
-                            
-                            
-                            {% block agenda %}{% endblock %}
+                            {% if agenda %}
+                                {% block agenda %}{% endblock %}
+                            {% endif %}
                             
                             <!--{% comment %} {% block dokumen %}{% endblock %}                         {% endcomment %}-->
 

@@ -23,7 +23,7 @@ _B='site'
 _A='nama'
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import *
+from.models import*
 from import_export.admin import ImportExportModelAdmin
 class commentAdmin(admin.ModelAdmin):
 	list_display=_F,'body','post',_O,_P;list_filter=_P,_O;search_fields=_F,'email','body';actions=['approve_comments']
@@ -32,7 +32,7 @@ class menuAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_Q,'is_a
 class kategoriAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A;list_display=[_A,_C];search_fields=_A,;ordering=_A,
 class beritaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_D,_N;list_display=[_D,_N,_E,_L,_C];search_fields=_D,;ordering=_G,
 class instansiKategoriAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_A,;list_display=[_A,_C];search_fields=_A,;ordering=_A,
-class instansiAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A,_E;list_display=[_B,_A,'alamat',_N,_C];search_fields=_A,;ordering=_A,
+class instansiAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_A,_E;list_display=[_B,_A,'alamat',_N,'histats',_C];search_fields=_A,;ordering=_A,
 class social_mediaAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_I;list_display=[_B,_I,_J,_C];search_fields=_J,;ordering=_I,
 class logoAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_H;list_display=[_B,_H,_K,_C];search_fields=_H,;ordering=_H,
 class bannerAdmin(ImportExportModelAdmin,admin.ModelAdmin):list_filter=_B,_H;list_display=[_B,_H,_K,_J,_C];search_fields=_H,;ordering=_H,

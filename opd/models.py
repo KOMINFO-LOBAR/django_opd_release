@@ -98,7 +98,7 @@ class instansi_kategori(models.Model):
 	nama=models.CharField(max_length=50);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return'{}'.format(A.nama)
 class instansi(models.Model):
-	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ManyToManyField(User,blank=_A);nama=models.CharField(max_length=255);alamat=models.CharField(max_length=255,null=_A,blank=_A);telp=models.CharField(max_length=100,null=_A,blank=_A);email=models.EmailField(max_length=150,null=_A,blank=_A);kode_post=models.CharField(max_length=50,null=_A,blank=_A);kategori=models.ForeignKey(instansi_kategori,null=_A,blank=_A,on_delete=models.PROTECT);parent=models.ForeignKey('self',null=_A,blank=_A,on_delete=models.PROTECT);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
+	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ManyToManyField(User,blank=_A);nama=models.CharField(max_length=255);alamat=models.CharField(max_length=255,null=_A,blank=_A);telp=models.CharField(max_length=100,null=_A,blank=_A);email=models.EmailField(max_length=150,null=_A,blank=_A);kode_post=models.CharField(max_length=50,null=_A,blank=_A);kategori=models.ForeignKey(instansi_kategori,null=_A,blank=_A,on_delete=models.PROTECT);parent=models.ForeignKey('self',null=_A,blank=_A,on_delete=models.PROTECT);histats=models.TextField(blank=_A,null=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return _H.format(A.site.name,A.nama)
 class social_media(models.Model):
 	class Jenis(models.TextChoices):FACEBOOK='facebook';TWITTER='twitter';PINTEREST='pinterest';YOUTUBE='youtube';INSTAGRAM='instagram'
