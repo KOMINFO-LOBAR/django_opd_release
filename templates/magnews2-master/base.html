@@ -248,9 +248,9 @@
     <script src="https://web.animemusic.us/widget_disabilitas.js"></script>
 
     {% for i in instansi %}
-    
-        {{i.histats|safe}}
-        
+        {% if i.histats %}
+            {{i.histats|safe}}
+        {% endif %}        
     {% endfor %}
 </body>
 </html>
