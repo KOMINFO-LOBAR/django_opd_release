@@ -1,1 +1,623 @@
-{% extends "account/base-dashboard.html" %} {% load static %} {% block content %} <div id=main  role=main > <div id=ribbon > <span class=ribbon-button-alignment > <span id=refresh  class="btn btn-ribbon" data-action=resetWidgets  data-title=refresh  rel=tooltip  data-placement=bottom  data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span> <ol class=breadcrumb > <li>Selamat Datang, {{ user.username|default:'Guest'|title }} - [ {{namaOPD}} ] </ol> </div> <div id=content > <div class=row > <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4"> <h1 class="page-title txt-color-blueDark"> {% for i in menu_aktif %} {% if i.icon != '' %} <i class="fa-fw fa fa-{{i.icon}}"></i> {% else %} <i class="fa-fw fa fa-home"></i> {% endif %} {{i.nama}} {% endfor %} </h1> </div> </div> <section id=widget-grid  class=""> <div class=row > <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4"> <div class=jarviswidget  id=wid-id-0  data-widget-colorbutton=false  data-widget-editbutton=false  data-widget-togglebutton=false  data-widget-deletebutton=false  data-widget-fullscreenbutton=false  data-widget-custombutton=false  data-widget-collapsed=false  data-widget-sortable=false > <header> <span class=widget-icon > <i class="fa-fw fa fa-comment"></i> </span> <h2><strong>Top</strong> <i>Contributor</i> - [Berita]</h2> </header> <div> <div class="widget-body top-contributor-berita"> <h4 class="alert alert-info"> Load Data ... </h4> </div> </div> </div> </article> <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4"> <div class=jarviswidget  id=wid-id-0  data-widget-colorbutton=false  data-widget-editbutton=false  data-widget-togglebutton=false  data-widget-deletebutton=false  data-widget-fullscreenbutton=false  data-widget-custombutton=false  data-widget-collapsed=false  data-widget-sortable=false > <header> <span class=widget-icon > <i class="fa-fw fa fa-comment"></i> </span> <h2><strong>Top</strong> <i>Contributor</i> - [Pengumuman]</h2> </header> <div> <div class=jarviswidget-editbox > <input class=form-control  type=text > <span class=note ><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span> </div> <div class="widget-body top-contributor-pengumuman"> <h3 class="alert alert-info"> Load Data ... </h3> </div> </div> </div> </article> <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4"> <div class=jarviswidget  id=wid-id-0  data-widget-colorbutton=false  data-widget-editbutton=false  data-widget-togglebutton=false  data-widget-deletebutton=false  data-widget-fullscreenbutton=false  data-widget-custombutton=false  data-widget-collapsed=false  data-widget-sortable=false > <header> <span class=widget-icon > <i class="fa-fw fa fa-comment"></i> </span> <h2><strong>Top</strong> <i>Contributor</i> - [Artikel]</h2> </header> <div> <div class=jarviswidget-editbox > <input class=form-control  type=text > <span class=note ><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span> </div> <div class="widget-body top-contributor-artikel"> <h3 class="alert alert-info"> Load Data ... </h3> </div> </div> </div> </article> </div> </section> <section id=widget-grid  class=""> <div class=row > <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <div class=jarviswidget  id=wid-id-0 > <header> {% for i in menu_aktif %} <span class=widget-icon > {% if i.icon != '' %} <i class="fa-fw fa fa-{{i.icon}}"></i> {% else %} <i class="fa-fw fa fa-home"></i> {% endif %} </span> <h2>Hit Count (Jumlah Pengunjung)</h2> {% endfor %} </header> <div> <div class=jarviswidget-editbox > <input class=form-control  type=text > </div> <div class=widget-body > <canvas id=lineChartHit  height=120 ></canvas> </div> </div> </div> </article> </div> <div class=row > <div class=col-sm-12 > </div> </div> </section> <section id=widget-grid  class=""> <div class=row > <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <div class=jarviswidget  id=wid-id-0 > <header> {% for i in menu_aktif %} <span class=widget-icon > {% if i.icon != '' %} <i class="fa-fw fa fa-{{i.icon}}"></i> {% else %} <i class="fa-fw fa fa-home"></i> {% endif %} </span> <h2>News Count</h2> {% endfor %} </header> <div> <div class=jarviswidget-editbox > <input class=form-control  type=text > </div> <div class=widget-body > <canvas id=lineChartNews  height=120 ></canvas> </div> </div> </div> </article> </div> <div class=row > <div class=col-sm-12 > </div> </div> </section> </div> </div> {% endblock %} {% block jquery-doc-ready %} var bln = "{{mChartHit.bulan}}"; var line_hit_array = {{mChartHit.hit}}; var line_bln_array = bln.split(","); var bln = "{{mChartNews.bulan}}"; var news_berita_array = {{mChartNews.berita}}; var news_pengumuman_array = {{mChartNews.pengumuman}}; var news_artikel_array = {{mChartNews.artikel}}; var news_bln_array = bln.split(","); var LineConfig = create_graph_hitcount(line_bln_array,line_hit_array); var LineConfigNews = create_graph_newscount(news_bln_array,news_berita_array,news_pengumuman_array,news_artikel_array); window.myLine = new Chart(document.getElementById("lineChartHit"), LineConfig); window.myLine2 = new Chart(document.getElementById("lineChartNews"), LineConfigNews); $.ajax({ url: "/dashboard/top_kontributor_berita/", type: "GET", success: function(result){ console.log(result); var res = '<dl class=dl-horizontal >'; var user_id = {{ user.id }}; for (let i=0; i<result.length; i++) { if (user_id == result[i][0][0]) { res = res + '<dt class=txt-color-green >' + result[i][0][1].replace("lobar","") + ' ' + '<dd class=txt-color-green >' + result[i][1] + ' data '; } else { res = res + '<dt>' + result[i][0][1].replace("lobar","") + ' ' + '<dd>' + result[i][1] + ' data '; }; }; res = res + '</dl>'; $('.top-contributor-berita').html(res); } }); $.ajax({ url: "/dashboard/top_kontributor_pengumuman/", type: "GET", success: function(result){ console.log(result); var res = '<dl class=dl-horizontal >'; var user_id = {{ user.id }}; for (let i=0; i<result.length; i++) { if (user_id == result[i][0][0]) { res = res + '<dt class=txt-color-green >' + result[i][0][1].replace("lobar","") + ' ' + '<dd class=txt-color-green >' + result[i][1] + ' data '; } else { res = res + '<dt>' + result[i][0][1].replace("lobar","") + ' ' + '<dd>' + result[i][1] + ' data '; }; }; res = res + '</dl>'; $('.top-contributor-pengumuman').html(res); } }); $.ajax({ url: "/dashboard/top_kontributor_artikel/", type: "GET", success: function(result){ console.log(result); var res = '<dl class=dl-horizontal >'; var user_id = {{ user.id }}; for (let i=0; i<result.length; i++) { if (user_id == result[i][0][0]) { res = res + '<dt class=txt-color-green >' + result[i][0][1].replace("lobar","") + ' ' + '<dd class=txt-color-green >' + result[i][1] + ' data '; } else { res = res + '<dt>' + result[i][0][1].replace("lobar","") + ' ' + '<dd>' + result[i][1] + ' data '; }; }; res = res + '</dl>'; $('.top-contributor-artikel').html(res); } }); {% for message in messages %} $.smallBox({ title : "<i class='fa fa-desktop'></i> &nbsp;&nbsp; {{message|safe}}", content : "<i class='fa fa-link'></i> <i>Dashboard</i>", color : "#296191", iconSmall : "fa fa-thumbs-up bounce animated", timeout : 4000 }); {% endfor %} {% endblock %} {% block related-plugin %} <script src="{% static 'account/js/plugin/moment/moment.min.js' %}"></script> <script src="{% static 'account/js/plugin/chartjs/chart.min.js' %}"></script> {% endblock %}
+{% extends "account/base-dashboard.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- MAIN PANEL -->
+    <div id="main" role="main">
+
+        <!-- RIBBON -->
+        <div id="ribbon">
+
+            <span class="ribbon-button-alignment"> 
+                <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+                    <i class="fa fa-refresh"></i>
+                </span> 
+            </span>
+
+            <!-- breadcrumb -->
+            <ol class="breadcrumb">   
+                <li>Selamat Datang, {{ user.username|default:'Guest'|title }} - [ {{namaOPD}} ] <!--</li><li>Miscellaneous</li><li>Blank Page</li>-->
+
+                
+            </ol>
+            <!-- end breadcrumb -->
+
+            <!-- You can also add more buttons to the
+            ribbon for further usability
+
+            Example below:
+
+            <span class="ribbon-button-alignment pull-right">
+            <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+            <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+            <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+            </span> -->
+
+        </div>
+        <!-- END RIBBON -->
+
+        <!-- MAIN CONTENT -->
+        <div id="content">
+
+            <!-- row -->
+            <div class="row">
+                menu_aktif{{menu_aktif}}
+                <br>
+                breadCrumb{{breadCrumb}}
+                
+                <!-- col -->
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h1 class="page-title txt-color-blueDark">
+                        
+                        <!-- PAGE HEADER -->                        
+                        {% for i in menu_aktif %}
+                            {% if i.icon != '' %}
+                                <i class="fa-fw fa fa-{{i.icon}}"></i> 
+                            {% else %}
+                                <i class="fa-fw fa fa-home"></i> 
+                            {% endif %}
+                                {{i.nama}}
+                            <!-- <span>>  
+                                Grid
+                            </span> -->
+                        {% endfor %}
+                    </h1>
+                </div>
+                <!-- end col -->
+                
+                <!-- right side of the page with the sparkline graphs -->
+
+                <!-- Posisi inline graph -->
+                
+            </div>
+            <!-- end row -->
+
+            <!-- HERE SECTION WIDGET -->
+            <section id="widget-grid" class="">
+            
+                <!-- row -->
+                <div class="row">
+                    
+                    <!-- NEW WIDGET START -->
+                    <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        
+                        <!-- Widget ID (each widget will need unique ID)-->
+                        <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"	
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="false" 
+                        data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> 
+                                    
+                                    <i class="fa-fw fa fa-comment"></i> 
+                                   
+                                </span>
+
+                                <h2><strong>Top</strong> <i>Contributor</i> - [Berita]</h2>				
+                                
+                            </header>
+
+                            <!-- widget div-->
+                            <div>
+                                
+                                <!-- widget edit box -->
+                                <!-- <div class="jarviswidget-editbox"> -->
+                                    <!-- This area used as dropdown edit box -->
+                                    <!-- <input class="form-control" type="text"> -->
+                                    <!-- <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span> -->
+                                        
+                                <!-- </div> -->
+                                <!-- end widget edit box -->
+                                
+                                <!-- widget content -->
+                                <div class="widget-body top-contributor-berita">
+                                    <!-- <h4>test</h4>
+                                    <h4>test</h4>
+                                    <h4>test</h4>
+                                    <h4>test</h4>
+                                    <h4>test</h4> -->
+                                    <h4 class="alert alert-info"> Load Data ... </h4><!-- 
+                                    <h4 class="alert alert-info"> Activate Options Button </h4>
+                                    <h4 class="alert alert-info"> Activate Options Button </h4>
+                                    <h4 class="alert alert-info"> Activate Options Button </h4>
+                                    <h4 class="alert alert-info"> Activate Options Button </h4> -->
+                                    <!-- <dl class="dl-horizontal">
+                                        <dt>puskesmasgerunglobar</dt>
+                                        <dd>20 data</dd>
+                                        <dt>dinsoslobar</dt>
+                                        <dd>40 data berita</dd>
+                                        <dt>diskominfolobar</dt>
+                                        <dd>20 data</dd>
+                                        <dt>dikeslobar</dt>
+                                        <dd>20 data</dd>
+                                        <dt>diskominfolobar</dt>
+                                        <dd>20 data</dd>
+                                    </dl> -->
+                                    
+                                    <!-- <code>data-widget-editbutton</code>						 -->
+                                    
+                                </div>
+                                <!-- end widget content -->
+                                
+                            </div>
+                            <!-- end widget div -->
+                            
+                        </div>
+                        <!-- end widget -->
+            
+                    </article>
+                    <!-- WIDGET END -->
+
+
+                    <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        
+                        <!-- Widget ID (each widget will need unique ID)-->
+                        <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"	
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="false" 
+                        data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> 
+                                    
+                                    <i class="fa-fw fa fa-comment"></i> 
+                                   
+                                </span>
+                                <h2><strong>Top</strong> <i>Contributor</i> - [Pengumuman]</h2>				
+                                
+                            </header>
+
+                            <!-- widget div-->
+                            <div>
+                                
+                                <!-- widget edit box -->
+                                <div class="jarviswidget-editbox">
+                                    <!-- This area used as dropdown edit box -->
+                                    <input class="form-control" type="text">
+                                    <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+                                        
+                                </div>
+                                <!-- end widget edit box -->
+                                
+                                <!-- widget content -->
+                                <div class="widget-body top-contributor-pengumuman">
+                                    
+                                    <h3 class="alert alert-info"> Load Data ... </h3>
+                                    
+                                    <!-- <code>data-widget-editbutton</code>						 -->
+                                    
+                                </div>
+                                <!-- end widget content -->
+                                
+                            </div>
+                            <!-- end widget div -->
+                            
+                        </div>
+                        <!-- end widget -->
+            
+                    </article>
+
+
+                    <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        
+                        <!-- Widget ID (each widget will need unique ID)-->
+                        <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"	
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="false" 
+                        data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> 
+                                    
+                                    <i class="fa-fw fa fa-comment"></i> 
+                                   
+                                </span>
+                                <h2><strong>Top</strong> <i>Contributor</i> - [Artikel]</h2>				
+                                
+                            </header>
+
+                            <!-- widget div-->
+                            <div>
+                                
+                                <!-- widget edit box -->
+                                <div class="jarviswidget-editbox">
+                                    <!-- This area used as dropdown edit box -->
+                                    <input class="form-control" type="text">
+                                    <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+                                        
+                                </div>
+                                <!-- end widget edit box -->
+                                
+                                <!-- widget content -->
+                                <div class="widget-body top-contributor-artikel">
+                                    
+                                    <h3 class="alert alert-info"> Load Data ... </h3>
+                                    
+                                    <!-- <code>data-widget-editbutton</code>						 -->
+                                    
+                                </div>
+                                <!-- end widget content -->
+                                
+                            </div>
+                            <!-- end widget div -->
+                            
+                        </div>
+                        <!-- end widget -->
+            
+                    </article>
+                    
+                </div>
+            
+                
+            
+            </section>
+            
+            <!--
+                The ID "widget-grid" will start to initialize all widgets below 
+                You do not need to use widgets if you dont want to. Simply remove 
+                the <section></section> and you can use wells or panels instead 
+                -->
+            
+            <!-- widget grid HIT COUNT -->
+            <section id="widget-grid" class="">
+            
+                <!-- row -->
+                <div class="row">
+                    
+                    <!-- NEW WIDGET START -->
+                    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        
+                        <!-- Widget ID (each widget will need unique ID)-->
+                        <div class="jarviswidget" id="wid-id-0">
+                            <!-- widget options:
+                                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                                
+                                data-widget-colorbutton="false"	
+                                data-widget-editbutton="false"
+                                data-widget-togglebutton="false"
+                                data-widget-deletebutton="false"
+                                data-widget-fullscreenbutton="false"
+                                data-widget-custombutton="false"
+                                data-widget-collapsed="true" 
+                                data-widget-sortable="false"
+                                
+                            -->
+                            <header>
+                                <!--<span class="widget-icon"> 
+                                
+                                    <i class="fa fa-comments"></i> 
+                                </span>-->
+
+                                <!--<h2>Widget Title </h2>				-->
+
+                                {% for i in menu_aktif %}
+                                    <span class="widget-icon"> 
+                                    {% if i.icon != '' %}
+                                        <i class="fa-fw fa fa-{{i.icon}}"></i> 
+                                    {% else %}
+                                        <i class="fa-fw fa fa-home"></i> 
+                                    {% endif %}
+                                    </span>
+
+                                    <!-- <h2>{{i.nama}} </h2> -->
+                                    <h2>Hit Count (Jumlah Pengunjung)</h2>
+                                    
+                                {% endfor %}
+                                
+                            </header>
+            
+                            <!-- widget div-->
+                            <div>
+                                
+                                <!-- widget edit box -->
+                                <div class="jarviswidget-editbox">
+                                    <!-- This area used as dropdown edit box -->
+                                    <input class="form-control" type="text">	
+                                </div>
+                                <!-- end widget edit box -->
+                                
+                                <!-- widget content -->
+                                <div class="widget-body">
+                                    <!-- mChartHit = {{mChartHit}} <br>
+                                    mChartHit = {{mChartHit.bulan}} <br>
+                                    mChartHit = {{mChartHit.hit}} <br> -->
+                                    
+                                    <!-- this is what the user will see -->
+                                    <canvas id="lineChartHit" height="120"></canvas>
+                                </div>
+                                <!-- end widget content -->
+                                
+                            </div>
+                            <!-- end widget div -->
+                            
+                        </div>
+                        <!-- end widget -->
+            
+                    </article>
+                    <!-- WIDGET END -->
+                    
+                </div>
+            
+                <!-- end row -->
+            
+                <!-- row -->
+            
+                <div class="row">
+            
+                    <!-- a blank row to get started -->
+                    <div class="col-sm-12">
+                        <!-- your contents here -->
+                    </div>
+                        
+                </div>
+            
+                <!-- end row -->
+            
+            </section>
+            <!-- end widget grid -->
+
+
+            <!-- widget grid NEWS COUNT -->
+            <section id="widget-grid" class="">
+            
+                <!-- row -->
+                <div class="row">
+                    
+                    <!-- NEW WIDGET START -->
+                    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        
+                        <!-- Widget ID (each widget will need unique ID)-->
+                        <div class="jarviswidget" id="wid-id-0">
+                            <!-- widget options:
+                                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                                
+                                data-widget-colorbutton="false"	
+                                data-widget-editbutton="false"
+                                data-widget-togglebutton="false"
+                                data-widget-deletebutton="false"
+                                data-widget-fullscreenbutton="false"
+                                data-widget-custombutton="false"
+                                data-widget-collapsed="true" 
+                                data-widget-sortable="false"
+                                
+                            -->
+                            <header>
+                                <!--<span class="widget-icon"> 
+                                
+                                    <i class="fa fa-comments"></i> 
+                                </span>-->
+
+                                <!--<h2>Widget Title </h2>				-->
+
+                                {% for i in menu_aktif %}
+                                    <span class="widget-icon"> 
+                                    {% if i.icon != '' %}
+                                        <i class="fa-fw fa fa-{{i.icon}}"></i> 
+                                    {% else %}
+                                        <i class="fa-fw fa fa-home"></i> 
+                                    {% endif %}
+                                    </span>
+
+                                    <!-- <h2>{{i.nama}} </h2> -->
+                                    <h2>News Count</h2>
+                                    
+                                {% endfor %}
+                                
+                            </header>
+            
+                            <!-- widget div-->
+                            <div>
+                                
+                                <!-- widget edit box -->
+                                <div class="jarviswidget-editbox">
+                                    <!-- This area used as dropdown edit box -->
+                                    <input class="form-control" type="text">	
+                                </div>
+                                <!-- end widget edit box -->
+                                
+                                <!-- widget content -->
+                                <div class="widget-body">
+                                    <!-- mChartHit = {{mChartHit}} <br>
+                                    mChartHit = {{mChartHit.bulan}} <br>
+                                    mChartHit = {{mChartHit.hit}} <br> -->
+                                    
+                                    <!-- this is what the user will see -->
+                                    <canvas id="lineChartNews" height="120"></canvas>
+                                </div>
+                                <!-- end widget content -->
+                                
+                            </div>
+                            <!-- end widget div -->
+                            
+                        </div>
+                        <!-- end widget -->
+            
+                    </article>
+                    <!-- WIDGET END -->
+                    
+                </div>
+            
+                <!-- end row -->
+            
+                <!-- row -->
+            
+                <div class="row">
+            
+                    <!-- a blank row to get started -->
+                    <div class="col-sm-12">
+                        <!-- your contents here -->
+                    </div>
+                        
+                </div>
+            
+                <!-- end row -->
+            
+            </section>
+            <!-- end widget grid -->
+
+        </div>
+        <!-- END MAIN CONTENT -->
+
+    </div>
+    <!-- END MAIN PANEL -->
+{% endblock %}
+
+{% block jquery-doc-ready %}
+
+    // HitCount graph
+    var bln = "{{mChartHit.bulan}}";
+    var line_hit_array = {{mChartHit.hit}};  
+    var line_bln_array = bln.split(",");
+
+    //bln.replaceAll("&#x27;","\'");
+    //console.log(bln2);
+
+    // news count graph
+    var bln = "{{mChartNews.bulan}}";
+    var news_berita_array = {{mChartNews.berita}};
+    var news_pengumuman_array = {{mChartNews.pengumuman}};
+    var news_artikel_array = {{mChartNews.artikel}};
+    var news_bln_array = bln.split(",");
+    
+    // already inside ready document
+    // window.onload = function() {
+
+    var LineConfig = create_graph_hitcount(line_bln_array,line_hit_array);
+    var LineConfigNews = create_graph_newscount(news_bln_array,news_berita_array,news_pengumuman_array,news_artikel_array);
+
+    window.myLine = new Chart(document.getElementById("lineChartHit"), LineConfig);
+    window.myLine2 = new Chart(document.getElementById("lineChartNews"), LineConfigNews);
+    //}
+
+
+    // top kontributor berita ajax
+    $.ajax({
+        url: "/dashboard/top_kontributor_berita/",
+        type: "GET",
+        //headers:{'X-CSRFToken':csrftoken},
+        success: function(result){                                
+            console.log(result);
+
+            var res = '<dl class="dl-horizontal">';            
+            var user_id = {{ user.id }};
+
+            for (let i=0; i<result.length; i++) {
+                
+                //console.log('user id = ');
+                //console.log(user_id);
+
+                if (user_id == result[i][0][0]) {
+                    res = res +
+                        '<dt class="txt-color-green">' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                        '<dd class="txt-color-green">' + result[i][1] + ' data </dd>';                
+                }
+                else {
+                    res = res +
+                    '<dt>' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                    '<dd>' + result[i][1] + ' data </dd>';                
+                };
+            };
+
+            res = res + '</dl>';            
+            $('.top-contributor-berita').html(res);
+        }
+    }); 
+
+    // top kontributor pengumuman ajax
+    $.ajax({
+        url: "/dashboard/top_kontributor_pengumuman/",
+        type: "GET",
+        //headers:{'X-CSRFToken':csrftoken},
+        success: function(result){                                
+            console.log(result);
+
+            var res = '<dl class="dl-horizontal">';            
+            var user_id = {{ user.id }};
+
+            for (let i=0; i<result.length; i++) {
+                
+                //console.log('user id = ');
+                //console.log(user_id);
+
+                if (user_id == result[i][0][0]) {
+                    res = res +
+                        '<dt class="txt-color-green">' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                        '<dd class="txt-color-green">' + result[i][1] + ' data </dd>';                
+                }
+                else {
+                    res = res +
+                    '<dt>' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                    '<dd>' + result[i][1] + ' data </dd>';                
+                };
+            };
+
+            res = res + '</dl>';            
+            $('.top-contributor-pengumuman').html(res);
+        }
+    }); 
+
+    // top kontributor artikel ajax
+    $.ajax({
+        url: "/dashboard/top_kontributor_artikel/",
+        type: "GET",
+        //headers:{'X-CSRFToken':csrftoken},
+        success: function(result){                                
+            console.log(result);
+
+            var res = '<dl class="dl-horizontal">';            
+            var user_id = {{ user.id }};
+
+            for (let i=0; i<result.length; i++) {
+                
+                //console.log('user id = ');
+                //console.log(user_id);
+
+                if (user_id == result[i][0][0]) {
+                    res = res +
+                        '<dt class="txt-color-green">' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                        '<dd class="txt-color-green">' + result[i][1] + ' data </dd>';                
+                }
+                else {
+                    res = res +
+                    '<dt>' + result[i][0][1].replace("lobar","") + ' </dt>' +
+                    '<dd>' + result[i][1] + ' data </dd>';                
+                };
+            };
+
+            res = res + '</dl>';            
+            $('.top-contributor-artikel').html(res);
+        }
+    }); 
+
+    {% for message in messages %}                                        		
+        $.smallBox({
+            title : "<i class='fa fa-desktop'></i> &nbsp;&nbsp; {{message|safe}}",
+            content : "<i class='fa fa-link'></i> <i>Dashboard</i>",
+            color : "#296191",
+            iconSmall : "fa fa-thumbs-up bounce animated",
+            timeout : 4000
+        });
+    {% endfor %}
+
+{% endblock %}
+
+{% block related-plugin %}   
+    <!-- SmartChat UI : plugin -->
+    <!-- <script src="{% static 'account/js/smart-chat-ui/smart.chat.ui.min.js' %}"></script>
+    <script src="{% static 'account/js/smart-chat-ui/smart.chat.manager.min.js' %}"></script> -->
+    
+    <script src="{% static 'account/js/plugin/moment/moment.min.js' %}"></script>
+	<script src="{% static 'account/js/plugin/chartjs/chart.min.js' %}"></script>
+
+    
+{% endblock %}
