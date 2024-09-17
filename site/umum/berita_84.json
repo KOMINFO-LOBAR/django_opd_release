@@ -1,1 +1,0 @@
-[{"condition": {"id": 7174}, "defaults": {"kategori_id": 15, "site_id": 84, "admin_id": 115, "judul": "Judul berita", "judul_seo": "judul-berita", "isi_berita": "<p>Isi Berita</p>", "view_count": 65, "word_count": 2, "status": "published", "created_at": "2024-07-18T03:20:03.039Z", "updated_at": "2024-08-08T04:13:05.157Z"}, "m2m": {"tags": [12, 13, 14], "photo": [20303]}}]

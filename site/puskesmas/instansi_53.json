@@ -1,1 +1,0 @@
-[{"condition": {"id": 62}, "defaults": {"site_id": 53, "nama": "puskesmas gunungsari", "alamat": "Jl. Pariwisata No.70  Medas Desa,Desa Gunungsari", "telp": "0370 633503", "email": "gunungsari177@gmail.com", "kode_post": "83351", "kategori_id": 3, "parent_id": 5, "created_at": "2021-07-07T15:11:05.169Z", "updated_at": "2022-09-02T14:27:07.139Z"}, "m2m": {"admin": [1, 71]}}]

@@ -1,11 +1,16 @@
-_H='order_menu'
-_G='parent_id'
-_F='site'
-_E='empty table'
-_D='w'
-_C='defaults'
-_B='condition'
-_A='id'
+_M='order_menu'
+_L='parent_id'
+_K='site'
+_J='empty table'
+_I='w'
+_H='defaults'
+_G='condition'
+_F=True
+_E=False
+_D='id'
+_C='nama_seo'
+_B='slug'
+_A='judul_seo'
 import os
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
@@ -16,189 +21,254 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.models import User
 from opd.models import kategori,tags,menu,photo
 class Command(BaseCommand):
-	help='Detach all table base on site id';base_dir=settings.BASE_DIR;site_list=os.path.join(base_dir,_F);photo_dir=os.path.join(base_dir,'media','images');model_list=['berita','pengumuman','artikel','dokumen','link_terkait','galery_foto','galery_layanan','galery_video','instansi_kategori','instansi','social_media','logo','banner','pejabat','halaman_statis','agenda','popup','info_hoax','info_widget','banner_all']
+	help='Detach all table base on site id';base_dir=settings.BASE_DIR;site_list=os.path.join(base_dir,_K);photo_dir=os.path.join(base_dir,'media','images');model_list=['berita','pengumuman','artikel','dokumen','link_terkait','galery_foto','galery_layanan','galery_video','instansi_kategori','instansi','social_media','logo','banner','pejabat','halaman_statis','agenda','popup','info_hoax','info_widget','banner_all']
 	def info(A,message):A.stdout.write(message)
 	def debug(A,message):A.stdout.write(message)
-	def get_site_model(J,sub_folder):
-		I='Site.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
-		if not os.path.isfile(B):
-			E=Site.objects.all()
-			if E:
-				F=list(E.values());K=len(F);C=[]
-				for L in range(K):
-					G={}
-					for(D,H)in F[L].items():
-						if D==_A:M={D:H}
-						else:G[D]=H
-					C.append({_B:M,_C:G})
-				if C:
-					if not os.path.exists(A):os.makedirs(A)
-					B=os.path.join(A,I)
-					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
+	def get_site_model(M,sub_folder):
+		L='Site.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		if not os.path.isfile(E):
+			H=Site.objects.all()
+			if H:
+				I=list(H.values());N=len(I);F=[]
+				for O in range(N):
+					G={};B=I[O].items();J=_E
+					if _A in B or _B in B or _C in B:J=_F
+					if not J:
+						for(A,C)in B:
+							if A==_D:K={A:C}
+							else:G[A]=C
+					else:
+						for(A,C)in B:
+							if A==_A or A==_B or A==_C:K={A:C}
+							else:G[A]=C
+					F.append({_G:K,_H:G})
+				if F:
+					if not os.path.exists(D):os.makedirs(D)
+					E=os.path.join(D,L)
+					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
 				else:pass
-	def get_user_model(J,sub_folder):
-		I='User.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
-		if not os.path.isfile(B):
-			E=User.objects.all()
-			if E:
-				F=list(E.values());K=len(F);C=[]
-				for L in range(K):
-					G={}
-					for(D,H)in F[L].items():
-						if D==_A:M={D:H}
-						else:G[D]=H
-					C.append({_B:M,_C:G})
-				if C:
-					if not os.path.exists(A):os.makedirs(A)
-					B=os.path.join(A,I)
-					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
+	def get_user_model(M,sub_folder):
+		L='User.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		if not os.path.isfile(E):
+			H=User.objects.all()
+			if H:
+				I=list(H.values());N=len(I);F=[]
+				for O in range(N):
+					G={};B=I[O].items();J=_E
+					if _A in B or _B in B or _C in B:J=_F
+					if not J:
+						for(A,C)in B:
+							if A==_D:K={A:C}
+							else:G[A]=C
+					else:
+						for(A,C)in B:
+							if A==_A or A==_B or A==_C:K={A:C}
+							else:G[A]=C
+					F.append({_G:K,_H:G})
+				if F:
+					if not os.path.exists(D):os.makedirs(D)
+					E=os.path.join(D,L)
+					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
 				else:pass
-	def get_photo_model(J,sub_folder):
-		I='photo.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
-		if not os.path.isfile(B):
-			E=photo.objects.all()
-			if E:
-				F=list(E.values());K=len(F);C=[]
-				for L in range(K):
-					G={}
-					for(D,H)in F[L].items():
-						if D==_A:M={D:H}
-						else:G[D]=H
-					C.append({_B:M,_C:G})
-				if C:
-					if not os.path.exists(A):os.makedirs(A)
-					B=os.path.join(A,I)
-					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
+	def get_photo_model(M,sub_folder):
+		L='photo.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		if not os.path.isfile(E):
+			H=photo.objects.all()
+			if H:
+				I=list(H.values());N=len(I);F=[]
+				for O in range(N):
+					G={};B=I[O].items();J=_E
+					if _A in B or _B in B or _C in B:J=_F
+					if not J:
+						for(A,C)in B:
+							if A==_D:K={A:C}
+							else:G[A]=C
+					else:
+						for(A,C)in B:
+							if A==_A or A==_B or A==_C:K={A:C}
+							else:G[A]=C
+					F.append({_G:K,_H:G})
+				if F:
+					if not os.path.exists(D):os.makedirs(D)
+					E=os.path.join(D,L)
+					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
 				else:pass
-	def get_kategori_model(J,sub_folder):
-		I='kategori.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
-		if not os.path.isfile(B):
-			E=kategori.objects.all()
-			if E:
-				F=list(E.values());K=len(F);C=[]
-				for L in range(K):
-					G={}
-					for(D,H)in F[L].items():
-						if D==_A:M={D:H}
-						else:G[D]=H
-					C.append({_B:M,_C:G})
-				if C:
-					if not os.path.exists(A):os.makedirs(A)
-					B=os.path.join(A,I)
-					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
+	def get_kategori_model(M,sub_folder):
+		L='kategori.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		if not os.path.isfile(E):
+			H=kategori.objects.all()
+			if H:
+				I=list(H.values());N=len(I);F=[]
+				for O in range(N):
+					G={};B=I[O].items();J=_E
+					if _A in B or _B in B or _C in B:J=_F
+					if not J:
+						for(A,C)in B:
+							if A==_D:K={A:C}
+							else:G[A]=C
+					else:
+						for(A,C)in B:
+							if A==_A or A==_B or A==_C:K={A:C}
+							else:G[A]=C
+					F.append({_G:K,_H:G})
+				if F:
+					if not os.path.exists(D):os.makedirs(D)
+					E=os.path.join(D,L)
+					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
 				else:pass
-	def get_tags_model(J,sub_folder):
-		I='tags.json';A=os.path.join(J.site_list,sub_folder);B=os.path.join(A,I)
-		if not os.path.isfile(B):
-			E=tags.objects.all()
-			if E:
-				F=list(E.values());K=len(F);C=[]
-				for L in range(K):
-					G={}
-					for(D,H)in F[L].items():
-						if D==_A:M={D:H}
-						else:G[D]=H
-					C.append({_B:M,_C:G})
-				if C:
-					if not os.path.exists(A):os.makedirs(A)
-					B=os.path.join(A,I)
-					with open(B,_D)as N:N.write(json.dumps(C,cls=DjangoJSONEncoder))
+	def get_tags_model(M,sub_folder):
+		L='tags.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		if not os.path.isfile(E):
+			H=tags.objects.all()
+			if H:
+				I=list(H.values());N=len(I);F=[]
+				for O in range(N):
+					G={};B=I[O].items();J=_E
+					if _A in B or _B in B or _C in B:J=_F
+					if not J:
+						for(A,C)in B:
+							if A==_D:K={A:C}
+							else:G[A]=C
+					else:
+						for(A,C)in B:
+							if A==_A or A==_B or A==_C:K={A:C}
+							else:G[A]=C
+					F.append({_G:K,_H:G})
+				if F:
+					if not os.path.exists(D):os.makedirs(D)
+					E=os.path.join(D,L)
+					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
 				else:pass
 	def is_have_child(D,menu_id):
-		B=menu.objects.filter(parent_id=menu_id).order_by(_G,_H).values(_A);A=[]
-		for C in B:A.append(C[_A])
+		B=menu.objects.filter(parent_id=menu_id).order_by(_L,_M).values(_D);A=[]
+		for C in B:A.append(C[_D])
 		return A
 	def create_menu_recursive(C,root_menu_id,mList_recursive):
 		A=mList_recursive
 		for B in root_menu_id:
 			D=C.is_have_child(B)
-			if D:A.append({_A:B});C.create_menu_recursive(D,A)
-			else:A.append({_A:B})
+			if D:A.append({_D:B});C.create_menu_recursive(D,A)
+			else:A.append({_D:B})
 	def get_menu_model(F,sub_folder):
-		N='menu.json';B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_G,_H).values(_A);G=[]
-		for P in O:G.append(P[_A])
+		N='menu.json';B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_L,_M).values(_D);G=[]
+		for P in O:G.append(P[_D])
 		H=[];F.create_menu_recursive(G,H)
 		if not os.path.isfile(D):
 			E=[]
 			for C in H:
-				I=menu.objects.filter(id=C[_A])
+				I=menu.objects.filter(id=C[_D])
 				if I:
 					J=list(I.values());Q=len(J)
 					for R in range(Q):
 						K={}
 						for(A,C)in J[R].items():
-							if A==_A:L={A:C}
+							if A==_D:L={A:C}
 							else:K[A]=C
 						M=[]
-						for A in menu.objects.get(id=L[_A]).site.all():M.append(A.id)
-						S={_F:M};E.append({_B:L,_C:K,'m2m':S})
+						for A in menu.objects.get(id=L[_D]).site.all():M.append(A.id)
+						S={_K:M};E.append({_G:L,_H:K,'m2m':S})
 					if E:
 						if not os.path.exists(B):os.makedirs(B)
 						D=os.path.join(B,N)
-						with open(D,_D)as T:T.write(json.dumps(E,cls=DjangoJSONEncoder))
+						with open(D,_I)as T:T.write(json.dumps(E,cls=DjangoJSONEncoder))
 					else:pass
 		else:pass
 	def get_data(T,site_id,sub_folder):
-		c='admin';b='photo';a='tags';S=True;R=False;K=site_id
-		for L in T.model_list:
-			D=apps.get_model('opd',L);E=0;H=[]
-			for F in D._meta.fields:H.append(F.name)
-			if _F in H:E=1
-			if E==0:
-				H=[]
-				for F in D._meta.get_fields():H.append(F.name)
-				if _F in H:E=2
-			U=R;V=R;W=R
-			for F in D._meta.get_fields():
-				if F.many_to_many:
-					if F.name==a:U=S
-					elif F.name==b:V=S
-					elif F.name==c:W=S
-			J=[];I=None
-			if E==1:I=D.objects.filter(site_id=K)
-			elif E==2:I=D.objects.filter(site__id=K)
-			elif E==0:I=D.objects.all()
-			if I:
-				X=list(I.values());d=len(X)
+		c='admin';b='photo';a='tags';M=site_id
+		for N in T.model_list:
+			D=apps.get_model('opd',N);F=0;I=[]
+			for G in D._meta.fields:I.append(G.name)
+			if _K in I:F=1
+			if F==0:
+				I=[]
+				for G in D._meta.get_fields():I.append(G.name)
+				if _K in I:F=2
+			U=_E;V=_E;W=_E
+			for G in D._meta.get_fields():
+				if G.many_to_many:
+					if G.name==a:U=_F
+					elif G.name==b:V=_F
+					elif G.name==c:W=_F
+			K=[];J=None
+			if F==1:J=D.objects.filter(site_id=M)
+			elif F==2:J=D.objects.filter(site__id=M)
+			elif F==0:J=D.objects.all()
+			if J:
+				X=list(J.values());d=len(X)
 				for e in range(d):
-					M={}
-					for(A,Y)in X[e].items():
-						if A==_A:G={A:Y}
-						else:M[A]=Y
+					L={};O=X[e].items();Y=_E;f=[_A,_B,_C]
+					for(A,H)in O:
+						if A in f:Y=_F;break
+					if not Y:
+						for(A,H)in O:
+							if A==_D:B={A:H}
+							else:L[A]=H
+					else:
+						for(A,H)in O:
+							if A==_A or A==_B or A==_C:B={A:H}
+							else:L[A]=H
 					Z={}
 					if U:
-						B=[]
-						for A in D.objects.get(id=G[_A]).tags.all():B.append(A.id)
-						Z={a:B}
-					N={}
-					if V:
-						B=[]
-						for A in D.objects.get(id=G[_A]).photo.all():B.append(A.id)
-						N={b:B}
-					O={}
-					if W:
-						B=[]
-						for A in D.objects.get(id=G[_A]).admin.all():B.append(A.id)
-						O={c:B}
+						C=[];
+						if _B in B:
+							for A in D.objects.get(slug=B[_B]).tags.all():C.append(A.id)
+						elif _A in B:
+							for A in D.objects.get(judul_seo=B[_A]).tags.all():C.append(A.id)
+						elif _C in B:
+							for A in D.objects.get(nama_seo=B[_C]).tags.all():C.append(A.id)
+						else:
+							for A in D.objects.get(id=B[_D]).tags.all():C.append(A.id)
+						Z={a:C}
 					P={}
-					if E==2:
-						B=[]
-						for A in D.objects.get(id=G[_A]).site.all():B.append(A.id)
-						P={_F:B}
-					C=Z
-					if C:C.update(N)
-					else:C=N
-					if C:C.update(O)
-					else:C=O
-					if C:C.update(P)
-					else:C=P
-					if C:J.append({_B:G,_C:M,'m2m':C})
-					else:J.append({_B:G,_C:M})
-				if J:
-					Q=os.path.join(T.site_list,sub_folder)
-					if not os.path.exists(Q):os.makedirs(Q)
-					f=os.path.join(Q,f"{L}_{K}.json")
-					with open(f,_D)as g:g.write(json.dumps(J,cls=DjangoJSONEncoder))
+					if V:
+						C=[]
+						if _B in B:
+							for A in D.objects.get(slug=B[_B]).photo.all():C.append(A.id)
+						elif _A in B:
+							for A in D.objects.get(judul_seo=B[_A]).photo.all():C.append(A.id)
+						elif _C in B:
+							for A in D.objects.get(nama_seo=B[_C]).photo.all():C.append(A.id)
+						else:
+							for A in D.objects.get(id=B[_D]).photo.all():C.append(A.id)
+						P={b:C}
+					Q={}
+					if W:
+						C=[]
+						if _B in B:
+							for A in D.objects.get(slug=B[_B]).admin.all():C.append(A.id)
+						elif _A in B:
+							for A in D.objects.get(judul_seo=B[_A]).admin.all():C.append(A.id)
+						elif _C in B:
+							for A in D.objects.get(nama_seo=B[_C]).admin.all():C.append(A.id)
+						else:
+							for A in D.objects.get(id=B[_D]).admin.all():C.append(A.id)
+						Q={c:C}
+					R={}
+					if F==2:
+						C=[]
+						if _B in B:
+							for A in D.objects.get(slug=B[_B]).site.all():C.append(A.id)
+						elif _A in B:
+							for A in D.objects.get(judul_seo=B[_A]).site.all():C.append(A.id)
+						elif _C in B:
+							for A in D.objects.get(nama_seo=B[_C]).site.all():C.append(A.id)
+						else:
+							for A in D.objects.get(id=B[_D]).site.all():C.append(A.id)
+						R={_K:C}
+					E=Z
+					if E:E.update(P)
+					else:E=P
+					if E:E.update(Q)
+					else:E=Q
+					if E:E.update(R)
+					else:E=R
+					if E:K.append({_G:B,_H:L,'m2m':E})
+					else:K.append({_G:B,_H:L})
+				if K:
+					S=os.path.join(T.site_list,sub_folder)
+					if not os.path.exists(S):os.makedirs(S)
+					g=os.path.join(S,f"{N}_{M}.json")
+					with open(g,_I)as h:h.write(json.dumps(K,cls=DjangoJSONEncoder))
 				else:pass
 			else:pass
 	def get_data_by_site(A):
