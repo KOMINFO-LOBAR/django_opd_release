@@ -17,10 +17,10 @@ UNDER_CONSTRUCTION=False
 DB_ENGINE=django.db.backends.mysql
 
 # Database connection property :
-# DB_NAME=portal_db_kecamatan
-# DB_NAME=portal_db_opd
-# DB_NAME=portal_db_kelurahan (Data yg digunakan untuk DPW ada di group kelurahan)
 DB_NAME=portal_db_umum
+# DB_NAME=portal_db_umum
+# DB_NAME=portal_db_kelurahan (Data yg digunakan untuk DPW ada di group kelurahan)
+# DB_NAME=portal_db_puskesmas
 #DB_NAME=portal_db_test
 DB_USER=root
 DB_HOST=127.0.0.1

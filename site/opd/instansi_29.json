@@ -1,0 +1,1 @@
+[{"condition": {"id": 13}, "defaults": {"site_id": 29, "nama": "Badan Pendapatan Daerah Kabupaten Lombok Barat", "alamat": "Jl. Soekarno-Hatta Giri Menang-Gerung", "telp": null, "email": null, "kode_post": "83363", "kategori_id": 2, "parent_id": null, "histats": null, "created_at": "2021-05-28T01:42:44.104Z", "updated_at": "2023-11-03T03:08:07.527Z"}, "m2m": {"admin": [1, 6]}}]

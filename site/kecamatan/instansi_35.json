@@ -1,0 +1,1 @@
+[{"condition": {"id": 39}, "defaults": {"site_id": 35, "nama": "Gunung sari", "alamat": "Jalan Pariwisata Np. 64 Kecamatan Gunungsari Kabupaten Lombok Barat", "telp": null, "email": null, "kode_post": null, "kategori_id": 4, "parent_id": null, "histats": null, "created_at": "2021-05-28T01:53:53.311Z", "updated_at": "2024-05-05T00:15:54.109Z"}, "m2m": {"admin": [1, 33]}}]

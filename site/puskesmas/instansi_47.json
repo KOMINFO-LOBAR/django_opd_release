@@ -1,0 +1,1 @@
+[{"condition": {"id": 54}, "defaults": {"site_id": 47, "nama": "RSUD Awet Muda Narmada", "alamat": "Jl. Ahmad Yani No.69 Narmada", "telp": "03707561792", "email": "rsudam.lombokbarat@gmail.com", "kode_post": "83371", "kategori_id": 3, "parent_id": 5, "histats": null, "created_at": "2021-06-07T10:10:00.877Z", "updated_at": "2022-09-02T14:24:00.813Z"}, "m2m": {"admin": [1, 51]}}]
