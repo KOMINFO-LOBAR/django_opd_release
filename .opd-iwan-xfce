@@ -1,0 +1,52 @@
+# local settings : env_opd
+# varsion : 1.0.15
+
+# Option :
+# --------
+DEBUG=True
+UNDER_CONSTRUCTION=False
+
+# Optional Database :
+# -------------------
+# Choose database type
+# DB_TYPE=sqlite
+#DB_TYPE=mysql
+
+# Choose database engine :
+# DB_ENGINE=django.db.backends.sqlite3
+DB_ENGINE=django.db.backends.mysql
+
+# Database connection property :
+# DB_NAME=portal_db_umum
+# DB_NAME=portal_db_umum
+# DB_NAME=portal_db_kelurahan (Data yg digunakan untuk DPW ada di group kelurahan)
+# DB_NAME=portal_db_puskesmas
+DB_NAME=db_opd
+DB_USER=root
+DB_HOST=127.0.0.1
+DB_PORT=3306
+
+# Allowed host :
+# -------------------
+ALLOWED_HOSTS=127.0.0.1, localhost
+
+# Optional Static and media :
+# ---------------------------
+# set comment if not used
+# STATIC_ROOT=/home/u1578244/public_html/static/
+# MEDIA_ROOT=/home/u1578244/public_html/media/
+
+MEDIA_ROOT=/home/iwan/Documents/Backup/Website/Web-OPD/opd_media_oktober_2023/media/
+
+# Social media auth :
+# -------------------
+# social media login (deprecated) its not save
+# MAIN_DOMAIN=authbox.my.id
+
+# Encrypt section :
+# -----------------
+DB_PASSWORD=674141414141426a375a505833556776387357634974416b333656644830513255354c4c7a586f644d4d5573414369316b6b754e4d4a39435861435636647a65386d577045414d395570643376646475726a4e4d754772693770756f5143454c4e673d3d
+SECRET_KEY=674141414141426a375a50587447464374506c61797638577377644b4434535247744b487250744e59736949496d784235697965353857554e6f7a4c337a596c443678685f72686e423337554e514b58496d5141647557766c767838794f4f70476c43474c416c6156646a38737975785876744871644f6777495269674d685338666e565978514d614a364a56713443756e5639523946434c767552444b42426b574d33776c787873356a5838785964754250485a7256707a3078447133616f6c416a775139535543647775
+DB_KEY=73377578496268653146467873495746505a4655544376754a5a74356c616c434c3174363865496d4b46593d
+
+# END

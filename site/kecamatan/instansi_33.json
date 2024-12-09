@@ -1,1 +1,0 @@
-[{"condition": {"id": 41}, "defaults": {"site_id": 33, "nama": "kediri", "alamat": "JLN. TGH. ABDUL KARIM KEDIRI", "telp": "081914485201", "email": "kantorcamatkediri99@gmail.com", "kode_post": "83362", "kategori_id": 4, "parent_id": null, "histats": null, "created_at": "2021-05-28T01:54:26.741Z", "updated_at": "2022-09-02T14:28:33.388Z"}, "m2m": {"admin": [1, 34]}}]

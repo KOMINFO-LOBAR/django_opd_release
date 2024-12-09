@@ -1,1 +1,0 @@
-[{"condition": {"id": 64}, "defaults": {"site_id": 55, "nama": "puskesmas kuripan", "alamat": "Jln. TGH Abdul Hafiz , Kuripan", "telp": null, "email": "pusk.kuripan@gmail.com", "kode_post": null, "kategori_id": 3, "parent_id": 5, "histats": null, "created_at": "2021-07-07T15:12:40.418Z", "updated_at": "2022-09-02T14:26:27.888Z"}, "m2m": {"admin": [1, 73]}}]

@@ -1,1 +1,0 @@
-[{"condition": {"id": 38}, "defaults": {"site_id": 39, "nama": "GERUNG", "alamat": "Jln.Gatot Subroto", "telp": null, "email": null, "kode_post": "83363", "kategori_id": 4, "parent_id": null, "histats": null, "created_at": "2021-05-28T01:53:34.418Z", "updated_at": "2022-09-02T14:29:10.411Z"}, "m2m": {"admin": [1, 32]}}]
