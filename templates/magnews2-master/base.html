@@ -2,12 +2,10 @@
 {% get_media_prefix as media_prefix %}   
 {% get_static_prefix as static_prefix %}   
 
-<!DOCTYPE html>
+<!DOCTYPE html prefix="og: https://ogp.me/ns#">
 <html lang="id">
 <head>
-    <!--  
-         prefix="og: https://ogp.me/ns#"
-        prefix="og: http://ogp.me/ns#" -->
+
 
 	<title>{% block page-title %}{% endblock %}</title>    
     <meta charset="UTF-8">
@@ -16,34 +14,19 @@
     <!-- ambil data asli bukan data dari cache -->
     <Meta Name= “GoogleBot” Content= “Noarchive”> 
 
-    <!-- <style>
-        .hidden {
-            display: none;
-        }
-    </style> -->
+
     
     {% block extra_head %}{% endblock %}
 
-    <!-- <meta property="og:image:width" content="300" />
-    <meta property="og:image:height" content="300" /> -->
+
     
     {% include "magnews2-master/inc-link.html" %}
     
 </head>
 <body class="animsition">
-    <!-- media prefix is {{media_prefix}} <br>
-    static prefix is {{static_prefix}} <br> -->
-    <!-- <span itemprop="image" itemscope itemtype="image/jpeg">
-        <link itemprop="url" href="{{news_img_meta}}">
-    </span> -->
     
-	<!--NEWS = <br>-->
-    <!--'berita__id','berita__site__name','berita__kategori__nama','berita__judul','berita__isi_berita', 'berita__admin__username','berita__created_at')   \-->
-    <!-- {% comment %} {% for i in news %}
-        id = {{i.berita__id}} <br>
-        photo = {{i.foto}} <br>
-        site = {{i.berita__site__name}} <br>
-    {% endfor %} {% endcomment %}     -->
+    
+	
 
     {% block page-header %}{% endblock %}     
 
@@ -53,16 +36,15 @@
     <!-- hanya ada di index -->
     {% block trending %}{% endblock %}
     {% block future-post %}{% endblock %}
-    <!---->
+    <!-- -->
 
-    <!-- section ini hanya ada di hal index-->
-    <!-- {% comment %} {% block section-index %}{% endblock %} {% endcomment %} -->
+    <!-- section ini hanya ada di hal index-->    
 
     <!--Block section index dan detail di gabung menjadi -->
     {%block section-content %}{% endblock %}
 
     <!-- section ini hanya ada di hal detail-->
-    <!-- {% comment %} {% block section-detail %}{% endblock %} {% endcomment %} -->
+    
 
     <!-- Agar tidak putih di bagian paling bawah -->
     
