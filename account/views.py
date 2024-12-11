@@ -76,8 +76,8 @@ _T='save_edit'
 _S='menu_aktif'
 _R='namaOPD'
 _Q='breadCrumb'
-_P='activeMenuList'
-_O='/account/login'
+_P='/account/login'
+_O='activeMenuList'
 _N='add'
 _M='form-'
 _L='edit'
@@ -129,12 +129,12 @@ def get_menus(request,siteID,context,active_menu):
 		F=menus.Menus(menu_group=A,kinds=2);G=[]
 		for H in F.get_menus():
 			if H[_AX]:G.append(H)
-		D[_K]=G;I=active_menu.replace('_',' ');D[_P]=F.get_active_menu_by_name(I)
+		D[_K]=G;I=active_menu.replace('_',' ');D[_O]=F.get_active_menu_by_name(I)
 	else:print('Group ID Not Found!')
 def unicode_to_string(value):B='ascii';A=value;A=str(A);A=unicodedata.normalize('NFKD',A).encode(B,'ignore').decode(B);return A
 def redirect_to_login(request):
 	if request.user.is_authenticated:return redirect(_AC)
-	return redirect(_O)
+	return redirect('/captcha/login')
 def get_siteID(request):
 	A=request;B=Site.objects.filter(domain=A.get_host()).values_list(_A,flat=_B)
 	if B.count()==0:raise Http404("domain '%s' belum terdaftar, silahkan daftar di halaman <a href='%s'>admin</a>"%(A.get_host(),'/admin'))
@@ -167,32 +167,32 @@ def get_news_count(request):
 def cek_user(request):
 	A=request
 	if not models.instansi.objects.filter(site_id=get_siteID(A),admin__id=A.user.id).exists():raise Http404("user <b>%s</b> tidak di temukan di domain <b>%s</b>. <a href='%s' onclick='%s'>Logout</a>"%(A.user.username,A.get_host(),'javascript:void(0)','login_again()'))
-@login_required(login_url=_O)
-def dashboard(request):A=request;cek_user(A);D=get_siteID(A);B=menus.ClsMenus(D,_B);F=get_hit_count(A);G=get_news_count(A);C='analytics';H=models.menu.objects.filter(nama=C,is_admin_menu=_B);E={};E={_K:B.get_menus(),_Q:B.create_breadCrumb(C),_P:B.find_activeMenuList(C),_R:get_namaOPD(D),_S:H,_AD:F,_AE:G};return render(A,'account/dashboard.html',E)
-@login_required(login_url=_O)
+@login_required(login_url=_P)
+def dashboard(request):A=request;cek_user(A);D=get_siteID(A);B=menus.ClsMenus(D,_B);F=get_hit_count(A);G=get_news_count(A);C='analytics';H=models.menu.objects.filter(nama=C,is_admin_menu=_B);E={};E={_K:B.get_menus(),_Q:B.create_breadCrumb(C),_O:B.find_activeMenuList(C),_R:get_namaOPD(D),_S:H,_AD:F,_AE:G};return render(A,'account/dashboard.html',E)
+@login_required(login_url=_P)
 def dashboard_detail(request):
 	B=request;cek_user(B);C=get_siteID(B);E=menus.ClsMenus(C,_B);I=models.berita.objects.exclude(site_id=1).count();J=models.artikel.objects.exclude(site_id=1).count();K=models.pengumuman.objects.exclude(site_id=1).count();G=models.Site.objects.get(id=C);L={_A:G.id,_p:G.domain};D={};A=models.instansi.objects.filter(site_id=C)
 	if A:
 		A=A.get()
 		if A.kategori:D={_A:A.kategori.id,_p:A.kategori.nama}
 	if not D:A=models.instansi_kategori.objects.get(id=1);D={_A:A.id,_p:A.nama}
-	print('form_data_kategori = ');print(D);M=get_hit_count(B);N=get_news_count(B);F='monitoring';O=models.menu.objects.filter(nama=F,is_admin_menu=_B);H={};H={_K:E.get_menus(),_Q:E.create_breadCrumb(F),_P:E.find_activeMenuList(F),_R:get_namaOPD(C),_S:O,_AD:M,_AE:N,_AY:I+K+J,_AF:C,_AZ:L,_Aa:D};return render(B,'account/dashboard-detail.html',H)
-@login_required(login_url=_O)
+	print('form_data_kategori = ');print(D);M=get_hit_count(B);N=get_news_count(B);F='monitoring';O=models.menu.objects.filter(nama=F,is_admin_menu=_B);H={};H={_K:E.get_menus(),_Q:E.create_breadCrumb(F),_O:E.find_activeMenuList(F),_R:get_namaOPD(C),_S:O,_AD:M,_AE:N,_AY:I+K+J,_AF:C,_AZ:L,_Aa:D};return render(B,'account/dashboard-detail.html',H)
+@login_required(login_url=_P)
 def dashboard_content_count(request):
 	C=request;cek_user(C);D=get_siteID(C);F=menus.ClsMenus(D,_B);K=models.berita.objects.exclude(site_id=1).count();L=models.artikel.objects.exclude(site_id=1).count();M=models.pengumuman.objects.exclude(site_id=1).count();H=models.Site.objects.get(id=D);N={_A:H.id,_p:H.domain};B=datetime.now();print(f"Init Data: {B.month}.{B.year}",B.strftime(_A4));I={_A:f"{B.month}.{B.year}",_p:B.strftime(_A4)};print('form_data_month = ');print(I);E={};A=models.instansi.objects.filter(site_id=D)
 	if A:
 		A=A.get()
 		if A.kategori:E={_A:A.kategori.id,_p:A.kategori.nama}
 	if not E:A=models.instansi_kategori.objects.get(id=1);E={_A:A.id,_p:A.nama}
-	O=get_hit_count(C);P=get_news_count(C);G='content count';Q=models.menu.objects.filter(nama=G,is_admin_menu=_B);J={};J={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_R:get_namaOPD(D),_S:Q,_AD:O,_AE:P,_AY:K+M+L,_AF:D,_AZ:N,'form_data_month':I,_Aa:E};return render(C,'account/dashboard-content-count.html',J)
+	O=get_hit_count(C);P=get_news_count(C);G='content count';Q=models.menu.objects.filter(nama=G,is_admin_menu=_B);J={};J={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_O:F.find_activeMenuList(G),_R:get_namaOPD(D),_S:Q,_AD:O,_AE:P,_AY:K+M+L,_AF:D,_AZ:N,'form_data_month':I,_Aa:E};return render(C,'account/dashboard-content-count.html',J)
 def register(request):
 	A=request
 	if A.method==_J:
 		B=CustomUserCreationForm(A.POST)
-		if B.is_valid():C=B.save();messages.info(A,mMsgBox.get(_X,A.POST.get(_i)));return redirect(_O)
+		if B.is_valid():C=B.save();messages.info(A,mMsgBox.get(_X,A.POST.get(_i)));return redirect(_P)
 	else:B=forms.CustomUserCreationForm(label_suffix='')
 	return render(A,'account/register.html',{_U:B})
-@login_required(login_url=_O)
+@login_required(login_url=_P)
 def social_media(request,mode='',pk=''):
 	H='/dashboard/social-media';C=mode;A=request;cek_user(A);E=get_siteID(A);F=menus.ClsMenus(E,_B);B=_I
 	if C==_L or C==_G:
@@ -217,8 +217,8 @@ def social_media(request,mode='',pk=''):
 			if B.is_valid():D.save();messages.info(A,mMsgBox.get(_T,A.POST.get(_t)));return redirect(H)
 		else:B=forms.SocialMediaForm(instance=D,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif C==_G:D=get_object_or_404(J);D.delete();messages.info(A,mMsgBox.get(_G,D.jenis));return redirect(H)
-	G='social media';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(E),_S:M};return render(A,'account/social-media.html',N)
-@login_required(login_url=_O)
+	G='social media';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_O:F.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(E),_S:M};return render(A,'account/social-media.html',N)
+@login_required(login_url=_P)
 def instansi(request,mode='',pk=''):
 	I='/dashboard/instansi';C=mode;A=request;cek_user(A);D=get_siteID(A);E=menus.ClsMenus(D,_B);B=_I
 	if C==_L:
@@ -241,8 +241,8 @@ def instansi(request,mode='',pk=''):
 			B=forms.InstansiForm(A.POST,instance=F,label_suffix='')
 			if B.is_valid():F.save();messages.info(A,mMsgBox.get(_T,A.POST.get(_E)));return redirect(I)
 		else:B=forms.InstansiForm(instance=F,label_suffix='');messages.info(A,mMsgBox.get(_a))
-	G='instansi';O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:E.get_menus(),_Q:E.create_breadCrumb(G),_P:E.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(D),_S:O};return render(A,'account/instansi.html',P)
-@login_required(login_url=_O)
+	G='instansi';O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:E.get_menus(),_Q:E.create_breadCrumb(G),_O:E.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(D),_S:O};return render(A,'account/instansi.html',P)
+@login_required(login_url=_P)
 def logo(request,mode='',pk=''):
 	K='logo';J='Logo ';C='logo-position';A=request;cek_user(A);B=get_siteID(A);D=menus.ClsMenus(B,_B);E=_I;F=_I
 	if mode==_N:
@@ -257,8 +257,8 @@ def logo(request,mode='',pk=''):
 				else:messages.info(A,mMsgBox.get(_T,J+A.POST.get(C)))
 			return redirect('/dashboard/logo')
 		else:E=forms.LogoForm(label_suffix='',prefix=K);F=forms.PhotoForm(label_suffix='',prefix=_A6);messages.info(A,mMsgBox.get(_W))
-	G=K;O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:D.get_menus(),_Q:D.create_breadCrumb(G),_P:D.find_activeMenuList(G),_V:mode,_U:E,_AK:F,_R:get_namaOPD(B),_S:O};return render(A,'account/logo.html',P)
-@login_required(login_url=_O)
+	G=K;O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:D.get_menus(),_Q:D.create_breadCrumb(G),_O:D.find_activeMenuList(G),_V:mode,_U:E,_AK:F,_R:get_namaOPD(B),_S:O};return render(A,'account/logo.html',P)
+@login_required(login_url=_P)
 def banner(request,mode='',pk=''):
 	J='banner';A=request;cek_user(A);C=get_siteID(A);E=menus.ClsMenus(C,_B);F=_I;G=_I
 	if mode==_N:
@@ -275,7 +275,7 @@ def banner(request,mode='',pk=''):
 				else:messages.info(A,mMsgBox.get(_T,B))
 			return redirect('/dashboard/banner')
 		else:F=forms.BannerForm(label_suffix='',prefix=J);G=forms.PhotoForm(label_suffix='',prefix=_A6);messages.info(A,mMsgBox.get(_W))
-	I=J;N=models.menu.objects.filter(nama=I,is_admin_menu=_B);O={_K:E.get_menus(),_Q:E.create_breadCrumb(I),_P:E.find_activeMenuList(I),_V:mode,_U:F,_AK:G,_R:get_namaOPD(C),_S:N};return render(A,'account/banner.html',O)
+	I=J;N=models.menu.objects.filter(nama=I,is_admin_menu=_B);O={_K:E.get_menus(),_Q:E.create_breadCrumb(I),_O:E.find_activeMenuList(I),_V:mode,_U:F,_AK:G,_R:get_namaOPD(C),_S:N};return render(A,'account/banner.html',O)
 def menu_refresh(request):
 	A=request;B=models.Site.objects.get(id=get_siteID(A));C=models.menu.objects.filter(is_master_menu=_B)
 	for D in C:D.site.add(B)
@@ -286,7 +286,7 @@ def menu_update_visibled(request,pk,is_visible):
 	else:B.site.remove(A)
 	return HttpResponse('True')
 def menu_is_have_child(menu_id):return models.menu.objects.filter(parent__id=menu_id).exists()
-@login_required(login_url=_O)
+@login_required(login_url=_P)
 def menu(request,mode='',pk=''):
 	U='delete_fail';T='master_menu';S='is_master_menu';D=mode;A=request;cek_user(A);E=get_siteID(A);J=menus.ClsMenus(E,_B);C=_I;L=_I;F=_I
 	if D=='':V=menus.ClsMenus(E,_C,_B);L=V.get_menus()
@@ -332,7 +332,7 @@ def menu(request,mode='',pk=''):
 			if I.site.count()==0:I.delete()
 			messages.info(A,mMsgBox.get(_G,B.nama))
 		return redirect(_A7)
-	K=_K;b=models.menu.objects.filter(nama=K,is_admin_menu=_B);c={_K:J.get_menus(),_Q:J.create_breadCrumb(K),_P:J.find_activeMenuList(K),_V:D,_U:C,'menu_master':L,_AL:F,_R:get_namaOPD(E),_S:b};return render(A,'account/menu.html',c)
+	K=_K;b=models.menu.objects.filter(nama=K,is_admin_menu=_B);c={_K:J.get_menus(),_Q:J.create_breadCrumb(K),_O:J.find_activeMenuList(K),_V:D,_U:C,'menu_master':L,_AL:F,_R:get_namaOPD(E),_S:b};return render(A,'account/menu.html',c)
 def delete_photo(request):
 	print('inside delete photo');C=range(3)
 	for B in C:
@@ -374,7 +374,7 @@ def save_tags(tag_list,obj_master):
 	if D:D.delete()
 	A=0
 	while A<len(B):E=models.tags.objects.get(id=B[A]);C.tags.add(E);A+=1
-@login_required(login_url=_O)
+@login_required(login_url=_P)
 def berita(request,mode='',pk='',photoID=''):
 	W='/dashboard/berita';O=photoID;G=mode;A=request;cek_user(A);F=get_siteID(A);R=menus.ClsMenus(F,_B);D=_I;H=_I;O=[]
 	if G==_L or G==_G:
@@ -431,8 +431,8 @@ def berita(request,mode='',pk='',photoID=''):
 		J=models.berita.photo.through.objects.filter(berita__site=F,berita__id=P)
 		if J:J.delete()
 		M=get_object_or_404(X);M.delete();messages.info(A,mMsgBox.get(_G,M.judul));return redirect(W)
-	V=_f;c=models.menu.objects.filter(nama=V,is_admin_menu=_B);Z={};Z={_K:R.get_menus(),_Q:R.create_breadCrumb(V),_P:R.find_activeMenuList(V),_V:G,_U:D,_r:H,_R:get_namaOPD(F),_S:c};return render(A,'account/berita.html',Z)
-@login_required(login_url=_O)
+	V=_f;c=models.menu.objects.filter(nama=V,is_admin_menu=_B);Z={};Z={_K:R.get_menus(),_Q:R.create_breadCrumb(V),_O:R.find_activeMenuList(V),_V:G,_U:D,_r:H,_R:get_namaOPD(F),_S:c};return render(A,'account/berita.html',Z)
+@login_required(login_url=_P)
 def kategori(request,mode='',pk=''):
 	A=request;cek_user(A);C=get_siteID(A);D=menus.ClsMenus(C,_B);B=_I
 	if mode==_N:
@@ -444,8 +444,8 @@ def kategori(request,mode='',pk=''):
 				else:messages.info(A,mMsgBox.get(_T,A.POST.get(_E)))
 				return redirect('/dashboard/kategori')
 		else:B=forms.KategoriForm(label_suffix='');messages.info(A,mMsgBox.get(_W))
-	E='kategori';I=models.menu.objects.filter(nama=E,is_admin_menu=_B);J={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_P:D.find_activeMenuList(E),_V:mode,_U:B,_R:get_namaOPD(C),_S:I};return render(A,'account/kategori.html',J)
-@login_required(login_url=_O)
+	E='kategori';I=models.menu.objects.filter(nama=E,is_admin_menu=_B);J={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_O:D.find_activeMenuList(E),_V:mode,_U:B,_R:get_namaOPD(C),_S:I};return render(A,'account/kategori.html',J)
+@login_required(login_url=_P)
 def tags(request,mode='',pk=''):
 	A=request;cek_user(A);C=get_siteID(A);D=menus.ClsMenus(C,_B);B=_I
 	if mode==_N:
@@ -457,8 +457,8 @@ def tags(request,mode='',pk=''):
 				else:messages.info(A,mMsgBox.get(_T,A.POST.get(_E)))
 				return redirect('/dashboard/tags')
 		else:B=forms.TagsForm(label_suffix='');messages.info(A,mMsgBox.get(_W))
-	E='tags';I=models.menu.objects.filter(nama=E,is_admin_menu=_B);J={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_P:D.find_activeMenuList(E),_V:mode,_U:B,_R:get_namaOPD(C),_S:I};return render(A,'account/tags.html',J)
-@login_required(login_url=_O)
+	E='tags';I=models.menu.objects.filter(nama=E,is_admin_menu=_B);J={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_O:D.find_activeMenuList(E),_V:mode,_U:B,_R:get_namaOPD(C),_S:I};return render(A,'account/tags.html',J)
+@login_required(login_url=_P)
 def pengumuman(request,mode='',pk=''):
 	W='Pengumuman';S='/dashboard/pengumuman';D=mode;A=request;cek_user(A);C=get_siteID(A);N=menus.ClsMenus(C,_B);E=_I;F=_I;O=[]
 	if D==_L or D==_G:
@@ -505,8 +505,8 @@ def pengumuman(request,mode='',pk=''):
 		G=models.pengumuman.photo.through.objects.filter(pengumuman__site=C,pengumuman__id=K)
 		if G:G.delete()
 		J=get_object_or_404(T);J.delete();messages.info(A,mMsgBox.get(_G,J.judul));return redirect(S)
-	R=_g;Z=models.menu.objects.filter(nama=R,is_admin_menu=_B);a={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_P:N.find_activeMenuList(R),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Z};return render(A,'account/pengumuman.html',a)
-@login_required(login_url=_O)
+	R=_g;Z=models.menu.objects.filter(nama=R,is_admin_menu=_B);a={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_O:N.find_activeMenuList(R),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Z};return render(A,'account/pengumuman.html',a)
+@login_required(login_url=_P)
 def artikel(request,mode='',pk=''):
 	S='/dashboard/artikel';D=mode;A=request;cek_user(A);C=get_siteID(A);N=menus.ClsMenus(C,_B);E=_I;F=_I;O=[]
 	if D==_L or D==_G:
@@ -553,12 +553,12 @@ def artikel(request,mode='',pk=''):
 		G=models.artikel.photo.through.objects.filter(artikel__site=C,artikel__id=K)
 		if G:G.delete()
 		J=get_object_or_404(T);J.delete();messages.info(A,mMsgBox.get(_G,J.judul));return redirect(S)
-	R=_h;Y=models.menu.objects.filter(nama=R,is_admin_menu=_B);Z={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_P:N.find_activeMenuList(R),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Y};return render(A,'account/artikel.html',Z)
+	R=_h;Y=models.menu.objects.filter(nama=R,is_admin_menu=_B);Z={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_O:N.find_activeMenuList(R),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Y};return render(A,'account/artikel.html',Z)
 def pejabat_refresh(request):
 	A=request;B=models.Site.objects.get(id=get_siteID(A));C=models.pejabat.objects.filter(is_default=_B)
 	for D in C:D.site.add(B)
 	messages.info(A,mMsgBox.get('pejabat_refresh'));return redirect(_AM)
-@login_required(login_url=_O)
+@login_required(login_url=_P)
 def pejabat(request,mode='',pk=''):
 	C=mode;A=request;cek_user(A);B=get_siteID(A);F=menus.ClsMenus(B,_B);D=_I;G=_I
 	if C==_L or C==_G:
@@ -581,12 +581,12 @@ def pejabat(request,mode='',pk=''):
 		E=get_object_or_404(N);print('post = ');print(E.photo.id);H=models.photo.objects.filter(id=E.photo.id);print('foto = ');print(H)
 		if H:H.delete()
 		E.delete();messages.info(A,mMsgBox.get(_G,E.nama));return redirect(_AM)
-	I='pejabat';U=models.menu.objects.filter(nama=I,is_admin_menu=_B);V={_K:F.get_menus(),_Q:F.create_breadCrumb(I),_P:F.find_activeMenuList(I),_V:C,_U:D,_AK:G,_R:get_namaOPD(B),_S:U};return render(A,'account/pejabat.html',V)
+	I='pejabat';U=models.menu.objects.filter(nama=I,is_admin_menu=_B);V={_K:F.get_menus(),_Q:F.create_breadCrumb(I),_O:F.find_activeMenuList(I),_V:C,_U:D,_AK:G,_R:get_namaOPD(B),_S:U};return render(A,'account/pejabat.html',V)
 def link_terkait_refresh(request):
 	A=request;B=models.Site.objects.get(id=get_siteID(A));C=models.link_terkait.objects.all()
 	for D in C:D.site.add(B)
 	messages.info(A,mMsgBox.get('link_terkait_refresh'));return redirect(_AA)
-@login_required(login_url=_O)
+@login_required(login_url=_P)
 def link_terkait(request,mode='',pk=''):
 	D=mode;A=request;cek_user(A);E=get_siteID(A);F=menus.ClsMenus(E,_B);B=_I
 	if D==_L or D==_G:
@@ -610,8 +610,8 @@ def link_terkait(request,mode='',pk=''):
 			if B.is_valid():C.save();N=models.Site.objects.get(id=E);C.site.add(N);messages.info(A,mMsgBox.get(_T,A.POST.get(_E)));return redirect(_AA)
 		else:B=forms.LinkTerkaitForm(instance=C,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif D==_G:C=get_object_or_404(I);C.delete();messages.info(A,mMsgBox.get(_G,C.nama));return redirect(_AA)
-	G='link terkait';O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_V:D,_U:B,_R:get_namaOPD(E),_S:O};return render(A,'account/link-terkait.html',P)
-@login_required(login_url=_O)
+	G='link terkait';O=models.menu.objects.filter(nama=G,is_admin_menu=_B);P={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_O:F.find_activeMenuList(G),_V:D,_U:B,_R:get_namaOPD(E),_S:O};return render(A,'account/link-terkait.html',P)
+@login_required(login_url=_P)
 def dokumen(request,mode='',pk=''):
 	I='/dashboard/dokumen';D=mode;A=request;cek_user(A);E=get_siteID(A);G=menus.ClsMenus(E,_B);C=_I
 	if D==_L or D==_G:
@@ -640,8 +640,8 @@ def dokumen(request,mode='',pk=''):
 				messages.info(A,mMsgBox.get(_T,A.POST.get(_E)));return redirect(I)
 		else:C=forms.DokumenForm(instance=F,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif D==_G:F=get_object_or_404(K);F.delete();messages.info(A,mMsgBox.get(_G,F.nama));return redirect(I)
-	H='dokumen';N=models.menu.objects.filter(nama=H,is_admin_menu=_B);O={_K:G.get_menus(),_Q:G.create_breadCrumb(H),_P:G.find_activeMenuList(H),_V:D,_U:C,_R:get_namaOPD(E),_S:N};return render(A,'account/dokumen.html',O)
-@login_required(login_url=_O)
+	H='dokumen';N=models.menu.objects.filter(nama=H,is_admin_menu=_B);O={_K:G.get_menus(),_Q:G.create_breadCrumb(H),_O:G.find_activeMenuList(H),_V:D,_U:C,_R:get_namaOPD(E),_S:N};return render(A,'account/dokumen.html',O)
+@login_required(login_url=_P)
 def halaman_statis(request,mode='',pk=''):
 	S='/dashboard/halaman-statis';E=mode;A=request;cek_user(A);C=get_siteID(A);N=menus.ClsMenus(C,_B);D=_I;F=_I;O=[]
 	if E==_L or E==_G:
@@ -688,8 +688,8 @@ def halaman_statis(request,mode='',pk=''):
 		H=models.halaman_statis.photo.through.objects.filter(halaman_statis__site=C,halaman_statis__id=L)
 		if H:H.delete()
 		K=get_object_or_404(T);K.delete();messages.info(A,mMsgBox.get(_G,K.judul));return redirect(S)
-	R='halaman statis';X=models.menu.objects.filter(nama=R,is_admin_menu=_B);Y={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_P:N.find_activeMenuList(R),_V:E,_U:D,_r:F,_R:get_namaOPD(C),_S:X};return render(A,'account/halaman-statis.html',Y)
-@login_required(login_url=_O)
+	R='halaman statis';X=models.menu.objects.filter(nama=R,is_admin_menu=_B);Y={_K:N.get_menus(),_Q:N.create_breadCrumb(R),_O:N.find_activeMenuList(R),_V:E,_U:D,_r:F,_R:get_namaOPD(C),_S:X};return render(A,'account/halaman-statis.html',Y)
+@login_required(login_url=_P)
 def galery_foto(request,mode='',pk='',photoID=''):
 	Q='/dashboard/galery-foto';J=photoID;C=mode;A=request;cek_user(A);D=get_siteID(A);L=menus.ClsMenus(D,_B);E=_I;F=_I;J=[];print('mode = ');print(C)
 	if C==_L or C==_G:
@@ -731,8 +731,8 @@ def galery_foto(request,mode='',pk='',photoID=''):
 					if U:U.close()
 			K.delete()
 		messages.info(A,mMsgBox.get(_G,T));return redirect(Q)
-	P='galeri foto';Y=models.menu.objects.filter(nama=P,is_admin_menu=_B);Z={_K:L.get_menus(),_Q:L.create_breadCrumb(P),_P:L.find_activeMenuList(P),_V:C,_U:E,_r:F,_R:get_namaOPD(D),_S:Y};return render(A,'account/galery-foto.html',Z)
-@login_required(login_url=_O)
+	P='galeri foto';Y=models.menu.objects.filter(nama=P,is_admin_menu=_B);Z={_K:L.get_menus(),_Q:L.create_breadCrumb(P),_O:L.find_activeMenuList(P),_V:C,_U:E,_r:F,_R:get_namaOPD(D),_S:Y};return render(A,'account/galery-foto.html',Z)
+@login_required(login_url=_P)
 def popup(request,mode='',pk='',photoID=''):
 	X='published';R='/dashboard/popup';J=photoID;D=mode;A=request;cek_user(A);B=get_siteID(A);O=menus.ClsMenus(B,_B);E=_I;F=_I;J=[]
 	if D==_L or D==_G:
@@ -783,8 +783,8 @@ def popup(request,mode='',pk='',photoID=''):
 					if W:W.close()
 			N.delete()
 		messages.info(A,mMsgBox.get(_G,V));return redirect(R)
-	Q='Popup';c=models.menu.objects.filter(nama=Q,is_admin_menu=_B);d={_K:O.get_menus(),_Q:O.create_breadCrumb(Q),_P:O.find_activeMenuList(Q),_V:D,_U:E,_r:F,_R:get_namaOPD(B),_S:c};return render(A,'account/popup.html',d)
-@login_required(login_url=_O)
+	Q='Popup';c=models.menu.objects.filter(nama=Q,is_admin_menu=_B);d={_K:O.get_menus(),_Q:O.create_breadCrumb(Q),_O:O.find_activeMenuList(Q),_V:D,_U:E,_r:F,_R:get_namaOPD(B),_S:c};return render(A,'account/popup.html',d)
+@login_required(login_url=_P)
 def komentar(request,mode='',pk='',photoID=''):
 	B=mode;A=request;cek_user(A);C=get_siteID(A);D=menus.ClsMenus(C,_B);G=_I;H=_I;photoID=[]
 	if B==_G:
@@ -795,8 +795,8 @@ def komentar(request,mode='',pk='',photoID=''):
 	if B==_G:
 		for K in J:K.delete()
 		return redirect('/dashboard/komentar')
-	E='Comment';L=models.menu.objects.filter(nama=E,is_admin_menu=_B);M={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_P:D.find_activeMenuList(E),_V:B,_U:G,_r:H,_R:get_namaOPD(C),_S:L};return render(A,'account/comment.html',M)
-@login_required(login_url=_O)
+	E='Comment';L=models.menu.objects.filter(nama=E,is_admin_menu=_B);M={_K:D.get_menus(),_Q:D.create_breadCrumb(E),_O:D.find_activeMenuList(E),_V:B,_U:G,_r:H,_R:get_namaOPD(C),_S:L};return render(A,'account/comment.html',M)
+@login_required(login_url=_P)
 def galery_layanan(request,mode='',pk='',photoID=''):
 	Q='/dashboard/galery-layanan';J=photoID;D=mode;A=request;cek_user(A);C=get_siteID(A);L=menus.ClsMenus(C,_B);E=_I;F=_I;J=[]
 	if D==_L or D==_G:
@@ -839,8 +839,8 @@ def galery_layanan(request,mode='',pk='',photoID=''):
 					if U:U.close()
 			K.delete()
 		messages.info(A,mMsgBox.get(_G,T));return redirect(Q)
-	P='galeri layanan';Y=models.menu.objects.filter(nama=P,is_admin_menu=_B);Z={_K:L.get_menus(),_Q:L.create_breadCrumb(P),_P:L.find_activeMenuList(P),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Y};return render(A,'account/galery-layanan.html',Z)
-@login_required(login_url=_O)
+	P='galeri layanan';Y=models.menu.objects.filter(nama=P,is_admin_menu=_B);Z={_K:L.get_menus(),_Q:L.create_breadCrumb(P),_O:L.find_activeMenuList(P),_V:D,_U:E,_r:F,_R:get_namaOPD(C),_S:Y};return render(A,'account/galery-layanan.html',Z)
+@login_required(login_url=_P)
 def galery_video(request,mode='',pk='',photoID=''):
 	I='/dashboard/galery-video';C=mode;A=request;cek_user(A);D=get_siteID(A);G=menus.ClsMenus(D,_B);B=_I;photoID=[]
 	if C==_L or C==_G:
@@ -861,8 +861,8 @@ def galery_video(request,mode='',pk='',photoID=''):
 			if B.is_valid():F=B.save(commit=_C);F.site_id=D;F.admin_id=A.user.id;F.save();messages.info(A,mMsgBox.get(_T,A.POST.get(_F)));return redirect(I)
 		else:B=forms.GaleryVideoForm(instance=E,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif C==_G:E=get_object_or_404(K);M=E.judul;E.delete();messages.info(A,mMsgBox.get(_G,M));return redirect(I)
-	H='galeri video';N=models.menu.objects.filter(nama=H,is_admin_menu=_B);O={_K:G.get_menus(),_Q:G.create_breadCrumb(H),_P:G.find_activeMenuList(H),_V:C,_U:B,_R:get_namaOPD(D),_S:N};return render(A,'account/galery-video.html',O)
-@login_required(login_url=_O)
+	H='galeri video';N=models.menu.objects.filter(nama=H,is_admin_menu=_B);O={_K:G.get_menus(),_Q:G.create_breadCrumb(H),_O:G.find_activeMenuList(H),_V:C,_U:B,_R:get_namaOPD(D),_S:N};return render(A,'account/galery-video.html',O)
+@login_required(login_url=_P)
 def agenda(request,mode='',pk=''):
 	H='/dashboard/agenda';D=mode;A=request;cek_user(A);E=get_siteID(A);F=menus.ClsMenus(E,_B);C=_I
 	if D==_L or D==_G:
@@ -885,8 +885,8 @@ def agenda(request,mode='',pk=''):
 			if C.is_valid():O=C.save();messages.info(A,mMsgBox.get(_T,A.POST.get(_E)));return redirect(H)
 		else:C=forms.AgendaForm(instance=B,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif D==_G:B=get_object_or_404(J);B.delete();messages.info(A,mMsgBox.get(_G,B.nama));return redirect(H)
-	G='agenda';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_V:D,_U:C,_R:get_namaOPD(E),_S:M};return render(A,'account/agenda.html',N)
-@login_required(login_url=_O)
+	G='agenda';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_O:F.find_activeMenuList(G),_V:D,_U:C,_R:get_namaOPD(E),_S:M};return render(A,'account/agenda.html',N)
+@login_required(login_url=_P)
 def info_hoax(request,mode='',pk=''):
 	H='/dashboard/info-hoax';C=mode;A=request;cek_user(A);E=get_siteID(A);print('siteID = ');print(E)
 	if not(E==1 or E==68):messages.info(A,_Ac);return redirect(_AC)
@@ -912,8 +912,8 @@ def info_hoax(request,mode='',pk=''):
 			if B.is_valid():D.save();messages.info(A,mMsgBox.get(_T,A.POST.get(_m)));return redirect(H)
 		else:B=forms.InfoHoaxForm(instance=D,label_suffix='');messages.info(A,mMsgBox.get(_a))
 	elif C==_G:D=get_object_or_404(J);D.delete();messages.info(A,mMsgBox.get(_G,D.name));return redirect(H)
-	G='info hoaks';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_P:F.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(E),_S:M};return render(A,'account/info-hoax.html',N)
-@login_required(login_url=_O)
+	G='info hoaks';M=models.menu.objects.filter(nama=G,is_admin_menu=_B);N={_K:F.get_menus(),_Q:F.create_breadCrumb(G),_O:F.find_activeMenuList(G),_V:C,_U:B,_R:get_namaOPD(E),_S:M};return render(A,'account/info-hoax.html',N)
+@login_required(login_url=_P)
 def banner_all(request,mode='',pk='',photoID=''):
 	T='/dashboard/banner-all';K=photoID;D=mode;A=request;cek_user(A);E=get_siteID(A)
 	if not(E==1 or E==68):messages.info(A,_Ac);return redirect(_AC)
@@ -966,7 +966,7 @@ def banner_all(request,mode='',pk='',photoID=''):
 					if Y:Y.close()
 			O.delete()
 		messages.info(A,mMsgBox.get(_G,X));return redirect(T)
-	S='Banner All';d=models.menu.objects.filter(nama=S,is_admin_menu=_B);e={_K:P.get_menus(),_Q:P.create_breadCrumb(S),_P:P.find_activeMenuList(S),_V:D,_U:C,_r:F,_R:get_namaOPD(E),_S:d};return render(A,'account/banner-all.html',e)
+	S='Banner All';d=models.menu.objects.filter(nama=S,is_admin_menu=_B);e={_K:P.get_menus(),_Q:P.create_breadCrumb(S),_O:P.find_activeMenuList(S),_V:D,_U:C,_r:F,_R:get_namaOPD(E),_S:d};return render(A,'account/banner-all.html',e)
 def social_media_ajax(request):
 	C=get_siteID(request);A=models.social_media.objects.filter(site_id=C).values(_A,_t,_j,_D)
 	for B in A:B[_D]=get_natural_datetime(B[_D])
