@@ -195,7 +195,7 @@
 
                 date_.push('{{i.created_at}}');
 
-                link_.push('/berita/{{i.judul_seo}}');
+                link_.push('/berita/{{i.slug}}');
                 site_.push('{{i.site__name|upper}}');    
             {% endfor %}    
 
@@ -221,7 +221,7 @@
 
                 date_.push('{{i.created_at}}');
 
-                link_.push('/berita/{{i.judul_seo}}');
+                link_.push('/berita/{{i.slug}}');
                 site_.push('{{i.site__name|upper}}');  
             {% endfor %}    
 
@@ -253,7 +253,7 @@
                 //     date_.push('{{i.created_at|naturalday}}');
                 // {% endif %}
 
-                link_.push('/berita/{{i.judul_seo}}');
+                link_.push('/berita/{{i.slug}}');
                 site_.push('{{i.site__name|upper}}');    
             {% endfor %}    
 
@@ -289,7 +289,7 @@
                 //     date_.push('{{i.created_at|naturalday}}');
                 // {% endif %}
 
-                link_.push('/berita/{{i.judul_seo}}');
+                link_.push('/berita/{{i.slug}}');
                 site_.push('{{i.site__name|upper}}');    
             {% endfor %}    
 

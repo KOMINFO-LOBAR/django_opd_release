@@ -2,17 +2,17 @@
 {% load humanize %}
 {% load social_share %}
 {% load simple_open_graph %}
+
+
 {% block extra_head %}
 
     {% if news_img_meta %}       
         <meta property="og:title" content="{{news_title}}" />         
-        <meta property="og:type" content="website" />                
+        <meta property="og:type" content="article" />                
         <meta property="og:url" content="{{news_url}}" />    
-        <meta property="og:image" content="{{news_img_meta}}" />
-
-        <meta property="og:description" content="{{news_desc}}" />                                  
-        <meta property="og:image:type" content="image/jpeg" /> 
-        <meta property="og:logo" content="your value" />         
+        <meta property="og:image" content="{{news_img_meta_file_path}}" />
+        <meta property="og:description" content="{{news_desc}}" />                                          
+        <meta property="og:site_name" content="{{namaOPD}}" />
     {% endif %}
 
 {% endblock %}
@@ -57,6 +57,7 @@
 {% endblock %}
 
 {% block section-content-detail %}
+    
     <!-- Content -->
     <section class="bg0 p-b-140 p-t-1">
         <div class="container">
@@ -107,6 +108,9 @@
 
                                         <span class="f1-s-3 cl8 m-r-15">
                                             Dilihat {{news.view_count|intcomma}} kali
+                                            DILIHAT {{hitcount.total_hits}}
+                                            object {{object}}
+                                            hitcount {{hitcount}}
                                         </span>
                                     </span>
                                                                 
@@ -861,4 +865,6 @@
 
         } );
     </script>
+
+
 {% endblock %}

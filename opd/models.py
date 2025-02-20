@@ -3,9 +3,9 @@ _J='html.parser'
 _I='nama_seo'
 _H='{} - {}'
 _G='/%s/%s'
-_F=None
-_E='src'
-_D='judul_seo'
+_F='judul_seo'
+_E=None
+_D='src'
 _C='extends'
 _B=False
 _A=True
@@ -30,6 +30,9 @@ from account.compress_image import compress_img
 from account.resize_image import resize_width_to
 from hitcount.models import Hit
 from outbox_hitcount.hit_summary import do_summary
+from django.contrib.contenttypes.fields import GenericRelation
+from hitcount.models import HitCountMixin
+from hitcount.settings import MODEL_HITCOUNT
 def word_count(text):A=bs(text,_J);B=A.get_text();return sum([A.strip(string.punctuation).isalpha()for A in B.split()])
 class Status(models.TextChoices):DRAFT='draft';PUBLISHED='published'
 class photo(models.Model):
@@ -44,11 +47,11 @@ class tags(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);nama=models.CharField(max_length=50);slug=models.SlugField(max_length=50,default='',unique=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.nama
 	def save(A,*B,**C):A.slug=uuslug(A.nama,instance=A,max_length=50);super().save(*(B),**C)
-class berita(models.Model):
-	kategori=models.ForeignKey(kategori,on_delete=models.PROTECT);site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_berita=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);tags=models.ManyToManyField(tags,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
+class berita(models.Model,HitCountMixin):
+	kategori=models.ForeignKey(kategori,on_delete=models.PROTECT);site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);slug=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_berita=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);hit_count_generic=GenericRelation(MODEL_HITCOUNT,object_id_field='object_pk',related_query_name='hit_count_generic_relation');tags=models.ManyToManyField(tags,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
-	def get_absolute_url(A):B=A.site.domain;return'https://%s/%s/%s'%(B,'berita',A.judul_seo)
-	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_berita);super().save(*(B),**C)
+	def get_absolute_url(A):B=A.site.domain;return'https://%s/%s/%s'%(B,'berita',A.slug)
+	def save(A,*B,**C):A.slug=uuslug(A.judul,instance=A,slug_field='slug',max_length=255);A.word_count=word_count(A.isi_berita);super().save(*(B),**C)
 	@property
 	def created_at_(self):return get_natural_datetime(self.created_at)
 class comment(models.Model):
@@ -59,12 +62,12 @@ class pengumuman(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_pengumuman=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);share_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
 	def get_absolute_url(A):return _G%('pengumuman',A.judul_seo)
-	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_pengumuman);super().save(*(B),**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=255);A.word_count=word_count(A.isi_pengumuman);super().save(*(B),**C)
 class artikel(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);photo=models.ManyToManyField(photo,blank=_A);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);isi_artikel=CKEditor5Field(blank=_A,null=_A,config_name=_C);view_count=models.IntegerField(default=0);share_count=models.IntegerField(default=0);word_count=models.IntegerField(default=0,blank=_A);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
 	def get_absolute_url(A):return _G%('artikel',A.judul_seo)
-	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);A.word_count=word_count(A.isi_artikel);super().save(*(B),**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=255);A.word_count=word_count(A.isi_artikel);super().save(*(B),**C)
 class dokumen_kategori(models.Model):
 	nama=models.CharField(max_length=50);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return '{}'.format(A.nama)
@@ -77,7 +80,7 @@ class link_terkait(models.Model):
 class galery_foto(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);view_count=models.IntegerField(default=0);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
-	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);super().save(*(B),**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=255);super().save(*(B),**C)
 class galery_layanan(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);link=models.URLField(max_length=200,null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
@@ -87,12 +90,12 @@ def save_embed_video(embed):
 		if B:break
 		G=F.split('=');B=_B
 		for C in G:
-			if not B and C.lower()==_E:B=_A
-			if B and C.lower()!=_E:
+			if not B and C.lower()==_D:B=_A
+			if B and C.lower()!=_D:
 				if D==0:A+=C;D+=1
 				else:A+='='+C
 	if A.find('watch')<=0:A=A.replace('"','');A=A.replace('&quot;','');return A
-	else:return _F
+	else:return _E
 class galery_video(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);view_count=models.IntegerField(default=0);embed=CKEditor5Field(blank=_A,null=_A,config_name=_C);embed_video=EmbedVideoField(blank=_A,null=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.judul
@@ -152,19 +155,19 @@ class page_rss(models.Model):
 class popup(models.Model):
 	site=models.ForeignKey(Site,on_delete=models.CASCADE);admin=models.ForeignKey(User,on_delete=models.PROTECT);judul=models.CharField(max_length=500);judul_seo=models.SlugField(max_length=255,default='',unique=_A,blank=_A);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.photo
-	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_D,max_length=255);super().save(*(B),**C)
+	def save(A,*B,**C):A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=255);super().save(*(B),**C)
 class info_hoax(models.Model):
 	name=models.CharField(max_length=255);slug=models.SlugField(max_length=255,default='',unique=_A,blank=_A);link=models.URLField(max_length=255);publish_date=models.CharField(max_length=50,null=_A,blank=_A);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.name
 	def save(A,*B,**C):
 		A.slug=uuslug(A.name,instance=A,max_length=255)
-		if A.publish_date_convert is _F:A.publish_date_convert=parser.parse(A.publish_date)
+		if A.publish_date_convert is _E:A.publish_date_convert=parser.parse(A.publish_date)
 		super().save(*(B),**C)
 class info_widget(models.Model):
 	title=models.CharField(max_length=255);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.title
 	def save(B,*C,**D):
-		if B.publish_date_convert is _F:E=getattr(settings,_K,'UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
+		if B.publish_date_convert is _E:E=getattr(settings,_K,'UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
 		super().save(*(C),**D)
 class banner_all(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);name=models.CharField(max_length=50);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
@@ -180,7 +183,7 @@ def create_unique_filename(file_ext):A=datetime.datetime.now();return A.strftime
 def get_site(domain):
 	A=Site.objects.filter(domain=domain)
 	if A:A=A.get();B=A.name.replace(' ','-');B=B.lower();C=A.id;return C,B
-	return _F,_F
+	return _E,_E
 def clear_empty_array(split_path):
 	B=split_path;A=0
 	while A<len(B):
@@ -191,8 +194,8 @@ def move_image(isi_berita,obj_photo,site_id,site_name):
 	if K:
 		G=getattr(settings,'BASE_DIR','');L=BeautifulSoup(K,_J);M=1024;N=_B
 		for H in L.findAll('img'):
-			if _E in H:
-				I=H[_E];A=I.split(B)
+			if _D in H:
+				I=H[_D];A=I.split(B)
 				if not('https:'in A or'http:'in A):
 					clear_empty_array(A)
 					if'thumbnail'in A and F in A:print('File Already moved');continue
@@ -202,7 +205,7 @@ def move_image(isi_berita,obj_photo,site_id,site_name):
 					if os.path.isfile(O):
 						shutil.move(O,E);compress_img(E,new_size_ratio=1,quality=80,replace=_A);T=Image.open(E);U,W=T.size[:2]
 						if U>M:resize_width_to(E,M)
-						V=photo.objects.create(site_id=site_id,jenis=photo.Jenis.HIGHLIGHT_EDITOR,file_path=J);obj_photo.append(V);H[_E]=B+C+B+J;N=_A
+						V=photo.objects.create(site_id=site_id,jenis=photo.Jenis.HIGHLIGHT_EDITOR,file_path=J);obj_photo.append(V);H[_D]=B+C+B+J;N=_A
 		return N,L
 @receiver(models.signals.post_save,sender=berita)
 @receiver(models.signals.post_save,sender=artikel)

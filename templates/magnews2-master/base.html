@@ -3,7 +3,7 @@
 {% get_static_prefix as static_prefix %}   
 
 <!DOCTYPE html>
-<html lang="id" prefix="og: https://ogp.me/ns/website#">
+<html lang="id" prefix="og: http://ogp.me/ns#">    
 <head>
 
 
@@ -21,6 +21,30 @@
 
     
     {% include "magnews2-master/inc-link.html" %}
+
+    <style>
+        
+        #new_load_disabilitas {
+            color: blue;          /* Text color */
+            background-color: yellow; /* Background color */
+        }
+        #slider_dsb_element {
+            color: blue;          /* Text color */
+            background-color: yellow; /* Background color */
+        }
+        #slider_mouse_event {
+            color: blue;          /* Text color */
+            background-color: yellow; /* Background color */
+        }
+        #slider_mouse_masked {
+            color: blue;          /* Text color */
+            background-color: yellow; /* Background color */
+        }
+        #slider_mouse_masked_line {
+            color: blue;          /* Text color */
+            background-color: yellow; /* Background color */
+        }
+    </style>
     
 </head>
 <body class="animsition">
@@ -226,13 +250,27 @@
         )}; -->
     <!-- </script> -->
 
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=4roX7m1r"></script>
-    <script src="https://web.animemusic.us/widget_disabilitas.js"></script>
+    <!--AWAL-->
+    <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=4roX7m1r"></script> -->
+    
+    <!-- INI aja yg diaktifkan -->
+    <!-- <script src="https://web.animemusic.us/widget_disabilitas.js"></script> -->
+    <!-- <script src="https://web.animemusic.us/widget_disabilitas.js"></script> -->
+
+    
+    <!-- <script src="{{static_prefix}}magnews2-master/js/accessibility_widget_deobfuscate_prettify.js"></script>  -->
+    
+
+
+    <!-- <script src="https://website-widgets.pages.dev/dist/sienna.min.js" defer></script> -->
+    <!--AKHIR-->
 
     {% for i in instansi %}
         {% if i.histats %}
             {{i.histats|safe}}
         {% endif %}        
     {% endfor %}
+
+
 </body>
 </html>
