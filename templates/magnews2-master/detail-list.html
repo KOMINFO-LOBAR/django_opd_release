@@ -53,7 +53,7 @@
                                     <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                         <!-- Item latest -->	
                                         <div class="m-b-45">
-                                            <a href="/berita/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
+                                            <a href="/berita/{{i.slug}}" class="wrap-pic-w hov1 trans-03">
                                                 {% if i.foto %}                                        
                                                     <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
                                                 {% else %}
@@ -63,13 +63,13 @@
 
                                             <div class="p-t-16">
                                                 <h5 class="p-b-5">
-                                                    <a href="/berita/{{i.judul_seo}}" class="f1-m-3 cl2 hov-cl10 trans-03 how-txt1">
+                                                    <a href="/berita/{{i.slug}}" class="f1-m-3 cl2 hov-cl10 trans-03 how-txt1">
                                                         {{i.judul}}                                                
                                                     </a>
                                                 </h5>
 
                                                 <span class="cl8">
-                                                    <a href="/berita/{{i.judul_seo}}" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                                    <a href="/berita/{{i.slug}}" class="f1-s-4 cl8 hov-cl10 trans-03">
                                                         {{i.site__name|upper}}
                                                     </a>
 
@@ -77,7 +77,7 @@
                                                         -
                                                     </span>
 
-                                                    <a href="/berita/{{i.judul_seo}}" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                                    <a href="/berita/{{i.slug}}" class="f1-s-4 cl8 hov-cl10 trans-03">
                                                         {{i.admin__username}}
                                                     </a>
 
@@ -416,7 +416,7 @@
                                                         {{ forloop.counter}}
                                                     </div>
 
-                                                    <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                                    <a href="/berita/{{ i.slug }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
                                                         {{ i.judul }}
                                                     </a>
                                                 </li>
@@ -430,7 +430,7 @@
                                                         {{ forloop.counter}}
                                                     </div>
 
-                                                    <a href="/berita/{{ i.judul_seo }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                                    <a href="/berita/{{ i.slug }}" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
                                                         {{ i.judul }}
                                                     </a>
                                                 </li>
