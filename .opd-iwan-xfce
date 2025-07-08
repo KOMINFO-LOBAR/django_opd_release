@@ -19,9 +19,10 @@ DB_ENGINE=django.db.backends.mysql
 # Database connection property :
 # DB_NAME=portal_db_umum
 # DB_NAME=portal_db_umum
-# DB_NAME=portal_db_kelurahan (Data yg digunakan untuk DPW ada di group kelurahan)
+DB_NAME=portal_db_kelurahan 
+#(Data yg digunakan untuk DPW ada di group kelurahan)
 # DB_NAME=portal_db_puskesmas
-DB_NAME=db_opd
+#DB_NAME=db_opd
 DB_USER=root
 DB_HOST=127.0.0.1
 DB_PORT=3306

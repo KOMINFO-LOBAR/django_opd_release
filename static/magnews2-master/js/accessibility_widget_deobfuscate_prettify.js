@@ -50,7 +50,8 @@ var api_key_revoice = '';
 if (cek_attr_resvoice.length > 0) {
     api_key_revoice = cek_attr_resvoice[0];
     var script_voice = document.createElement("script");
-    script_voice.src = "https://code.responsivevoice.org/responsivevoice.js?key=" + api_key_revoice;
+    // script_voice.src = "https://code.responsivevoice.org/responsivevoice.js?key=" + api_key_revoice;
+    script_voice.src = "https://code.responsivevoice.org/responsivevoice.js";
     script_voice.type = "text/javascript";
     // document.body.appendChild(script_voice);
     document.getElementById('id_accessibility').appendChild(script_voice);
@@ -3732,4 +3733,5 @@ function hit_api_path(_0x86c3ac, _0xdafdb0) {
         'success': function(_0x53bf1b) {}
     });
 }
-Explain;
+
+// Explain;

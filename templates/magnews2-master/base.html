@@ -264,12 +264,13 @@
 
     <!-- <script src="https://website-widgets.pages.dev/dist/sienna.min.js" defer></script> -->
     <!--AKHIR-->
-
+    {% comment %}
     {% for i in instansi %}
         {% if i.histats %}
             {{i.histats|safe}}
         {% endif %}        
     {% endfor %}
+    {% endcomment %}
 
 
 </body>

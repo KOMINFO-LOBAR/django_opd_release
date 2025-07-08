@@ -2,11 +2,24 @@
 {% load humanize %}
 <!-- {% load cache %} -->
 <!-- Add Lazy load image -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+  <!-- jsDeliver -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script> -->
+    <script src="{{static_prefix}}magnews2-master/js/jquery.min.js"></script> 	
+    <script src="{{static_prefix}}magnews2-master/js/jquery.lazy.min.js" defer></script> 	
+    <script src="{{static_prefix}}magnews2-master/js/jquery.lazy.plugins.min.js" defer></script> 	
+
+    <!-- cdnjs -->
+    <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script> -->
+            
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
 
     <!-- jsDeliver -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.plugins.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.plugins.min.js"></script> -->
 
 <!--===============================================================================================-->	
 	<!-- <script src=" static 'magnews2-master/vendor/jquery/jquery-3.2.1.min.js' %}"></script> -->
@@ -14,32 +27,32 @@
             
 <!--===============================================================================================-->
 	<!-- <script src="static 'magnews2-master/vendor/animsition/js/animsition.min.js' %}"></script> -->
-	<script src="{{static_prefix}}magnews2-master/vendor/animsition/js/animsition.min.js"></script> 	
+	<script src="{{static_prefix}}magnews2-master/vendor/animsition/js/animsition.min.js" defer></script> 	
     
     
 <!--===============================================================================================-->
 	<!-- <script src="static 'magnews2-master/vendor/bootstrap/js/popper.js' %}"></script> -->
-    <script src="{{static_prefix}}magnews2-master/vendor/bootstrap/js/popper.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/vendor/bootstrap/js/popper.js" defer></script> 
     
     
 	<!-- <script src="static 'magnews2-master/vendor/bootstrap/js/bootstrap.min.js' %}"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-v4.0.0-alpha@4.0.0-alpha.8/dist/js/bootstrap.min.js"></script> -->    
-    <script src="{{static_prefix}}magnews2-master/vendor/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/vendor/bootstrap/js/bootstrap.min.js" defer></script> 
     
 <!--===============================================================================================-->
 	<!-- <script src="static 'magnews2-master/js/main.js' %}"></script> -->    
-    <script src="{{static_prefix}}magnews2-master/js/main.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/js/main.js" defer></script> 
     
         
     <!-- <script src="static 'magnews2-master/js/fullclip.js' %}"></script>  -->
-    <script src="{{static_prefix}}magnews2-master/js/fullclip.js"></script>  
+    <script src="{{static_prefix}}magnews2-master/js/fullclip.js" defer></script>  
     
     <!--<script src="static 'magnews2-master/js/autoplay-video.js' %}"></script>-->
 <!--===============================================================================================-->    
 
     <!-- <script src="static 'magnews2-master/vendor/datatables/jquery.dataTables.min.js' %}"></script>  -->    
     <!-- <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.11.4/js/jquery.dataTables.min.js"></script> -->
-    <script src="{{static_prefix}}magnews2-master/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{static_prefix}}magnews2-master/vendor/datatables/jquery.dataTables.min.js" defer></script>
     
     <!-- <script src="static 'account/js/plugin/datatables/jquery.dataTables.min.js' %}"></script>
 	<script src="static 'account/js/plugin/datatables/dataTables.colVis.min.js' %}"></script>
@@ -51,33 +64,33 @@
 
     <!--script slide show-->
     <!-- <script src="static 'magnews2-master/js/lc-micro-slider.js' %}"></script>  -->    
-    <script src="{{static_prefix}}magnews2-master/js/lc-micro-slider.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/js/lc-micro-slider.js" defer></script> 
     
     <!-- <script src="static 'magnews2-master/js/ken_burns.js' %}"></script>  -->    
-    <script src="{{static_prefix}}magnews2-master/js/ken_burns.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/js/ken_burns.js" defer></script> 
 
     <!-- <script src="static 'magnews2-master/js/custom.js' %}"></script>  -->
-    <script src="{{static_prefix}}magnews2-master/js/custom.js"></script>          
+    <script src="{{static_prefix}}magnews2-master/js/custom.js" defer></script>          
 
     <!-- <script src="static 'magnews2-master/js/jsslider.js' %}"></script>  -->
-    <script src="{{static_prefix}}magnews2-master/js/jsslider.js"></script>  
+    <script src="{{static_prefix}}magnews2-master/js/jsslider.js" defer></script>  
         
     <!-- <script src="static 'magnews2-master/js/jquery.revolver.min.js' %}"></script> -->    
     <!-- <script src="static 'magnews2-master/owlcarousel2/assets/vendors/jquery.min.js' %}"></script> -->
     
     <!-- <script src="static 'magnews2-master/owlcarousel2/assets/owlcarousel/owl.carousel.js' %}"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script> -->
-    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/owlcarousel/owl.carousel.js"></script>
+    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/owlcarousel/owl.carousel.js" defer></script>
     
     <!-- vendors -->
     <!-- <script src="static 'magnews2-master/owlcarousel2/assets/vendors/highlight.js' %}"></script> -->
-    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/vendors/highlight.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/vendors/highlight.js" defer></script> 
         
     <!-- <script src="static 'magnews2-master/owlcarousel2/assets/js/app.js' %}"></script> -->
-    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/js/app.js"></script> 
+    <script src="{{static_prefix}}magnews2-master/owlcarousel2/assets/js/app.js" defer></script> 
     
     <!-- <script src="static 'django_ckeditor_5/dist/bundle.js' %}"></script>     -->    
-    <script src="{{static_prefix}}django_ckeditor_5/dist/bundle.js"></script>     
+    <script src="{{static_prefix}}django_ckeditor_5/dist/bundle.js" defer></script>     
     
 <script>    
     $( document ).ready(function() {  
