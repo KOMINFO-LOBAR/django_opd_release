@@ -1,4 +1,3 @@
-_K='TIME_ZONE'
 _J='html.parser'
 _I='nama_seo'
 _H='{} - {}'
@@ -167,7 +166,7 @@ class info_widget(models.Model):
 	title=models.CharField(max_length=255);categori=models.CharField(max_length=100);publish_date=models.CharField(max_length=50);author=models.CharField(max_length=50);link=models.URLField(max_length=255);publish_date_convert=models.DateTimeField(null=_A,blank=_A);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
 	def __str__(A):return A.title
 	def save(B,*C,**D):
-		if B.publish_date_convert is _E:E=getattr(settings,_K,'UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
+		if B.publish_date_convert is _E:E=getattr(settings,'TIME_ZONE','UTC');F=pytz.timezone(E);A=parser.parse(B.publish_date);B.publish_date_convert=datetime.datetime(A.year,A.month,A.day,A.hour,A.minute,A.second,tzinfo=F)
 		super().save(*(C),**D)
 class banner_all(models.Model):
 	site=models.ManyToManyField(Site,blank=_A);name=models.CharField(max_length=50);link=models.URLField(max_length=200,null=_A,blank=_A);photo=models.ForeignKey(photo,on_delete=models.CASCADE);status=models.CharField(max_length=20,choices=Status.choices,default=Status.PUBLISHED);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
@@ -198,7 +197,7 @@ def move_image(isi_berita,obj_photo,site_id,site_name):
 				I=H[_D];A=I.split(B)
 				if not('https:'in A or'http:'in A):
 					clear_empty_array(A)
-					if'thumbnail'in A and F in A:print('File Already moved');continue
+					if'thumbnail'in A and F in A:continue
 					C=A[0];A.pop(0)
 					if len(A)<=0:continue
 					Q=A[len(A)-1];D=Q.split('.');D=D[len(D)-1];R=create_unique_filename(D);I=B.join(A);J=P+F+B+R;S=P+F;os.makedirs(os.path.join(G,C,S),exist_ok=_A);O=os.path.join(G,C,I);E=os.path.join(G,C,J)
@@ -250,7 +249,3 @@ def auto_delete_file_on_change(sender,instance,**E):
 			if A:
 				if os.path.isfile(A.path):os.remove(A.path)
 	finally:return _A
-@receiver(models.signals.post_save,sender=Hit,dispatch_uid='posts_hitcount')
-def auto_insert_to_hitcount_advance(sender,instance,**G):
-	D='days';B=getattr(settings,'HITCOUNT_KEEP_HIT_IN_DATABASE',{D:30});print('hitcount_hit',B);E=getattr(settings,_K,'UTC');H=pytz.timezone(E);I={};F=timezone.now();C=F+datetime.timedelta(days=B[D]);print('to day + 60 day',C);A=sender.objects.filter(created__gte=C).order_by('-id')[:5];print('QS',A,A.count)
-	if A:do_summary(A)
