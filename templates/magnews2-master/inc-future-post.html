@@ -1,4 +1,4 @@
-
+{% load thumbnail %}
 
 <!-- Feature post -->
 <section class="bg0">
@@ -16,9 +16,25 @@
                     
                     <div id="slide_wrap">
                         <ul style="display: none;">
-                            {% for i in galeryLayanan%}                                
-                                <li data-img="{{i.photo.file_path.url}}">{{i.judul}}</li>
-                                <!--<li data-img="/media/jellyfish.jpg">Lorem ipsum 2</li>
+                            {% for i in galeryLayanan%}                          
+                                      <!-- i.photo.file_path.url -->
+                                <li data-img="{% thumbnail i.photo.file_path 791x413 crop %}">{{i.judul}}</li>
+                                <!--<li data-img="/media/jellyfish.jpg">Lorem ipsum 2</li> 
+                                    1/2:
+                                    527x275
+
+                                    25%:
+                                    1055x550
+                                    264x137
+                                    -------
+                                    791x413
+
+                                    30%:
+                                    1055x550
+                                    316x165
+                                    -------
+                                    739x385
+
                                 <li data-img="/media/frog.jpg">Lorem ipsum 3</li>
                                 <li data-img="/media/chameleon.jpg">Lorem ipsum 4</li>
                                 <li data-img="/media/cat.jpg">Lorem ipsum 5</li>-->
