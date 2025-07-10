@@ -13,7 +13,7 @@
         <meta property="og:title" content="{{news_title}}" />         
         <meta property="og:type" content="website" />                
         <meta property="og:url" content="{{news_url}}" />    
-        <meta property="og:image" content="{{request.scheme}}://{{news.site.domain}}{% thumbnail news_img_meta 360x270 crop %}" />
+        <meta property="og:image" content="https://{{news.site.domain}}{% thumbnail news_img_meta 360x270 crop %}" />
 
         <meta property="og:description" content="{{news_desc}}" />                                          
         <meta property="og:site_name" content="{{namaOPD}}" />
@@ -24,7 +24,7 @@
         <meta property="twitter:url" content="{{news_url}}">
         <meta name="twitter:title" content="{{news_title}}">
         <meta name="twitter:description" content="{{news_desc}}">
-        <meta name="twitter:image" content="{{request.scheme}}://{{news.site.domain}}{% thumbnail news_img_meta 360x270 crop %}">
+        <meta name="twitter:image" content="https://{{news.site.domain}}{% thumbnail news_img_meta 360x270 crop %}">
 
     {% endif %}
 
@@ -99,7 +99,7 @@
                                 <div class="flex-wr-s-s p-b-40">
                                     <span class="f1-s-3 cl8 m-r-15">
                                         Posting oleh 
-                                        <a href="{{request.scheme}}://{{news.site.domain}}" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                        <a href="https://{{news.site.domain}}" class="f1-s-4 cl8 hov-cl10 trans-03">
                                             {{news.admin}}
                                         </a>
 
@@ -644,7 +644,7 @@
                                                 </h6>
 
                                                 <span class="cl8 txt-center p-b-24">
-                                                    <a href="{{request.scheme}}://{{i.site__domain}}" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                                    <a href="https://{{i.site__domain}}" class="f1-s-6 cl8 hov-cl10 trans-03">
                                                         {{i.admin__username|title}}
                                                     </a>
 

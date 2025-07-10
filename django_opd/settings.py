@@ -100,6 +100,5 @@ LANGUAGES=(_G,_('Indonesia')),('en',_('English'))
 LOCALE_PATHS=[os.path.join(BASE_DIR,'locale')]
 PARLER_DEFAULT_LANGUAGE_CODE=_G
 PARLER_LANGUAGES={1:({_S:_G},{_S:'en'}),_E:{'fallbacks':[_G],'hide_untranslated':_L}}
-SECURE_PROXY_SSL_HEADER='HTTP_X_FORWARDED_PROTO','https'
 RECAPTCHA_PUBLIC_KEY='6LeiUJgqAAAAAFo5XuhOfgEdPeyXyuyXurKj8eVd'
 RECAPTCHA_PRIVATE_KEY='6LeiUJgqAAAAACNxJFu8q6TNn49Ci8M5oRU2tMJa'

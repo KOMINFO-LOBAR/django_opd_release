@@ -1,4 +1,4 @@
-
+{% load thumbnail %}
 
 <!-- Foto Unggulan -->
 <div class="p-b-55">
@@ -10,9 +10,12 @@
 
     <div>
         {% for i in futureFoto %}
+            <!-- media_prefix}}{{i.photo__file_path -->
             <div class="wrap-pic-w pos-relative">
                 <a href="javascript:void(0)" onclick="show_modal_image('{{media_prefix}}{{i.photo__file_path}}')" class="wrap-pic-w hov1 trans-03">
-                    <img class="lazy" data-src="{{media_prefix}}{{i.photo__file_path}}" alt="IMG">
+                    <img class="lazy" 
+                        data-src="{% thumbnail i.foto 360x270 crop %}" 
+                        alt="IMG">
                 </a>
                 <!-- <button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">
                     <span class="fab fa-youtube"></span>

@@ -1,5 +1,6 @@
 
 {% load humanize %}
+{% load thumbnail %}
 <!-- {% load cache %} -->
 <!-- Add Lazy load image -->
   <!-- jsDeliver -->
@@ -190,7 +191,8 @@
             var image_ = [], category_ = [], title_ = [], admin_ = [], date_ = [], link_ = [], site_ = [];
             {% for i in beritaTerbaruAll|slice:":3" %}        
                 {% if i.foto %}
-                    image_.push('{{media_prefix}}{{i.foto}}');
+                    // image_.push('{{media_prefix}}{{i.foto}}');
+                    image_.push('{% thumbnail i.foto 360x270 crop %}');
                 {% else %}
                     image_.push("{{static_prefix}}magnews2-master/images/post-none.png");
                 {% endif %}
@@ -224,7 +226,7 @@
             var image_ = [], category_ = [], title_ = [], admin_ = [], date_ = [], link_ = [], site_ = [];
             {% for i in beritaTerbaruLain|slice:":3" %}        
                 {% if i.foto %}
-                    image_.push('{{media_prefix}}{{i.foto}}');
+                    image_.push('{% thumbnail i.foto 360x270 crop %}');
                 {% else %}
                     image_.push("{{static_prefix}}magnews2-master/images/post-none.png");
                 {% endif %}
@@ -250,7 +252,7 @@
             var image_ = [], category_ = [], title_ = [], admin_ = [], date_ = [], link_ = [], site_ = [];
             {% for i in beritaTerpopulerAll|slice:":3" %}        
                 {% if i.foto %}
-                    image_.push('{{media_prefix}}{{i.foto}}');
+                    image_.push('{% thumbnail i.foto 360x270 crop %}');
                 {% else %}
                     image_.push("{{static_prefix}}magnews2-master/images/post-none.png");
                 {% endif %}
@@ -285,7 +287,7 @@
             var image_ = [], category_ = [], title_ = [], admin_ = [], date_ = [], link_ = [], site_ = [];
             {% for i in beritaTerpopulerLain|slice:":3" %}        
                 {% if i.foto %}
-                    image_.push('{{media_prefix}}{{i.foto}}');
+                    image_.push('{% thumbnail i.foto 360x270 crop %}');
                 {% else %}
                     image_.push("{{static_prefix}}magnews2-master/images/post-none.png");
                 {% endif %}
