@@ -1,16 +1,16 @@
 _p="template belum terdaftar, silahkan daftar di halaman <a href='%s'>admin</a>"
 _o='template'
 _n='-updated_at'
-_m='photo__berita__id'
-_l='berita__id'
-_k=False
-_j='num_pages'
-_i='jumlah'
-_h='page_obj'
-_g='page'
-_f='artikel'
-_e='pengumuman'
-_d='-view_count'
+_m=False
+_l='num_pages'
+_k='jumlah'
+_j='page_obj'
+_i='page'
+_h='artikel'
+_g='pengumuman'
+_f='-view_count'
+_e='photo__berita__id'
+_d='berita__id'
 _c='body'
 _b='berita'
 _a='judul_seo'
@@ -97,7 +97,7 @@ def get_weather(context):
 def get_topSection(siteID,context,active_menu):
 	namaOPD=Site.objects.filter(id=siteID).values_list(_S,flat=_J)
 	if namaOPD.count()>0:context['namaOPD']=namaOPD[0]
-	mObjMenu=menus.ClsMenus();myMenu=menus.ClsMenus(siteID,_k);context[_T]=myMenu.get_menus();context['activeMenuList']=myMenu.find_activeMenuList(active_menu);context['socialMedia']=social_media.objects.filter(site_id=siteID);logoTop=logo.objects.filter(site_id=siteID,position=logo.Position.TOP)
+	mObjMenu=menus.ClsMenus();myMenu=menus.ClsMenus(siteID,_m);context[_T]=myMenu.get_menus();context['activeMenuList']=myMenu.find_activeMenuList(active_menu);context['socialMedia']=social_media.objects.filter(site_id=siteID);logoTop=logo.objects.filter(site_id=siteID,position=logo.Position.TOP)
 	if logoTop.count()>0:context['logoTop']=logoTop[0].photo
 	bannerTop=banner.objects.filter(site_id=siteID,position=banner.Position.TOP)
 	if bannerTop.count()>0:context['bannerTop']=bannerTop[0]
@@ -127,7 +127,7 @@ def get_beritaTerbaru(siteID,context,opt):
 	if opt==1:maxNews=6
 	elif opt==2:maxNews=100
 	else:maxNews=3
-	model_criteria={_l:OuterRef(_m)};subQry=get_topFoto(model_criteria);BeritaTerbaruLain=_D;BeritaTerbaruAll=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED).values(_C,_G,_Y,_F,_Q,_Z,_H,_A,A).order_by(_B).distinct().annotate(foto=subQry)[:maxNews]
+	model_criteria={_d:OuterRef(_e)};subQry=get_topFoto(model_criteria);BeritaTerbaruLain=_D;BeritaTerbaruAll=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED).values(_C,_G,_Y,_F,_Q,_Z,_H,_A,A).order_by(_B).distinct().annotate(foto=subQry)[:maxNews]
 	if opt==1:BeritaTerbaruLain=berita.objects.filter(status=Status.PUBLISHED).exclude(site_id=siteID).values(_C,_G,_Y,_F,_Q,_Z,_H,_A,A).order_by(_B).distinct().annotate(foto=subQry)[:maxNews]
 	if BeritaTerbaruLain:BeritaTerbaruAll=BeritaTerbaruAll.union(BeritaTerbaruLain);context[B]=BeritaTerbaruAll;context['beritaTerbaruLain']=BeritaTerbaruLain
 	else:context[B]=BeritaTerbaruAll
@@ -140,15 +140,15 @@ def get_beritaTerpopuler(siteID,context,opt):
 	if opt==1:maxNews=6
 	elif opt==2:maxNews=100
 	else:maxNews=3
-	model_criteria={_l:OuterRef(_m)};subQry=get_topFoto(model_criteria);BeritaTerpopulerLain=_D;BeritaQry=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED);BeritaCount=BeritaQry.count()
+	model_criteria={_d:OuterRef(_e)};subQry=get_topFoto(model_criteria);BeritaTerpopulerLain=_D;BeritaQry=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED);BeritaCount=BeritaQry.count()
 	if BeritaCount==0:BeritaCutOff=0
 	else:BeritaCutOff=BeritaQry.order_by(_B).values_list(_C)[min(maxNews,BeritaCount-1)];BeritaCutOff=BeritaCutOff[0]
-	BeritaTerpopulerAll=BeritaQry.filter(id__gte=BeritaCutOff).values(_C,_G,_Y,_F,_Q,_Z,_H,_A).order_by(_d).distinct().annotate(foto=subQry)[:maxNews]
+	BeritaTerpopulerAll=BeritaQry.filter(id__gte=BeritaCutOff).values(_C,_G,_Y,_F,_Q,_Z,_H,_A).order_by(_f).distinct().annotate(foto=subQry)[:maxNews]
 	if opt==1:
 		BeritaQry=berita.objects.exclude(site_id=siteID).filter(status=Status.PUBLISHED);BeritaCount=BeritaQry.count()
 		if BeritaCount==0:BeritaCutOff=0
 		else:BeritaCutOff=BeritaQry.order_by(_B).values_list(_C)[min(maxNews,BeritaCount-1)];BeritaCutOff=BeritaCutOff[0]
-		BeritaTerpopulerLain=BeritaQry.filter(id__gte=BeritaCutOff).values(_C,_G,_Y,_F,_Q,_Z,_H,_A).order_by(_d).distinct().annotate(foto=subQry)[:maxNews]
+		BeritaTerpopulerLain=BeritaQry.filter(id__gte=BeritaCutOff).values(_C,_G,_Y,_F,_Q,_Z,_H,_A).order_by(_f).distinct().annotate(foto=subQry)[:maxNews]
 	if BeritaTerpopulerLain:BeritaTerpopulerAll=BeritaTerpopulerAll.union(BeritaTerpopulerLain);context[A]=BeritaTerpopulerAll;context['beritaTerpopulerLain']=BeritaTerpopulerLain
 	else:context[A]=BeritaTerpopulerAll
 	if BeritaTerpopulerLain:
@@ -180,7 +180,7 @@ def get_artikel(siteID,context,opd):
 	for i in ArtikelAll:i[_A]=get_natural_datetime(i[_A])
 	return ArtikelAll
 def get_beritaKategori(siteID,context,opt,kategori_slug):
-	model_criteria={_l:OuterRef(_m)};subQry=get_topFoto(model_criteria);kategoriID=kategori.objects.filter(slug=kategori_slug).first();BeritaKategori=_D
+	model_criteria={_d:OuterRef(_e)};subQry=get_topFoto(model_criteria);kategoriID=kategori.objects.filter(slug=kategori_slug).first();BeritaKategori=_D
 	if kategoriID:BeritaKategori=berita.objects.filter(site_id=siteID,status=Status.PUBLISHED,kategori_id=kategoriID.id).values(_C,_G,_Y,_F,_Q,_Z,_H,_A).order_by(_B).distinct().annotate(foto=subQry)
 	return BeritaKategori
 def get_hitCounter(request,obj,content_type):
@@ -192,10 +192,10 @@ def get_trending(siteID,context):
 	maxData=7;trendingQry=berita.objects.filter(site_id=siteID);trendingCount=trendingQry.count()
 	if trendingCount==0:trendingCutOff=0
 	else:trendingCutOff=trendingQry.order_by(_B).values_list(_C)[min(maxData,trendingCount-1)];trendingCutOff=trendingCutOff[0]
-	trending=trendingQry.filter(id__gte=trendingCutOff).order_by(_d).values_list(_C,_F,_Q)[:maxData];trendingQry=berita.objects.exclude(site_id=siteID);trendingCount=trendingQry.count()
+	trending=trendingQry.filter(id__gte=trendingCutOff).order_by(_f).values_list(_C,_F,_Q)[:maxData];trendingQry=berita.objects.exclude(site_id=siteID);trendingCount=trendingQry.count()
 	if trendingCount==0:trendingCutOff=0
 	else:trendingCutOff=trendingQry.order_by(_B).values_list(_C)[min(maxData,trendingCount-1)];trendingCutOff=trendingCutOff[0]
-	trending_else=trendingQry.filter(id__gte=trendingCutOff).order_by(_d).values_list(_C,_F,_Q)[:maxData]
+	trending_else=trendingQry.filter(id__gte=trendingCutOff).order_by(_f).values_list(_C,_F,_Q)[:maxData]
 	if trending_else:
 		maxData_else=maxData-trending.count()
 		if maxData_else>0:trending=trending.union(trending_else)
@@ -228,18 +228,16 @@ def get_galeryLayanan(siteID,context):foto=galery_layanan.objects.filter(site_id
 def get_meta(request,obj,context,jenis):
 	I='is_mobile';H='%s://%s%s';G='news_img_meta';F='news_title';E='news_desc';D='%s://%s/%s/%s/';C='news_url';B='news_img';A='https';context['site_name']='%s://%s'%(A,request.get_host());context['news_type']=jenis if jenis!=_T else'pages';context[I]=request.device[I]
 	if jenis==_b:
-		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');a=berita.objects.filter(id=obj.id)
-		for i in a:context[C]=D%(A,request.get_host(),_b,i.slug);context[E]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).strip()
-		news_img_meta=berita.photo.through.objects.filter(berita__id=obj.id).order_by('photo__jenis')
-		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo);context['news_img_meta_file_path']=news_img_meta[0].photo
-	elif jenis==_e:
+		context[B]=berita.photo.through.objects.filter(berita__id=obj.id).values(_U);context['news_tags']=berita.tags.through.objects.filter(berita__id=obj.id).values('tags__nama');model_criteria={_d:OuterRef(_e)};subQry=get_topFoto(model_criteria);a=berita.objects.filter(id=obj.id).annotate(foto=subQry)[:1]
+		for i in a:context[C]=D%(A,request.get_host(),_b,i.slug);context[E]=Truncator(strip_tags(i.isi_berita)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).strip();context[G]=i.foto
+	elif jenis==_g:
 		context[B]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_U);a=pengumuman.objects.filter(id=obj.id)
-		for i in a:context[C]=D%(A,request.get_host(),_e,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_g,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_pengumuman)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
 		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
-	elif jenis==_f:
+	elif jenis==_h:
 		context[B]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_U);a=artikel.objects.filter(id=obj.id)
-		for i in a:context[C]=D%(A,request.get_host(),_f,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
+		for i in a:context[C]=D%(A,request.get_host(),_h,i.judul_seo);context[E]=Truncator(strip_tags(i.isi_artikel)).words(30).strip();context[F]=Truncator(strip_tags(i.judul)).words(15).strip()
 		news_img_meta=artikel.photo.through.objects.filter(artikel__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
 		if news_img_meta.count()>0:context[G]=H%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_T:
@@ -252,17 +250,17 @@ def get_newsList(request,siteID,context,opt,section,jenis):
 	if section==_b:
 		if jenis=='terbaru':mList=get_beritaTerbaru(siteID,context,opt)
 		else:mList=get_beritaTerpopuler(siteID,context,opt)
-	elif section==_e:mList=get_pengumuman(siteID,context,opt)
-	elif section==_f:mList=get_artikel(siteID,context,opt)
+	elif section==_g:mList=get_pengumuman(siteID,context,opt)
+	elif section==_h:mList=get_artikel(siteID,context,opt)
 	elif section=='kategori':mList=get_beritaKategori(siteID,context,opt,jenis)
 	elif section=='galeri':
 		if jenis=='video':mList=get_galeryVideo(siteID,context,opt)
 		else:mList=get_galeryFoto(siteID,context,opt)
 	elif section=='link':mList=get_linkTerkait(siteID)
 	if mList is not _D:
-		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_g)
+		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_i)
 		if page_number is _D:page_number=1
-		if page_number:context[_h]=paginator.get_page(page_number);context[_i]=paginator.page_range;context[_j]=paginator.num_pages
+		if page_number:context[_j]=paginator.get_page(page_number);context[_k]=paginator.page_range;context[_l]=paginator.num_pages
 def get_statistik(request,siteID,context):
 	tgl=datetime.datetime.now();Domain=request.get_host();hit_today=Hit.objects.filter(domain=Domain,created__year=tgl.year,created__month=tgl.month,created__day=tgl.day).count()
 	if hit_today==0:hit_today=1
@@ -290,17 +288,17 @@ def detail(request,pid,jenis):
 	if jenis==_b:
 		news=get_object_or_404(berita,slug=pid);mList=get_comment(siteID,news.id,context);news_per_page=3
 		if mList is not _D:
-			paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_g)
+			paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_i)
 			if page_number is _D:page_number=1
-			context[_h]=paginator.get_page(page_number);context[_i]=paginator.page_range;context[_j]=paginator.num_pages
+			context[_j]=paginator.get_page(page_number);context[_k]=paginator.page_range;context[_l]=paginator.num_pages
 		new_comment=_D
 		if request.method==_R:
 			comment_form=CommentForm(data=request.POST)
 			if comment_form.is_valid():new_comment,created=comment.objects.get_or_create(site_id=siteID,name__iexact=request.POST.get(_S).strip(),body__iexact=request.POST.get(_c).strip(),defaults={'post':news,_c:request.POST.get(_c),_S:request.POST.get(_S),A:request.POST.get(A)})
 		else:comment_form=CommentForm()
 		context['new_comment']=new_comment;context['comment_form']=comment_form
-	elif jenis==_e:news=get_object_or_404(pengumuman,judul_seo=pid)
-	elif jenis==_f:news=get_object_or_404(artikel,judul_seo=pid)
+	elif jenis==_g:news=get_object_or_404(pengumuman,judul_seo=pid)
+	elif jenis==_h:news=get_object_or_404(artikel,judul_seo=pid)
 	else:context[_K]='Halaman <b>%s</b> tidak ditemukan!'%pid;return render(request,_L,context)
 	if news:news.created_at=get_natural_datetime(news.created_at)
 	optID=3;context[_N]=jenis;context['news']=news;get_topSection(siteID,context,jenis);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);get_meta(request,news,context,jenis);template_name=get_template(siteID);return render(request,f"{template_name}detail.html",context)
@@ -325,9 +323,9 @@ def search_result(request,pdata):
 			if pdata!='':return redirect(_V+slugify(pdata)+_W)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);context[_E]=pdata;mList=get_search_result(context,pdata);news_per_page=5
 	if mList is not _D:
-		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_g)
+		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_i)
 		if page_number is _D:page_number=1
-		context[_h]=paginator.get_page(page_number);context[_i]=paginator.page_range;context[_j]=paginator.num_pages
+		context[_j]=paginator.get_page(page_number);context[_k]=paginator.page_range;context[_l]=paginator.num_pages
 	template_name=get_template(siteID);return render(request,f"{template_name}search-result.html",context)
 def tags_result(request,pdata):
 	context={};siteID=get_siteID(request)
@@ -340,9 +338,9 @@ def tags_result(request,pdata):
 			if pdata!='':return redirect(_V+slugify(pdata)+_W)
 	get_topSection(siteID,context,active_menu);get_bottomSection(siteID,context,optID);get_sideBar(siteID,context,optID);context[_E]=pdata;mList=get_tags_result(context,pdata);news_per_page=5
 	if mList is not _D:
-		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_g)
+		paginator=Paginator(mList,news_per_page);page_number=request.GET.get(_i)
 		if page_number is _D:page_number=1
-		context[_h]=paginator.get_page(page_number);context[_i]=paginator.page_range;context[_j]=paginator.num_pages
+		context[_j]=paginator.get_page(page_number);context[_k]=paginator.page_range;context[_l]=paginator.num_pages
 	template_name=get_template(siteID);return render(request,f"{template_name}/search-result.html",context)
 def halaman_statis_akses(request,slug):
 	A='-created_at';context={};siteID=get_siteID(request)
@@ -378,13 +376,13 @@ def dokumen_ajax(request,idx):
 		for i in object_list:i[_P]=get_natural_datetime(i[_P]);i[_O]=naturalsize(i[_O]);i[A]=settings.MEDIA_URL+i[A]
 		mData=list(object_list)
 	else:mData=_D
-	return JsonResponse(mData,safe=_k)
+	return JsonResponse(mData,safe=_m)
 def satudata_ajax(request,idx):
 	if idx==0 or idx==1:
 		for i in object_list:i[_P]=get_natural_datetime(i[_P]);i[_O]=naturalsize(i[_O])
 		mData=list(object_list)
 	else:mData=_D
-	return JsonResponse(mData,safe=_k)
+	return JsonResponse(mData,safe=_m)
 def satudata_result(request):
 	context={};siteID=get_siteID(request)
 	if siteID==0:context[_K]=_M%(request.get_host(),_I);return render(request,_L,context)
