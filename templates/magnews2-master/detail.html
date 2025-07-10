@@ -10,7 +10,7 @@
         <meta property="og:title" content="{{news_title}}" />         
         <meta property="og:type" content="article" />                
         <meta property="og:url" content="{{news_url}}" />    
-        <meta property="og:image" content="{{news_img_meta_file_path}}" />
+        <meta property="og:image" content="{{news_img_meta}}" />
         <meta property="og:description" content="{{news_desc}}" />                                          
         <meta property="og:site_name" content="{{namaOPD}}" />
     {% endif %}
@@ -36,7 +36,7 @@
                         class="f1-s-3 cl9">
                         {{jenis|title}} 
                     </a> > 
-                {% endif    %}
+                {% endif %}
 
                 <span class="f1-s-3 cl9">
                     
@@ -107,7 +107,7 @@
                                         <span class="m-rl-3">-</span>
 
                                         <span class="f1-s-3 cl8 m-r-15">
-                                            Dilihat {{hitcount.total_hits|intcomma}} kali
+                                            Dilihat {{hitcount.total_hits|default:1|intcomma}} kali
                                             <!--
                                             {% comment 
                                             DILIHAT {{hitcount.total_hits}}
