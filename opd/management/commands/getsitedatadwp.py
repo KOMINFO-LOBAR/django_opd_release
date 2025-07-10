@@ -12,7 +12,7 @@ from django.conf import settings
 from django.db import connections
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-from opd.models import*
+from opd.models import *
 from django.db import transaction
 import pytz
 class Command(BaseCommand):

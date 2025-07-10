@@ -26,7 +26,7 @@ class Command(BaseCommand):
 	def info(A,message):A.stdout.write(message)
 	def debug(A,message):A.stdout.write(message)
 	def get_site_model(M,sub_folder):
-		L='Site.json';print('Proses SITE ID');D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		L='Site.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
 		if not os.path.isfile(E):
 			H=Site.objects.all()
 			if H:
@@ -47,9 +47,9 @@ class Command(BaseCommand):
 					if not os.path.exists(D):os.makedirs(D)
 					E=os.path.join(D,L)
 					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
-				else:print(_J)
+				else:pass
 	def get_user_model(M,sub_folder):
-		L='User.json';print('Proses USER MODEL');D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		L='User.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
 		if not os.path.isfile(E):
 			H=User.objects.all()
 			if H:
@@ -70,9 +70,9 @@ class Command(BaseCommand):
 					if not os.path.exists(D):os.makedirs(D)
 					E=os.path.join(D,L)
 					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
-				else:print(_J)
+				else:pass
 	def get_photo_model(M,sub_folder):
-		L='photo.json';print('Proses PHOTO MODEL');D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		L='photo.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
 		if not os.path.isfile(E):
 			H=photo.objects.all()
 			if H:
@@ -93,9 +93,9 @@ class Command(BaseCommand):
 					if not os.path.exists(D):os.makedirs(D)
 					E=os.path.join(D,L)
 					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
-				else:print(_J)
+				else:pass
 	def get_kategori_model(M,sub_folder):
-		L='kategori.json';print('Proses KATEGORI MODEL');D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		L='kategori.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
 		if not os.path.isfile(E):
 			H=kategori.objects.all()
 			if H:
@@ -116,9 +116,9 @@ class Command(BaseCommand):
 					if not os.path.exists(D):os.makedirs(D)
 					E=os.path.join(D,L)
 					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
-				else:print(_J)
+				else:pass
 	def get_tags_model(M,sub_folder):
-		L='tags.json';print('Proses TAGS MODEL');D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
+		L='tags.json';D=os.path.join(M.site_list,sub_folder);E=os.path.join(D,L)
 		if not os.path.isfile(E):
 			H=tags.objects.all()
 			if H:
@@ -139,7 +139,7 @@ class Command(BaseCommand):
 					if not os.path.exists(D):os.makedirs(D)
 					E=os.path.join(D,L)
 					with open(E,_I)as P:P.write(json.dumps(F,cls=DjangoJSONEncoder))
-				else:print(_J)
+				else:pass
 	def is_have_child(D,menu_id):
 		B=menu.objects.filter(parent_id=menu_id).order_by(_M,_N).values(_D);A=[]
 		for C in B:A.append(C[_D])
@@ -151,11 +151,11 @@ class Command(BaseCommand):
 			if D:A.append({_D:B});C.create_menu_recursive(D,A)
 			else:A.append({_D:B})
 	def get_menu_model(F,sub_folder):
-		N='menu.json';print('Proses MENU MODEL');B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_M,_N).values(_D);G=[]
+		N='menu.json';B=os.path.join(F.site_list,sub_folder);D=os.path.join(B,N);O=menu.objects.filter(parent=None).order_by(_M,_N).values(_D);G=[]
 		for P in O:G.append(P[_D])
 		H=[];F.create_menu_recursive(G,H)
 		if not os.path.isfile(D):
-			print('Recreate menu');E=[]
+			E=[]
 			for C in H:
 				I=menu.objects.filter(id=C[_D])
 				if I:
@@ -172,8 +172,8 @@ class Command(BaseCommand):
 						if not os.path.exists(B):os.makedirs(B)
 						D=os.path.join(B,N)
 						with open(D,_I)as T:T.write(json.dumps(E,cls=DjangoJSONEncoder))
-					else:print(_J)
-		else:print('menu not recreate')
+					else:pass
+		else:pass
 	def get_photo_by_file_path(B,photo_id):
 		A=photo.objects.filter(id=photo_id)
 		if A:return A.get().file_path.url.replace(_L,'')
@@ -181,7 +181,7 @@ class Command(BaseCommand):
 	def get_data(L,site_id,sub_folder):
 		e='file_path';d='photo_id';c='admin';b='photo';a='tags';N=site_id
 		for O in L.model_list:
-			print('proses model: ',O);D=apps.get_model('opd',O);G=0;J=[]
+			D=apps.get_model('opd',O);G=0;J=[]
 			for H in D._meta.fields:J.append(H.name)
 			if _K in J:G=1
 			if G==0:
@@ -216,7 +216,7 @@ class Command(BaseCommand):
 							else:I[A]=F
 					Z={}
 					if U:
-						C=[];print(_G,B)
+						C=[];
 						if _B in B:
 							for A in D.objects.get(slug=B[_B]).tags.all():C.append(A.id)
 						elif _A in B:
@@ -276,8 +276,8 @@ class Command(BaseCommand):
 					if not os.path.exists(T):os.makedirs(T)
 					i=os.path.join(T,f"{O}_{N}.json")
 					with open(i,_I)as j:j.write(json.dumps(M,cls=DjangoJSONEncoder))
-				else:print(_J)
-			else:print('---EMPTY TABLE---',G)
+				else:pass
+			else:pass
 	def get_data_by_site(A):
 		D=[B for B in os.listdir(A.site_list)if os.path.isfile(os.path.join(A.site_list,B))];A.info('list_file: ['+', '.join(D)+']');B=[A.split('_')[len(A.split('_'))-1]for A in D]
 		for F in range(len(B)):B[F]=B[F].split('.')[0]
@@ -291,5 +291,5 @@ class Command(BaseCommand):
 	def handle(A,*D,**E):
 		A.info('Begin get site data');B=input('Confirm DB Name: ');C=settings.DATABASES
 		if B==C['default']['NAME']:A.get_data_by_site()
-		else:print('db_name NOT MATCH:')
+		else:pass
 		A.info('End get site data')

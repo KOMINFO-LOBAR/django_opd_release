@@ -19,7 +19,7 @@ DB_ENGINE=django.db.backends.mysql
 # Database connection property :
 # DB_NAME=portal_db_umum
 # DB_NAME=portal_db_umum
-DB_NAME=portal_db_kelurahan 
+DB_NAME=portal_db_opd
 #(Data yg digunakan untuk DPW ada di group kelurahan)
 # DB_NAME=portal_db_puskesmas
 #DB_NAME=db_opd
@@ -38,7 +38,7 @@ ALLOWED_HOSTS=127.0.0.1, localhost
 # MEDIA_ROOT=/home/u1578244/public_html/media/
 
 MEDIA_ROOT=/home/iwan/Documents/Backup/Website/Web-OPD/opd_media_oktober_2023/media/
-
+# MEDIA_ROOT=/home/iwan/Documents/Backup/Website/Web-OPD/opd_media_oktober_2023/media/
 # Social media auth :
 # -------------------
 # social media login (deprecated) its not save

@@ -6,7 +6,7 @@ import pytz
 from django.conf import settings
 @transaction.atomic
 def get_data_weather():
-	M='img';L='kabkota';K='%Y-%m-%d';E='hari';N='curl https://mhews.bmkg.go.id/api/prakicu2?kec=501420';F=os.popen(N).read();print('result0',F)
+	M='img';L='kabkota';K='%Y-%m-%d';E='hari';N='curl https://mhews.bmkg.go.id/api/prakicu2?kec=501420';F=os.popen(N).read();
 	if F:
 		O=json.loads(F);locale.setlocale(locale.LC_ALL,'id_ID');H=getattr(settings,'TIME_ZONE','UTC');P=pytz.timezone(H);B=datetime.now(pytz.timezone(H));I=B.strftime(K);G=B.strftime('%A');Q=int(B.strftime('%z')[:3]);J=1
 		for A in O:
