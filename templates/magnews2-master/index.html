@@ -1,6 +1,7 @@
 {% extends 'magnews2-master/base-opd.html' %}
 
 {% load humanize %}
+{% load thumbnail %}
 
 <!--Nama OPD di title bar-->
 {% block page-title %}    
@@ -126,7 +127,9 @@
                                     <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                         <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG" >                                   -->
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" />
+                                            <!-- <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" /> -->
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" />
+                                            
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" />                                            
                                         {% endif %} 
@@ -182,7 +185,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -230,7 +233,7 @@
                                     <a href="/pengumuman/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                         <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -286,7 +289,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/pengumuman/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -430,7 +433,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.slug}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -536,7 +539,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.slug}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -675,7 +678,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.slug}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -769,7 +772,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/berita/{{i.slug}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -858,7 +861,7 @@
                                     <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                         <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -914,7 +917,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -961,7 +964,7 @@
                                     <a href="/artikel/{{i.judul_seo}}" class="wrap-pic-w hov1 trans-03">
                                         <!-- <img class="lazy" data-src="/media/{{i.foto}}" alt="IMG"> -->
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
@@ -1016,7 +1019,7 @@
                                 <div class="flex-wr-sb-s m-b-30">
                                     <a href="/artikel/{{i.judul_seo}}" class="size-w-1 wrap-pic-w hov1 trans-03">
                                         {% if i.foto %}                                        
-                                            <img class="lazy" data-src="{{media_prefix}}{{i.foto}}" alt="IMG">
+                                            <img class="lazy" data-src="{% thumbnail i.foto 360x270 crop %}" alt="IMG">
                                         {% else %}
                                             <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/post-none.png" alt="IMG">                                            
                                         {% endif %}
