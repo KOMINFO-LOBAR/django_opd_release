@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% if bannerMiddle1 %}
     <div class="p-t-5">
         <div class="how2 how2-cl4 flex-s-c">
@@ -6,20 +7,61 @@
             </h3>
         </div>
 
-        <!-- detail Banner jika kosong, tidak munculin apa2 (berbeda dengan logo )-->
-        <div class="flex-c-s p-t-8">
+        <!-- detail Banner jika kosong, tidak munculin apa2 (berbeda dengan logo )
+        bannerMiddle1.photo 
+        25%:
+        300x600
+        75x160
+        --------
+        225x440
+        max-w-full
+        -->
+        <!-- <div class="flex-c-s p-t-8 w-100">
             <a target="_blank" href="{% if not bannerMiddle1.link %} javascript:void(0) {% elif bannerMiddle1.link == '#' %} javascript:void(0) {% else %} {{bannerMiddle1.link}} {% endif %}">                                                                    
-                <img class="max-w-full lazy" data-src="{{bannerMiddle1.photo}}" alt="BANNER MIDDLE1">                                                                                        
+                <img class="img-fluid w-100 h-auto d-block lazy" 
+                data-src="{% thumbnail bannerMiddle1.photo.file_path 225x440 crop %}" 
+                alt="BANNER MIDDLE1">                                                                                        
+            </a>
+        </div> -->
+        <div class="d-flex justify-content-center align-items-start pt-3 w-100">
+            <a 
+                target="_blank" 
+                href="{% if not bannerMiddle1.link or bannerMiddle1.link == '#' %}javascript:void(0){% else %}{{bannerMiddle1.link}}{% endif %}"
+                class="w-100 d-block"
+            >
+                <img 
+                    class="img-fluid w-100 h-auto lazy"
+                    data-src="{% thumbnail bannerMiddle1.photo.file_path 225x440 crop %}"
+                    alt="BANNER MIDDLE1"
+                    loading="lazy"
+                >
             </a>
         </div>
 
         {% if bannerMiddle2 %}
-            
-            <div class="flex-c-s p-t-8">                        
+        
+            <!-- bannerMiddle2.photo -->
+            <!-- <div class="flex-c-s p-t-8">                        
                 <a target="_blank" href="{% if not bannerMiddle2.link %} javascript:void(0) {% elif bannerMiddle2.link == '#' %} javascript:void(0) {% else %} {{bannerMiddle2.link}} {% endif %}">                    
-                    <img class="max-w-full lazy" data-src="{{bannerMiddle2.photo}}" alt="BANNER MIDDLE2">                    
+                    <img class="img-fluid lazy" style="width:100%"
+                    data-src="{% thumbnail bannerMiddle2.photo.file_path 225x440 crop %}" alt="BANNER MIDDLE2">                    
                 </a>                    
-            </div>                    
+            </div>                     -->
+
+            <div class="d-flex justify-content-center align-items-start pt-3 w-100">
+            <a 
+                target="_blank" 
+                href="{% if not bannerMiddle2.link or bannerMiddle2.link == '#' %}javascript:void(0){% else %}{{bannerMiddle2.link}}{% endif %}"
+                class="w-100 d-block"
+            >
+                <img 
+                    class="img-fluid w-100 h-auto lazy"
+                    data-src="{% thumbnail bannerMiddle2.photo.file_path 225x440 crop %}"
+                    alt="BANNER MIDDLE2"
+                    loading="lazy"
+                >
+            </a>
+        </div>
         {% endif %}
     </div>
 {% endif %}

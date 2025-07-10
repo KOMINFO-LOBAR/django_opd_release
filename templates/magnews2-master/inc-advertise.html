@@ -1,4 +1,6 @@
 {% load static %}
+{% load thumbnail %}
+
 <!-- <div class="container">
     <div class="flex-c-c">      -->
         <!-- <div class="h-100 d-inline-block"> -->
@@ -24,9 +26,21 @@
                                              {% else %}
                                                 javascript:void(0);
                                              {% endif %}"                                    
-                                        target="_blank">                                        
-                                        <!--<img class="lazy" data-src="{{i.photo}}" alt="Info Penting" class="img-fluid" />   -->              
-                                        <img src="{{i.photo}}" alt="Info Penting" class="img-fluid" />                 
+                                        target="_blank">           
+                                                                  
+                                        <!--<img class="lazy" data-src="{{i.photo}}" alt="Info Penting" class="img-fluid" />   
+                                        src="{{i.photo.file_path}}"
+                                        -->              
+                                        <img class="img-fluid lazy"  data-src="{% thumbnail i.photo.file_path 789x190 crop %}" 
+                                        alt="Info Penting" 
+                                        style="width:100%" />   
+                                                      <!-- 
+                                        25%:
+                                        1052x254
+                                        263x64
+                                        ---------
+                                        789x190
+                                                      -->
                                     </a>    
                                 </div>
                             {% endfor %}
