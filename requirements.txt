@@ -89,7 +89,7 @@ Pillow==9.5.0
 pip-autoremove==0.10.0
 platformdirs==3.10.0
 prompt-toolkit==3.0.38
-protobuf==4.23.4
+protobuf==4.25.8
 py-moneyed==3.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
