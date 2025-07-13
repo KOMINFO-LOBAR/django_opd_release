@@ -1,14 +1,1 @@
-<!--tidak ada if lagi di atas-->
-                                
-
-<div class="banner-header">        
-    {% if bannerTop %}                
-        <a target="_blank" href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}">
-            <img class="lazy" data-src="{{bannerTop.photo}}" alt="BANNER TOP">
-        </a>                       
-    {% else %}
-        <a target="_blank" href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}">
-            <img class="lazy" data-src="{{static_prefix}}magnews2-master/images/banner-hor.jpg" alt="BANNER TOP2">
-        </a>            
-    {% endif %}        
-</div> 
+<div class=banner-header > {% if bannerTop %} <a target=_blank  href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}"> <img class=lazy  data-src="{{bannerTop.photo}}" alt="BANNER TOP"> </a> {% else %} <a target=_blank  href="{% if not bannerTop.link %} javascript:void(0) {% elif bannerTop.link == '#' %} javascript:void(0) {% else %} {{bannerTop.link}} {% endif %}"> <img class=lazy  data-src="{{static_prefix}}magnews2-master/images/banner-hor.jpg" alt="BANNER TOP2"> </a> {% endif %} </div>

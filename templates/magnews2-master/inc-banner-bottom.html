@@ -1,11 +1,1 @@
-{% if bannerBottom %}
-    <div class="container">
-        <div class="flex-c-c">     
-            <div class="h-100 d-inline-block">
-                <a target="_blank" href="{% if not bannerBottom.link %} javascript:void(0) {% elif bannerBottom.link == '#' %} javascript:void(0) {% else %} {{bannerBottom.link}} {% endif %}">                     
-                    <img class="max-w-full lazy" data-src="{{bannerBottom.photo}}" alt="BANNER BOTTOM">                    
-                </a>                
-            </div>               
-        </div>
-    </div>
-{% endif %}
+{% if bannerBottom %} <div class=container > <div class=flex-c-c > <div class="h-100 d-inline-block"> <a target=_blank  href="{% if not bannerBottom.link %} javascript:void(0) {% elif bannerBottom.link == '#' %} javascript:void(0) {% else %} {{bannerBottom.link}} {% endif %}"> <img class="max-w-full lazy" data-src="{{bannerBottom.photo}}" alt="BANNER BOTTOM"> </a> </div> </div> </div> {% endif %}
