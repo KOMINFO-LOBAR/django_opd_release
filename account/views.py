@@ -343,7 +343,7 @@ def upload_photo(request,width,height):
 	O='JPEG';N='RGBA';M='image/png';J='/';I='.jpg';G=request;A=G.FILES.get(_A6);H=G.POST.get('old_photo')
 	if H:
 		if os.path.isfile(H):os.remove(H);
-	P=get_siteID(G);Q=Image.open(io.BytesIO(A.read()));B=Q.resize((width,height),Image.ANTIALIAS);F=datetime.now();R=str(P)+'-'+F.strftime('%Y%m%d-%H%M%S-%f');S=F.strftime('%Y');T=F.strftime('%m');U=F.strftime('%d')
+	P=get_siteID(G);Q=Image.open(io.BytesIO(A.read()));B=Q.resize((width,height),Image.Resampling.LANCZOS);F=datetime.now();R=str(P)+'-'+F.strftime('%Y%m%d-%H%M%S-%f');S=F.strftime('%Y');T=F.strftime('%m');U=F.strftime('%d')
 	if A.content_type=='image/gif':C='.gif'
 	elif A.content_type=='image/jpeg':C=I
 	elif A.content_type=='image/jpg':C=I

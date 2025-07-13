@@ -233,17 +233,17 @@ def get_meta(request,obj,context,jenis):
 		for i in a:context[D]=E%(A,request.get_host(),_c,i.slug);tmp=Truncator(strip_tags(i.isi_berita)).words(30);context[F]=re.sub(B,_I,tmp);tmp=strip_tags(i.judul);context[G]=re.sub(B,_I,tmp);context[H]=i.foto;
 	elif jenis==_h:
 		context[C]=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id).values(_V);a=pengumuman.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_h,i.judul_seo);tmp=Truncator(strip_tags(i.isi_pengumuman)).words(30);context[F]=re.sub(B,_I,tmp);tmp=Truncator(strip_tags(i.judul));context[G]=re.sub(B,_I,tmp)
+		for i in a:context[D]=E%(A,request.get_host(),_h,i.judul_seo);tmp=Truncator(strip_tags(i.isi_pengumuman)).words(30);context[F]=re.sub(B,_I,tmp);tmp=strip_tags(i.judul);context[G]=re.sub(B,_I,tmp)
 		news_img_meta=pengumuman.photo.through.objects.filter(pengumuman__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
 		if news_img_meta.count()>0:context[H]=I%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_i:
 		context[C]=artikel.photo.through.objects.filter(artikel__id=obj.id).values(_V);a=artikel.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_i,i.judul_seo);tmp=Truncator(strip_tags(i.isi_artikel)).words(30);context[F]=re.sub(B,_I,tmp);tmp=Truncator(strip_tags(i.judul));context[G]=re.sub(B,_I,tmp)
+		for i in a:context[D]=E%(A,request.get_host(),_i,i.judul_seo);tmp=Truncator(strip_tags(i.isi_artikel)).words(30);context[F]=re.sub(B,_I,tmp);tmp=strip_tags(i.judul);context[G]=re.sub(B,_I,tmp)
 		news_img_meta=artikel.photo.through.objects.filter(artikel__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
 		if news_img_meta.count()>0:context[H]=I%(A,request.get_host(),news_img_meta[0].photo)
 	elif jenis==_U:
 		context[C]=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id).values(_V);a=halaman_statis.objects.filter(id=obj.id)
-		for i in a:context[D]=E%(A,request.get_host(),_U,i.judul);tmp=Truncator(strip_tags(i.isi_halaman)).words(30);context[F]=re.sub(B,_I,tmp);tmp=Truncator(strip_tags(i.judul));context[G]=re.sub(B,_I,tmp)
+		for i in a:context[D]=E%(A,request.get_host(),_U,i.judul);tmp=Truncator(strip_tags(i.isi_halaman)).words(30);context[F]=re.sub(B,_I,tmp);tmp=strip_tags(i.judul);context[G]=re.sub(B,_I,tmp)
 		news_img_meta=halaman_statis.photo.through.objects.filter(halaman_statis__id=obj.id,photo__jenis=photo.Jenis.HIGHLIGHT1)
 		if news_img_meta.count()>0:context[H]=I%(A,request.get_host(),news_img_meta[0].photo)
 def get_newsList(request,siteID,context,opt,section,jenis):
