@@ -59,6 +59,7 @@ UNDER_CONSTRUCTION_TEMPLATE='opd/construction.html'
 LOGIN_REDIRECT_URL='/dashboard/dashboard'
 LOGOUT_REDIRECT_URL='/dashboard'
 ALLOWED_HOSTS=key[_W]
+CSRF_TRUSTED_ORIGINS=['https://dasangeres.lombokbaratkab.go.id','https://*.lombokbaratkab.go.id']
 INSTALLED_APPS=['django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles','django.contrib.sites','django.contrib.humanize','embed_video','simple_open_graph','django_social_share','easy_thumbnails','hitcount','outbox_hitcount','opd','account','django_underconstruction','import_export','django_ckeditor_5','corsheaders','debug_toolbar','cachalot','mobiledetect','menu','parler','django_recaptcha']
 EMAIL_HOST=_X
 EMAIL_PORT=1025
