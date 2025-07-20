@@ -25,7 +25,7 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Invisible
 class UserLoginForm(AuthenticationForm):
 	def __init__(self,*args,**kwargs):super(UserLoginForm,self).__init__(*(args),**kwargs)
-	username=UsernameField(widget=forms.TextInput(attrs={_A:_D,_K:'Nama Pengguna'}));password=forms.CharField(widget=forms.PasswordInput(attrs={_A:_D,_K:'Kata Sandi'}))
+	username=UsernameField(widget=forms.TextInput(attrs={_A:_D,_K:'Nama Pengguna'}));password=forms.CharField(widget=forms.PasswordInput(attrs={_A:_D,_K:'Kata Sandi'}));captcha=ReCaptchaField(widget=ReCaptchaV2Invisible)
 class CustomUserCreationForm(UserCreationForm):
 	class Meta(UserCreationForm.Meta):fields=UserCreationForm.Meta.fields+('email',)
 class SocialMediaForm(ModelForm):

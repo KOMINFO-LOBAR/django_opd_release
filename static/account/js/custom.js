@@ -486,59 +486,113 @@ function highchart_keterisian_detail(pdata, title) {
     });
 };
 
+// Jika auto resize aktif:
+function resizeImage(file, maxWidth, maxHeight, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            let width = img.width;
+            let height = img.height;
+
+            // Maintain aspect ratio
+            if (width > height) {
+                if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+                }
+            };
+
+            // Create canvas and resize image
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Convert canvas to Blob or Base64
+            canvas.toBlob(
+                (blob) => {
+                callback(blob); // Pass resized image blob to callback
+                },
+                file.type,
+                0.9 // Quality (optional, for JPEG/WEBP)
+            );
+        };
+        img.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+};
+
+
 // (function($) {
 $(document).ready(function () {
+
     // Foto banner (tanpa multi form)
-    $("#id_photo-file_path").on("change", function () {
-        if (this.files && this.files[0]) {
-            console.log('inside trigger photo');
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#image").attr("src", e.target.result);
-                $("#form-id").val("photo");
-                $("#modalCrop").modal("show");
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+    // gak bisa perintah django template disini!!! (dipindahkan ke base.html)
+
+    // $("#id_photo-file_path").on("change", function () {
+    //     if (this.files && this.files[0]) {
+    //         console.log('inside trigger photo');
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             $("#image").attr("src", e.target.result);
+    //             $("#form-id").val("photo");
+    //             $("#modalCrop").modal("show");
+    //         }
+    //         reader.readAsDataURL(this.files[0]);
+    //     }
+    // });
     // End tanpa multi form
 
-    $("#id_form-0-file_path").on("change", function () {
-        if (this.files && this.files[0]) {
-            console.log('inside trigger photo 0');
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#image").attr("src", e.target.result);
-                $("#form-id").val("form-0");
-                $("#modalCrop").modal("show");
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+    // $("#id_form-0-file_path").on("change", function () {
+    //     if (auto_resize) {
+    //         alert('auto resize!!');
+    //     }
+    //     else {
+    //         if (this.files && this.files[0]) {
+    //             console.log('inside trigger photo 0');
+    //             var reader = new FileReader();
+    //             reader.onload = function (e) {
+    //                 $("#image").attr("src", e.target.result);
+    //                 $("#form-id").val("form-0");
+    //                 $("#modalCrop").modal("show");
+    //             }
+    //             reader.readAsDataURL(this.files[0]);
+    //         }
+    //     }
+    // });
 
-    $("#id_form-1-file_path").on("change", function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#image").attr("src", e.target.result);
-                $("#form-id").val("form-1");
-                $("#modalCrop").modal("show");
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+    // $("#id_form-1-file_path").on("change", function () {
+    //     if (this.files && this.files[0]) {
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             $("#image").attr("src", e.target.result);
+    //             $("#form-id").val("form-1");
+    //             $("#modalCrop").modal("show");
+    //         }
+    //         reader.readAsDataURL(this.files[0]);
+    //     }
+    // });
 
-    $("#id_form-2-file_path").on("change", function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#image").attr("src", e.target.result);
-                $("#form-id").val("form-2");
-                $("#modalCrop").modal("show");
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+    // $("#id_form-2-file_path").on("change", function () {
+    //     if (this.files && this.files[0]) {
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             $("#image").attr("src", e.target.result);
+    //             $("#form-id").val("form-2");
+    //             $("#modalCrop").modal("show");
+    //         }
+    //         reader.readAsDataURL(this.files[0]);
+    //     }
+    // });
 
     /* SCRIPTS TO HANDLE THE CROPPER BOX */
     var $image = $("#image");
