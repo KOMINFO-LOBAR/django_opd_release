@@ -531,6 +531,56 @@ function resizeImage(file, maxWidth, maxHeight, callback) {
     reader.readAsDataURL(file);
 };
 
+function smartCropImage(file, targetWidth, targetHeight, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            // Create canvas for the final output
+            const canvas = document.createElement('canvas');
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Use Smartcrop to find the best crop
+            SmartCrop.crop(img, {
+                width: targetWidth,
+                height: targetHeight,
+                minScale: 0.8, // Minimum scale to consider (adjust as needed)
+                ruleOfThirds: true,
+                faceDetection: {
+                    enabled: true,
+                    weight: 0.9
+                }
+            }, function(result) {
+                // Apply the best crop found
+                const crop = result.topCrop;
+                
+                // Draw the cropped and resized image
+                ctx.drawImage(
+                    img,
+                    crop.x, crop.y,            // Source x, y
+                    crop.width, crop.height,   // Source width, height
+                    0, 0,                      // Destination x, y
+                    targetWidth, targetHeight  // Destination width, height
+                );
+
+                // Convert to Blob and pass to callback
+                canvas.toBlob(
+                    (blob) => {
+                        callback(blob);
+                    },
+                    file.type || 'image/jpeg',  // Fallback to JPEG if type not available
+                    0.9                        // Quality
+                );
+            });
+        };
+        img.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+};
 
 // (function($) {
 $(document).ready(function () {
