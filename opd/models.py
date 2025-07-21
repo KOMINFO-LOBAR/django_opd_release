@@ -71,7 +71,7 @@ class artikel(models.Model):
 	def __str__(A):return A.judul
 	def get_absolute_url(A):return _G%('artikel',A.judul_seo)
 	def save(A,*B,**C):
-		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=255)
+		if not A.judul_seo:A.judul_seo=uuslug(A.judul,instance=A,slug_field=_F,max_length=250)
 		A.word_count=word_count(A.isi_artikel);super().save(*(B),**C)
 class dokumen_kategori(models.Model):
 	nama=models.CharField(max_length=50);created_at=models.DateTimeField(auto_now_add=_A);updated_at=models.DateTimeField(auto_now=_A)
