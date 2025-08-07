@@ -22,3 +22,6 @@ django-uuslug==2.0.0
 feedparser==6.0.11
 humanize==4.10.0
 django-ckeditor==6.7.3
+reportlab==4.4.3
+svglib==1.5.1
+

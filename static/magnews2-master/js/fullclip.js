@@ -43,6 +43,7 @@
         if (settings.static) {
             elem.css('background-image', 'url(' + settings.images[settings.current] + ')');
 
+            
             elem.find('.slider-category').html(settings.category[settings.current]);
             elem.find('.slider-title').html(settings.title[settings.current]);
             elem.find('.slider-site').html(settings.site[settings.current]);
@@ -71,7 +72,8 @@
             settings.current = (settings.current + 1) % settings.images.length;
             //elem.find('.slider-category').html('test');
             elem.css('background-image', 'url(' + settings.images[settings.current] + ')');
-                        
+
+            // console.log('categori', elem.find('.slider-category'));
             elem.find('.slider-category').html(settings.category[settings.current]);
             elem.find('.slider-title').html(settings.title[settings.current]);
             elem.find('.slider-admin').html(settings.admin[settings.current]);
