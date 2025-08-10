@@ -419,6 +419,6 @@ def get_autolatestnews(site_id,max_data=15):
 		print('Refresh need to refresh');AutoLatestNews.objects.filter(site_id=site_id,kind=kind).delete();count_days=timezone.now()-datetime.timedelta(days=most_view_within);count_days=count_days.replace(hour=0,minute=0,second=0,microsecond=0);model_criteria={_b:OuterRef(_c)};subQry=get_topFoto(model_criteria);obj_news=berita.objects.filter(site_id=site_id,status=Status.PUBLISHED,created_at__gte=count_days).annotate(file_path=subQry).order_by(_p)[:max_data];mcount=obj_news.count();print('mcount',mcount)
 		if mcount<max_data:print('obj_news',obj_news);obj_news_add=berita.objects.filter(site_id=site_id,status=Status.PUBLISHED,updated_at__lt=count_days).annotate(file_path=subQry).order_by(_A)[:max_data-mcount];obj_news=obj_news.union(obj_news_add)
 		for i in obj_news:sub_title=Truncator(strip_tags(i.isi_berita)).words(30);sub_title=re.sub(_L,_G,sub_title);obj=AutoLatestNews.objects.create(site_id=site_id,admin_id=i.admin_id,title=i.judul,sub_title=sub_title,slug=i.slug,categories=i.kategori,kind=OptModelKinds.NEWS,created_at=i.created_at,photo_path=i.file_path)
-	obj=AutoLatestNews.objects.filter(site_id=site_id,kind=kind).order_by(_p)[:max_data]
+	obj=AutoLatestNews.objects.filter(site_id=site_id,kind=kind).order_by(_p)[:max_data];print('obj autolatestnews',obj.count())
 	for i in obj:i.created_at_str=get_natural_datetime(i.created_at)
 	return obj
