@@ -26,43 +26,39 @@ from django.db.models import Q
 from django.utils import timezone
 from hitcount.models import Hit
 from outbox_hitcount.models import HitCount,HitBrowser,HitDevice,HitOS,HitLocation
-from .common_date import add_months,get_last_day_of_month
+from.common_date import add_months,get_last_day_of_month
 def get_response(url,timeout=60):return requests.get(url,timeout=timeout)
 def get_popen(url):return os.popen(url).read()
 def get_geolocation_opt3(str_ip_address):
 	B=f"http://ip-api.com/json/{str_ip_address}";A=get_response(B)
 	if A:
 		A=A.json()
-		if _J not in A:return _A
-		if _K not in A:return _A
-		if _B not in A:return _A
+		if _J not in A:return
+		if _K not in A:return
+		if _B not in A:return
 		if A['status']==_J:return A[_K],A[_B]
-	return _A
 def get_geolocation_opt1(str_ip_address):
 	C='country_name';D=f"curl https://ipapi.co/{str_ip_address}/json/";B=get_popen(D)
 	if B:
 		A=json.loads(B)
-		if C not in A:return _A
-		if _B not in A:return _A
+		if C not in A:return
+		if _B not in A:return
 		return A[C],A[_B]
-	return _A
 def get_geolocation_opt2(str_ip_address):
 	B=f"http://ipwho.is/{str_ip_address}";A=get_response(B)
 	if A:
 		A=A.json()
-		if _J not in A:return _A
-		if _K not in A:return _A
-		if _B not in A:return _A
+		if _J not in A:return
+		if _K not in A:return
+		if _B not in A:return
 		if A[_J]:return A[_K],A[_B]
-	return _A
 def get_geolocation_opt4(str_ip_address):
 	C='countryName';D=f"curl http://api.db-ip.com/v2/free/{str_ip_address}";B=get_popen(D)
 	if B:
 		A=json.loads(B)
-		if C not in A:return _A
-		if _B not in A:return _A
+		if C not in A:return
+		if _B not in A:return
 		return A[C],A[_B]
-	return _A
 def correct_version(version):
 	C='<-!->';A=version
 	if A.strip():B=A.replace('(',C);B=B.replace(')',C);return B.split(C)[0]
@@ -108,7 +104,7 @@ def special_condition(object_pk,data):
 			if B and F:
 				C=Site.objects.filter(id=B)
 				if C:C=C.get();L=ContentType.objects.get_for_model(C);G,M=HitCount.objects.get_or_create(content_type=L,object_pk=B,defaults={_L:F,_M:B});G.count+=1;A={_N:G,_D:A[_D],_H:A[_H],_E:A[_E],_I:A[_I]};hitcount_insert_m2m_field(**A);G.save()
-		else:pass
+		else:print('[special condition] not found site id or created date')
 @transaction.atomic
 def do_summary(qs):
 	R=0;U=qs.count()
@@ -119,8 +115,8 @@ def do_summary(qs):
 			if is_field_exists(N,'site'):
 				P=N.objects.filter(id=D)
 				if P:B=P.get().site_id;O=_F
-				else:pass
-			else:pass
+				else:print(f"site_id {D} tidak ditemukan!")
+			else:print(f"site_id tidak ditemukan di model")
 			if not O:E={_N:_A,_D:K,_H:J,_E:I,_I:G};special_condition(D,E)
 		if B:
 			F=Site.objects.filter(id=B)
@@ -129,18 +125,18 @@ def do_summary(qs):
 		else:A,Q=HitCount.objects.get_or_create(content_type=L,object_pk=D,defaults={_L:M,_M:_A})
 		A.count+=1;E={_N:A,_D:K,_H:J,_E:I,_I:G};hitcount_insert_m2m_field(**E);A.save()
 	clear_summary_qs(qs);return _F
-def clear_summary_qs(qs):A=qs.count();qs.delete();
+def clear_summary_qs(qs):A=qs.count();qs.delete();print(f"Successfully removed {A} Hits")
 def auto_hit_summary(max_data=500):
 	I=getattr(settings,'TIME_ZONE','UTC');C=pytz.timezone(I);J=getattr(settings,'HITCOUNT_KEEP_HIT_IN_DATABASE',{'days':30});K=timezone.now()-timedelta(**J);B=3;D=add_months(K,1);A=datetime.datetime(D.year,D.month,1)
 	while B>0:
 		A=add_months(A,-1);E=A.year;F=A.month;L=get_last_day_of_month(E,F);G=datetime.datetime(E,F,L,23,59,59);A=C.localize(A);G=C.localize(G);H=Hit.objects.filter(created__gte=A).order_by('-id')[:max_data]
 		if not H:B-=1
-		elif do_summary(H):B-=1
+		elif do_summary(H):print(f"Complete {B}");B-=1
 		else:return _G
 	return _F
 @transaction.atomic
 def auto_get_location(request_per_minute=30,max_data=500):
-	J='loc1';G=max_data;E=datetime.datetime.now();H=E+timedelta(minutes=1);K=HitLocation.objects.filter(Q(country=_A)|Q(city=_A))[:G];F=0;I=[1,2,3,4,5,6,7];B=J
+	J='loc1';G=max_data;E=datetime.datetime.now();H=E+timedelta(minutes=1);print('max_data',G);K=HitLocation.objects.filter(Q(country=_A)|Q(city=_A))[:G];F=0;I=[1,2,3,4,5,6,7];B=J
 	for D in K:
 		F+=1;C=D.ip_address
 		if F<=request_per_minute:
@@ -148,8 +144,8 @@ def auto_get_location(request_per_minute=30,max_data=500):
 			if not A:A=get_geolocation_opt2(C);B='loc2'
 			if not A:A=get_geolocation_opt3(C);B='loc3'
 			if not A:A=get_geolocation_opt4(C);B='loc4'
-			if not A:B=_C
-			else:D.country=A[0];D.city=A[1];D.save();time.sleep(random.choice(I))
+			if not A:print(f"Location Not Found {C}");B=_C
+			else:D.country=A[0];D.city=A[1];print(f"Update location {C} to {A} from {B}");D.save();time.sleep(random.choice(I))
 		else:
-			while datetime.datetime.now()<H:time.sleep(random.choice(I))
-			F=0;E=datetime.datetime.now();H=E+timedelta(minutes=1);
+			while datetime.datetime.now()<H:print('Waiting for 1 minute');time.sleep(random.choice(I))
+			F=0;E=datetime.datetime.now();H=E+timedelta(minutes=1);print('Reset variable')

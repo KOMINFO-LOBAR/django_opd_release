@@ -12,7 +12,7 @@ from django.conf import settings
 from django.db import connections
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-from opd.models import *
+from opd.models import*
 from django.db import transaction
 import pytz
 class Command(BaseCommand):
@@ -59,13 +59,13 @@ class Command(BaseCommand):
 				cat_name_0=kategori.objects.filter(site__id=site.id,nama=cat_name[0])[:1]
 				if cat_name_0:cat_name_0=cat_name_0.get()
 			obj,created=berita.objects.update_or_create(judul=tmp['title'],site_id=site.id,defaults={'judul_seo':tmp[_E],'status':m_status,'admin_id':user.id,'kategori_id':cat_name_0.id if cat_name_0 else cat_news_default.id,'isi_berita':tmp['content'],'view_count':tmp['viewed'],_A:timezone.localize(tmp[_A]),_B:timezone.localize(tmp[_B])})
-			if created:pass
-			else:pass
+			if created:print('CREATED')
+			else:print('UPDATED')
 			obj.photo.clear();obj.photo.add(obj_photo);obj.tags.clear()
 			for j in range(len(cat_name)):
 				cat_name_0=tags.objects.filter(site__id=site.id,nama=cat_name[j])[:1]
 				if cat_name_0:cat_name_0=cat_name_0.get();obj.tags.add(cat_name_0)
-			obj.save();obj=berita.objects.filter(id=obj.id);obj.update(created_at=timezone.localize(tmp[_A]));
+			obj.save();obj=berita.objects.filter(id=obj.id);print('obj',obj);obj.update(created_at=timezone.localize(tmp[_A]));print('obj after',obj)
 	@transaction.atomic
 	def create_related_link(self,site):
 		timezone=pytz.timezone(_D);table_name='related_links';app_model=self.get_data(table_name)

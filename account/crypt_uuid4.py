@@ -14,10 +14,10 @@ class ClsCryptUuid4:
 		B=amount;A=offset
 		if B>len(s):return s
 		else:return s[A:A+B]
-	def str_to_hex(A,s):return ''.join([('0'+hex(ord(A)).split('x')[1])[-2:]for A in s])
-	def hex_to_str(A,x):return ''.join([chr(int(x[A:A+2],16))for A in range(0,len(x),2)])
+	def str_to_hex(A,s):return''.join([('0'+hex(ord(A)).split('x')[1])[-2:]for A in s])
+	def hex_to_str(A,x):return''.join([chr(int(x[A:A+2],16))for A in range(0,len(x),2)])
 	def str_to_bytes(A,b):return bytes.fromhex(''.join([hex(ord(A)).replace('x','0')[-2:]for A in b]))
-	def bytes_to_str(A,b):return ''.join([chr(A)for A in b])
+	def bytes_to_str(A,b):return''.join([chr(A)for A in b])
 	def enc_text(B,pText):
 		E=uuid.uuid4().hex;D=round(len(E)/4);H=B.left(E,D);I=B.right(E,D);F=H+_A+B.str_to_hex(str(pText))+_A+I;F=B.str_to_bytes(F);A=base64.b64encode(F);A=B.bytes_to_str(A);A=B.str_to_hex(A);D=round(len(A)/8);G='';C=0
 		while C<len(A):

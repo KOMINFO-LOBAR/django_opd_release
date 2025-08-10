@@ -5,7 +5,7 @@ _D='href'
 _C='parent_id'
 _B='id'
 _A='nama'
-from .models import menu
+from.models import menu
 from django.db.models import F
 import logging
 logger=logging.getLogger(__name__)

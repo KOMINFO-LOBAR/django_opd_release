@@ -23,7 +23,7 @@ _B='site'
 _A='nama'
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import *
+from.models import*
 from import_export.admin import ImportExportModelAdmin
 class commentAdmin(admin.ModelAdmin):
 	list_display=_E,'body','post',_O,_P;list_filter=_P,_O;search_fields=_E,'email','body';actions=['approve_comments']

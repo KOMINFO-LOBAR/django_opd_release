@@ -110,8 +110,8 @@ from django.utils.text import Truncator,slugify
 from hitcount.models import Hit,HitCount
 from humanize import naturalsize
 from PIL import Image
-from account.commonf import get_topFoto
-from account.forms import CustomUserCreationForm
+from.commonf import get_topFoto
+from.forms import CustomUserCreationForm
 from django_opd.commonf import get_natural_datetime
 from opd import menus,models
 from.import crypt_uuid4,forms,msgbox
@@ -378,12 +378,12 @@ def save_tags(tag_list,obj_master):
 	while A<len(B):E=models.tags.objects.get(id=B[A]);C.tags.add(E);A+=1
 @login_required(login_url=_P)
 def berita(request,mode='',pk='',photoID=''):
-	Y='/dashboard/berita';R=photoID;J=mode;A=request;cek_user(A);D=get_siteID(A);V=menus.ClsMenus(D,_B);E=_J;H=_J;R=[];S=_B
+	Z='/dashboard/berita';R=photoID;J=mode;A=request;cek_user(A);C=get_siteID(A);V=menus.ClsMenus(C,_B);E=_J;H=_J;R=[];S=_B
 	if J==_M or J==_F:
 		if pk=='':return HttpResponse(_Z)
 		c=crypt_uuid4.ClsCryptUuid4();T=c.dec_text(pk)
 		if T=='':return HttpResponse(_a)
-		Z=models.berita.objects.filter(site_id=D,id=T);M=models.berita.photo.through.objects.filter(berita__site=D,berita__id=T)
+		a=models.berita.objects.filter(site_id=C,id=T);M=models.berita.photo.through.objects.filter(berita__site=C,berita__id=T)
 		for B in M:
 			if B.photo.jenis!=_s:R.append(B.photo.id)
 	elif J==_N:L=formset_factory(forms.PhotoForm,extra=3)
@@ -393,59 +393,61 @@ def berita(request,mode='',pk='',photoID=''):
 			if S:H=L(A.POST,A.FILES)
 			else:H=L(A.POST)
 			if E.is_valid():
-				C=A.POST.get(_G);F=A.POST.get(_z)
-				if not C.isascii():print('is unicode');C=unicode_to_string(C)
-				print('judul=',C)
+				D=A.POST.get(_G);F=A.POST.get(_z)
+				if not D.isascii():print('is unicode');D=unicode_to_string(D)
+				print('judul=',D)
 				if not F.isascii():print('isi berita is contain unicode');F=unicode_to_string(F)
-				print('isi berita =',F);U=models.berita.objects.create(site_id=D,judul=C,admin_id=A.user.id,kategori_id=A.POST.get('kategori'),isi_berita=F,status=A.POST.get(_e));W=A.POST.getlist('tags');save_tags(W,U);B=0
+				print('isi berita =',F);U=models.berita.objects.create(site_id=C,judul=D,admin_id=A.user.id,kategori_id=A.POST.get('kategori'),isi_berita=F,status=A.POST.get(_e));W=A.POST.getlist('tags');save_tags(W,U);B=0
 				for d in H:
 					if S:
 						N=A.FILES.get(_I+str(B)+_y)
 						if N:
-							K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,D,K,N)
+							K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,C,K,N)
 							if G:U.photo.add(G)
 					else:
 						O=A.POST.get(_I+str(B)+_c)
 						if O:
-							K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,D,K,O)
+							K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,C,K,O)
 							if G:U.photo.add(G)
 					B+=1
-				if U:messages.info(A,mMsgBox.get(_Y,C))
-				return redirect(Y)
+				set_log_all(C,_B)
+				if U:messages.info(A,mMsgBox.get(_Y,D))
+				return redirect(Z)
 		else:E=forms.BeritaForm(label_suffix='');H=L();messages.info(A,mMsgBox.get(_W))
 	elif J==_M:
-		P=get_object_or_404(Z);L=modelformset_factory(models.photo,form=forms.PhotoForm,extra=3-len(R))
+		P=get_object_or_404(a);L=modelformset_factory(models.photo,form=forms.PhotoForm,extra=3-len(R))
 		if A.method==_K:
 			E=forms.BeritaForm(A.POST,instance=P);H=L(A.POST)
 			if E.is_valid():
 				F=E.cleaned_data.get(_z)
 				if not F.isascii():F=unicode_to_string(F)
-				C=E.cleaned_data.get(_G)
-				if not C.isascii():C=unicode_to_string(C)
-				I=E.save(commit=_C);I.judul=C;I.isi_berita=F;I.site_id=D;I.admin_id=A.user.id;I.save();W=A.POST.getlist('tags');save_tags(W,I);B=0
+				D=E.cleaned_data.get(_G)
+				if not D.isascii():D=unicode_to_string(D)
+				I=E.save(commit=_C);I.judul=D;I.isi_berita=F;I.site_id=C;I.admin_id=A.user.id;I.save();W=A.POST.getlist('tags');save_tags(W,I);B=0
 				for d in H:
 					if S:
 						N=A.FILES.get(_I+str(B)+_y)
-						if N:K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,D,K,N);I.photo.add(G);print(_f+str(B))
+						if N:K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,C,K,N);I.photo.add(G);print(_f+str(B))
 					else:
 						O=A.POST.get(_I+str(B)+_c)
-						if O:K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,D,K,O);I.photo.add(G);print(_f+str(B))
+						if O:K=A.POST.get(_I+str(B)+_X);G=save_photo_slideshow(B,C,K,O);I.photo.add(G);print(_f+str(B))
 					B+=1
-				messages.info(A,mMsgBox.get(_T,C));return redirect(Y)
+				set_log_all(C,_B);messages.info(A,mMsgBox.get(_T,D));return redirect(Z)
 		else:E=forms.BeritaForm(instance=P,label_suffix='');H=L(queryset=models.photo.objects.filter(id__in=R));messages.info(A,mMsgBox.get(_b))
 	elif J==_F:
 		for B in M:
 			Q=models.photo.objects.get(id=B.photo.id)
 			if Q.file_path:
-				print('obj_img.file_path = ');print(Q.file_path)
 				if os.path.exists(Q.file_path.path):
-					a=Image.open(Q.file_path.path)
-					if a:a.close()
+					try:
+						X=Image.open(Q.file_path.path);X.verify()
+						if X:X.close()
+					except Exception as e:print(f"{Q.file_path.path} is not a valid image. Error: {e}")
 			Q.delete()
-		M=models.berita.photo.through.objects.filter(berita__site=D,berita__id=T)
+		M=models.berita.photo.through.objects.filter(berita__site=C,berita__id=T)
 		if M:M.delete()
-		P=get_object_or_404(Z);P.delete();messages.info(A,mMsgBox.get(_F,P.judul));return redirect(Y)
-	X=_g;e=models.menu.objects.filter(nama=X,is_admin_menu=_B);b={};b={_L:V.get_menus(),_Q:V.create_breadCrumb(X),_O:V.find_activeMenuList(X),_V:J,_U:E,_r:H,_R:get_namaOPD(D),_S:e,_AN:S};return render(A,'account/berita.html',b)
+		P=get_object_or_404(a);P.delete();set_log_all(C,_B);messages.info(A,mMsgBox.get(_F,P.judul));return redirect(Z)
+	Y=_g;f=models.menu.objects.filter(nama=Y,is_admin_menu=_B);b={};b={_L:V.get_menus(),_Q:V.create_breadCrumb(Y),_O:V.find_activeMenuList(Y),_V:J,_U:E,_r:H,_R:get_namaOPD(C),_S:f,_AN:S};return render(A,'account/berita.html',b)
 @login_required(login_url=_P)
 def kategori(request,mode='',pk=''):
 	A=request;cek_user(A);C=get_siteID(A);D=menus.ClsMenus(C,_B);B=_J
@@ -1296,3 +1298,7 @@ def post_range(request):
 		C=models.berita.objects.datetimes(_A4,G,tzinfo=timezone.utc)
 		for A in reversed(C):D={_A:str(A.month)+'.'+str(A.year),_p:A.strftime(_A6)};B.append(D)
 	return JsonResponse({_AX:B,_AY:{'more':_B}},safe=_C)
+def set_log_all(site_id,is_need_refresh):set_log(site_id,models.OptModelKinds.NEWS,is_need_refresh)
+def set_log(site_id,kind,is_need_refresh):
+	A=models.Log.objects.filter(site_id=site_id,kind=kind);print('tmp_log',A)
+	if A:B=A[0];B.is_need_refresh=is_need_refresh;B.save();print('save complete',B)
